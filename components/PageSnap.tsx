@@ -5,10 +5,20 @@ import { useEffect } from 'react';
 export function PageSnap() {
   useEffect(() => {
     let locked = false;
+    const pages = Array.from(document.querySelectorAll<HTMLElement>('[data-page]'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.65) {
+          entry.target.classList.add('is-active');
+        }
+      });
+    }, { threshold: [0.65] });
+
+    pages.forEach((page) => observer.observe(page));
 
     const onWheel = (event: WheelEvent) => {
+      if (window.matchMedia('(max-width: 760px)').matches) return;
       if (event.ctrlKey || event.deltaY === 0 || locked) return;
-      const pages = Array.from(document.querySelectorAll<HTMLElement>('[data-page]'));
       if (pages.length === 0) return;
 
       event.preventDefault();
@@ -26,7 +36,10 @@ export function PageSnap() {
     };
 
     window.addEventListener('wheel', onWheel, { passive: false });
-    return () => window.removeEventListener('wheel', onWheel);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('wheel', onWheel);
+    };
   }, []);
 
   return null;
