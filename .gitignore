@@ -37,12 +37,15 @@ next-env.d.ts
 /outputs/
 /work/
 
-# local Codex configuration
-.openai/
+# Track the non-secret manifest required by the build; keep other local state private.
+.openai/*
+!.openai/hosting.json
 
 # local planning and editor configuration
 .oxfmtrc.json
-.oxlintrc.json
 PORTFOLIO_PLAN.md
 design-qa.md
 components.json
+
+# Internal portfolio evidence, drafts, and handoff notes are not public site content.
+/docs/portfolio/
