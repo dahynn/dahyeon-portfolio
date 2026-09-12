@@ -3,7 +3,7 @@
 
 :root { --navy:#071d42; --orange:#f37321; --cream:#f8f6f0; --dark:#1c1d1e; --line:#c9cdd3; --muted:#667085; --display:68px; --section-title:42px; --body:16px; --meta:13px; }
 * { box-sizing:border-box; }
-html { scroll-behavior:smooth; scroll-snap-type:y mandatory; }
+html { scroll-behavior:smooth; scroll-snap-type:y proximity; }
 body { margin:0; background:var(--cream); color:var(--navy); font-family:Pretendard Variable, Pretendard, sans-serif; }
 a { color:inherit; text-decoration:none; }
 .portfolio { overflow:hidden; }
@@ -17,7 +17,7 @@ a { color:inherit; text-decoration:none; }
 .profile-contact { width:100%; margin-top:42px; }.profile-contact h2 { margin:0 0 14px; padding-bottom:10px; border-bottom:2px solid #293142; color:var(--dark); font-size:18px; font-weight:800; letter-spacing:-.06em; }.profile-contact dl { margin:0; }.profile-contact dl>div { display:grid; grid-template-columns:58px 1fr; gap:9px; padding:7px 0; font-size:12px; }.profile-contact dt { color:#5d6675; font-weight:750; }.profile-contact dd { margin:0; color:#3d4655; }.profile-contact a:hover { color:var(--orange); text-decoration:underline; }
 .profile-details { display:flex; flex-direction:column; align-self:center; justify-content:center; width:min(100%,720px); min-height:70%; }
 .cover-eyebrow { margin:0 0 24px; color:var(--orange); font-size:12px; font-weight:800; letter-spacing:.09em; }
-.profile-details>h1 { margin:0; color:var(--dark); font-size:clamp(46px,5vw,74px); font-weight:800; letter-spacing:-.06em; line-height:1.18; }.profile-details>h1 em { color:var(--orange); font-style:normal; }
+.profile-details>h1 { max-width:650px; margin:0; color:var(--dark); font-size:clamp(32px,3.4vw,48px); font-weight:800; letter-spacing:-.06em; line-height:1.22; }.profile-details>h1 em { color:var(--orange); font-style:normal; }
 .profile-values { margin-top:clamp(20px,2.2vw,30px); }
 .profile-values>p { margin:0 0 10px; color:var(--orange); font-size:11px; font-weight:800; letter-spacing:.04em; }
 .profile-values>div { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
@@ -54,7 +54,7 @@ a { color:inherit; text-decoration:none; }
 @media (max-height:920px) and (min-width:761px) { .cover-page { padding-top:42px; padding-bottom:42px; }.profile-intro h1 { margin-bottom:22px; }.photo-slot { width:240px; }.profile-name { margin-top:14px; }.profile-item { padding:10px 0; }.profile-side { gap:22px; } }
 @media (max-width:760px) { :root { --display:46px; --section-title:32px; --body:15px; }.cover-page { grid-template-columns:1fr; gap:44px; padding:68px 24px; }.hanwha-logo { top:14px; right:24px; width:118px; height:34px; }.page-number { top:50px; right:24px; }.page-navigation { right:12px; }.page-navigation a { grid-template-columns:14px; font-size:0; }.page-navigation a::before { width:10px; }.page-navigation a:hover::before, .page-navigation a:focus-visible::before { width:14px; }.profile-intro { align-items:flex-start; padding-top:32px; }.profile-kicker { font-size:20px; }.profile-intro h1 { margin-bottom:24px; }.photo-slot { width:180px; }.profile-name { font-size:36px; }.profile-details { min-height:0; }.profile-details>h1 { font-size:40px; }.cover-facts { grid-template-columns:1fr; margin-top:36px; }.cover-facts>div, .cover-facts>div+div { min-height:0; padding:14px 0; border-right:0; border-bottom:1px solid #dce0e6; }.cover-facts>div:last-child { border-bottom:0; }.cover-secondary { grid-template-columns:1fr; margin-top:28px; }.statement-page, .journey-page, .project-index-page, .case-page { padding:68px 24px; }.journey-page { justify-content:flex-start; }.journey-hanwha-end { display:none; }.journey-heading { margin-top:44px; margin-bottom:34px; }.journey-content { grid-template-columns:1fr; gap:28px; }.journey-track { grid-template-columns:1fr; gap:0; padding-left:28px; }.journey-track::before { top:0; bottom:0; left:5px; right:auto; width:2px; height:auto; }.journey-item { min-height:84px; padding:0 0 24px; }.journey-dot { top:4px; left:-28px; }.journey-date { margin-bottom:5px; }.project-row { grid-template-columns:42px minmax(0,1fr) auto; column-gap:10px; min-height:94px; }.project-copy strong { font-size:26px; }.project-copy p { font-size:13px; }.project-copy small { font-size:10px; }.project-arrow { font-size:20px; } }
 
-.journey-item strong.hanwha-campus, .journey-item strong.ssafy-campus, .journey-item strong.dongguk-university, .journey-item strong.exchange-study { position:relative; z-index:0; display:inline-block; }
+.journey-item strong.hanwha-campus, .journey-item strong.ssafy-campus, .journey-item strong.dongguk-university, .journey-item strong.exchange-study, .journey-item strong.education-study { position:relative; z-index:0; display:inline-block; }
 .hanwha-campus::before { position:absolute; z-index:-1; bottom:.08em; left:-.14em; width:0; height:.72em; background:#ffe26b; content:""; transform:skewX(-9deg); }
 .journey-page.is-active .hanwha-campus::before { animation:highlighter-sweep .72s cubic-bezier(.2,.8,.2,1) .28s forwards; }
 @keyframes highlighter-sweep { to { width:calc(100% + .28em); } }
@@ -62,9 +62,9 @@ a { color:inherit; text-decoration:none; }
 .cover-education h2 { position:relative; z-index:0; display:inline-block; }
 .cover-education h2::before { position:absolute; z-index:-1; right:-.18em; bottom:.1em; left:-.16em; height:.68em; background:#e8ddff; content:""; transform:skewX(-9deg); }
 .ssafy-campus::before { position:absolute; z-index:-1; right:-.14em; bottom:.08em; left:-.14em; height:.72em; background:#d9f0ff; content:""; transform:skewX(-9deg); }
-.dongguk-university::before, .exchange-study::before { position:absolute; z-index:-1; right:-.14em; bottom:.08em; left:-.14em; height:.72em; content:""; transform:skewX(-9deg); }
+.dongguk-university::before, .exchange-study::before, .education-study::before { position:absolute; z-index:-1; right:-.14em; bottom:.08em; left:-.14em; height:.72em; content:""; transform:skewX(-9deg); }
 .dongguk-university::before { background:#e8ddff; }
-.exchange-study::before { background:#e8ddff; }
+.exchange-study::before, .education-study::before { background:#e8ddff; }
 
 @media (min-width:761px) {
   .journey-track { display:block; width:100%; padding:0; }
@@ -466,9 +466,9 @@ a { color:inherit; text-decoration:none; }
     opacity:0;
     transform:translate(-50%,50%) scale(.5);
   }
-  .journey-page.is-active .journey-track::after { animation:journey-end-dot .3s ease-out 1.08s forwards; }
+  .journey-page.is-active .journey-track::after { animation:journey-end-dot .3s ease-out 1.20s forwards; }
   .journey-page.is-active .journey-track::before {
-    animation:journey-axis-draw 1.05s cubic-bezier(.3,.05,.2,1) forwards;
+    animation:journey-axis-draw 1.17s cubic-bezier(.3,.05,.2,1) forwards;
   }
   .journey-item {
     --branch:7%;
@@ -486,6 +486,7 @@ a { color:inherit; text-decoration:none; }
   .journey-item:nth-child(6) { --branch:22%; }
   .journey-item:nth-child(7) { --branch:25%; }
   .journey-item:nth-child(8) { --branch:28%; }
+  .journey-item:nth-child(9) { --branch:31%; }
   .journey-date,
   .journey-item:nth-child(odd) .journey-date,
   .journey-item:nth-child(even) .journey-date {
@@ -556,6 +557,7 @@ a { color:inherit; text-decoration:none; }
   .journey-page.is-active .journey-item:nth-child(6) :is(.journey-dot), .journey-page.is-active .journey-item:nth-child(6)::after, .journey-page.is-active .journey-item:nth-child(6) .journey-copy { animation-delay:.68s; }
   .journey-page.is-active .journey-item:nth-child(7) :is(.journey-dot), .journey-page.is-active .journey-item:nth-child(7)::after, .journey-page.is-active .journey-item:nth-child(7) .journey-copy { animation-delay:.80s; }
   .journey-page.is-active .journey-item:nth-child(8) :is(.journey-dot), .journey-page.is-active .journey-item:nth-child(8)::after, .journey-page.is-active .journey-item:nth-child(8) .journey-copy { animation-delay:.92s; }
+  .journey-page.is-active .journey-item:nth-child(9) :is(.journey-dot), .journey-page.is-active .journey-item:nth-child(9)::after, .journey-page.is-active .journey-item:nth-child(9) .journey-copy { animation-delay:1.04s; }
   .journey-hanwha-end { display:none; }
 }
 
@@ -605,6 +607,7 @@ a { color:inherit; text-decoration:none; }
   .journey-item:nth-child(6) { --branch:15%; }
   .journey-item:nth-child(7) { --branch:17%; }
   .journey-item:nth-child(8) { --branch:19%; }
+  .journey-item:nth-child(9) { --branch:21%; }
   .journey-copy { padding:0 0 .65rem; border-radius:0; }
 }
 
@@ -717,12 +720,13 @@ a { color:inherit; text-decoration:none; }
 /* 여정선 마감: 작은 지점과 한화 오렌지로 짙어지는 흐름 */
 .journey-item { --line-color:#f9dfcf; }
 .journey-item:nth-child(2) { --line-color:#f8d2b9; }
-.journey-item:nth-child(3) { --line-color:#f7c3a1; }
-.journey-item:nth-child(4) { --line-color:#f6b286; }
-.journey-item:nth-child(5) { --line-color:#f5a06a; }
-.journey-item:nth-child(6) { --line-color:#f48e50; }
-.journey-item:nth-child(7) { --line-color:#f47f3a; }
-.journey-item:nth-child(8) { --line-color:#f37321; }
+.journey-item:nth-child(3) { --line-color:#f8cab0; }
+.journey-item:nth-child(4) { --line-color:#f7c3a1; }
+.journey-item:nth-child(5) { --line-color:#f6b286; }
+.journey-item:nth-child(6) { --line-color:#f5a06a; }
+.journey-item:nth-child(7) { --line-color:#f48e50; }
+.journey-item:nth-child(8) { --line-color:#f47f3a; }
+.journey-item:nth-child(9) { --line-color:#f37321; }
 .journey-dot {
   margin:0;
   padding:0;
@@ -831,6 +835,203 @@ a { color:inherit; text-decoration:none; }
     background:var(--line-color);
   }
   .journey-item { min-height:112px; }
+}
+
+/* 여정의 마지막: 주황색 선을 한화생명 지원 포부로 연결 */
+.journey-destination {
+  position:relative;
+  margin-left:var(--axis, 0%);
+  padding:0 0 .5rem 2rem;
+}
+.journey-destination::before {
+  position:absolute;
+  top:-24px;
+  left:0;
+  width:2rem;
+  height:calc(24px + 2.75rem);
+  border-bottom:2px solid var(--orange);
+  border-left:2px solid var(--orange);
+  border-bottom-left-radius:1rem;
+  content:"";
+}
+.journey-destination img {
+  display:block;
+  width:16rem;
+  max-width:100%;
+  height:auto;
+  margin:0 0 0 -2.6rem;
+}
+.journey-destination p {
+  margin:.25rem 0 0;
+  color:#697282;
+  font-size:clamp(.875rem,1.05vw,1rem);
+  line-height:1.65;
+  word-break:keep-all;
+}
+.journey-destination strong { color:var(--dark); font-weight:750; }
+.journey-page.is-active .journey-destination {
+  animation:journey-destination-in .5s ease-out 1.4s both;
+}
+@keyframes journey-destination-in {
+  from { opacity:0; transform:translateY(.5rem); }
+  to { opacity:1; transform:translateY(0); }
+}
+@media (min-width:761px) {
+  .journey-track::after { display:none; }
+}
+@media (max-width:760px) {
+  .journey-destination { margin-left:0; padding-left:34px; }
+  .journey-destination::before { top:0; left:10px; width:24px; height:2.75rem; }
+  .journey-item:last-child::after { display:block; height:calc(100% - 19px); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .journey-page.is-active .journey-destination { animation:none; }
+}
+
+/* 화면 높이에 맞춰 여백을 배분하되, 내용이 늘면 자연스럽게 스크롤한다. */
+.journey-page {
+  background:#f5f6f8;
+  overflow:visible;
+}
+@media (min-width:761px) {
+  .cover-page,
+  .journey-page {
+    --page-pad-y:clamp(2rem,5svh,4rem);
+    padding-block:var(--page-pad-y);
+  }
+  .journey-heading {
+    margin-top:0;
+    margin-bottom:clamp(.75rem,2svh,1.5rem);
+  }
+  .journey-heading .eyebrow { margin-bottom:.5rem; }
+  .journey-track { padding-bottom:0; }
+  .journey-track::before { bottom:0; }
+  .journey-destination {
+    display:flex;
+    align-items:center;
+    gap:.75rem;
+    min-width:0;
+  }
+  .journey-destination::before { top:0; height:2.5rem; }
+  .journey-destination img {
+    flex:0 0 auto;
+    width:14rem;
+    margin-left:-2.275rem;
+  }
+  .journey-destination p { margin:0; }
+}
+@media (min-width:1041px) {
+  .journey-item,
+  .journey-item:nth-child(-n+5),
+  .journey-item:nth-child(n+6) {
+    /* 제목·마무리와 상하 패딩을 먼저 확보하고 아홉 활동에 남은 높이를 배분. */
+    min-height:clamp(3.125rem,calc((100svh - var(--page-pad-y) * 2 - 11rem) / 9),5.1rem);
+    padding-bottom:.625rem;
+  }
+}
+@media (max-width:1040px) and (min-width:761px) {
+  .journey-page { padding-top:5.5rem; }
+  .journey-destination { flex-wrap:wrap; row-gap:0; }
+}
+@media (max-width:760px) {
+  .journey-page { padding-block:clamp(3rem,7svh,4.25rem); }
+}
+
+/* 앱스토어형 프로젝트 목차: 가로 카드 대신 한눈에 읽히는 세로 목록. */
+.project-store {
+  padding:clamp(6rem,10svh,8rem) 10vw clamp(3rem,6svh,5rem);
+  background:#fff;
+}
+.project-store .index-heading {
+  display:block;
+  width:min(100%,56rem);
+  margin:0 auto clamp(1.5rem,3svh,2.5rem);
+}
+.project-store .index-heading h2 {
+  font-size:clamp(2rem,3.5vw,3rem);
+  letter-spacing:-.045em;
+}
+.project-store .index-heading>p:last-child {
+  max-width:none;
+  margin:.625rem 0 0;
+  font-size:.9375rem;
+  line-height:1.6;
+  word-break:keep-all;
+}
+.store-list { width:min(100%,56rem); margin:0 auto; padding:0; list-style:none; }
+.store-item {
+  display:grid;
+  grid-template-columns:7rem minmax(0,1fr);
+  grid-template-rows:auto auto;
+  column-gap:1.75rem;
+  row-gap:.875rem;
+  align-items:start;
+  position:relative;
+  padding:1.25rem 0;
+}
+.store-item+.store-item::before {
+  position:absolute;
+  inset:0 0 auto 8.75rem;
+  height:1px;
+  background:#e8e8ed;
+  content:"";
+}
+.store-icon {
+  grid-column:1;
+  grid-row:1 / 3;
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:1;
+  object-fit:contain;
+  border-radius:23%;
+}
+.store-copy { grid-column:2; min-width:0; }
+.store-copy h3 {
+  margin:0;
+  color:#1d1d1f;
+  font-size:clamp(1.375rem,2vw,1.75rem);
+  line-height:1.25;
+  font-weight:700;
+  letter-spacing:-.025em;
+}
+.store-copy p {
+  margin:.375rem 0 0;
+  color:#65656c;
+  font-size:1rem;
+  line-height:1.5;
+  word-break:keep-all;
+  overflow-wrap:anywhere;
+}
+.store-scroll {
+  grid-column:2;
+  justify-self:start;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  min-height:2.75rem;
+  padding:.5rem 1.125rem;
+  border-radius:999px;
+  background:#f0f0f3;
+  color:#165cc5;
+  font-size:.9375rem;
+  font-weight:700;
+  line-height:1.3;
+  transition:background .2s,color .2s;
+}
+.store-scroll:hover { background:#e3eaf6; color:#0d469e; }
+.store-scroll:focus-visible { outline:2px solid #165cc5; outline-offset:4px; }
+@media(max-width:760px) {
+  .project-store { padding:6rem 1.5rem 3rem; }
+  .project-store .index-heading { margin-top:0; }
+  .store-item { grid-template-columns:clamp(4.5rem,21vw,6rem) minmax(0,1fr); column-gap:1rem; row-gap:.75rem; }
+  .store-item+.store-item::before { left:calc(clamp(4.5rem,21vw,6rem) + 1rem); }
+  .store-copy p { font-size:.9375rem; }
+  .store-scroll { font-size:.875rem; padding:.5rem .875rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
 }
 
 /* CapSure case study */
@@ -1154,4 +1355,250 @@ a { color:inherit; text-decoration:none; }
   .project-evidence-grid { grid-template-columns:1fr; }
   .project-evidence-grid>article,.project-detail-shot { min-height:220px; }
   .project-detail-shot { min-height:270px; }
+}
+
+/* 첫 화면: 수상·자격과 기술을 동일한 정보 카드 리듬으로 정렬합니다. */
+.cover-secondary { grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; align-items:stretch; }
+.cover-info-panel { display:flex; flex-direction:column; min-width:0; min-height:360px; padding:20px; border:1px solid #dde0e5; border-radius:18px; background:rgba(255,255,255,.72); box-shadow:0 10px 28px rgba(26,31,40,.045); }
+.cover-info-panel.journey-awards, .cover-info-panel.journey-skills { border-top:1px solid #dde0e5; }
+.cover-info-panel h3 { min-height:25px; padding:0 0 13px; border-bottom:2px solid #293142; font-size:16px; }
+.cover-info-panel.journey-awards p { grid-template-columns:56px minmax(0,1fr); align-items:center; min-height:39px; gap:10px; padding:7px 0; }
+.cover-info-panel.journey-awards p span { font-variant-numeric:tabular-nums; }
+.cover-info-panel.journey-awards p strong { min-width:0; font-size:12px; }
+.cover-info-panel.journey-awards .certificate-item { padding:7px 0; }
+.cover-info-panel .certificate-item small { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.cover-info-panel .journey-skill { grid-template-columns:22px minmax(0,1fr) 58px; min-height:39px; gap:9px; padding:7px 0; border-bottom:1px solid #e7e9ed; }
+.cover-info-panel .journey-skill:last-child { border-bottom:0; }
+.cover-info-panel .journey-skill img { width:19px; height:19px; }
+.cover-info-panel .journey-skill-meter { gap:4px; }
+.cover-info-panel .journey-skill-meter i { height:5px; border-radius:99px; }
+@media (max-width:760px) { .cover-info-panel { min-height:0; padding:18px; }.cover-info-panel.journey-awards p { grid-template-columns:58px minmax(0,1fr); }.cover-info-panel .journey-skill { min-height:42px; } }
+@media (max-height:920px) and (min-width:761px) { .cover-info-panel { min-height:310px; padding:15px 17px; }.cover-info-panel h3 { padding-bottom:9px; }.cover-info-panel.journey-awards p, .cover-info-panel .journey-skill { min-height:34px; padding:4px 0; } }
+
+/* 첫 페이지를 프로필 면과 포트폴리오 요약 면으로 묶습니다. */
+.cover-page { grid-template-columns:minmax(250px,.72fr) minmax(0,1.48fr); gap:0; align-items:stretch; padding:clamp(28px,4vw,64px); background:#f2f3f5; }
+.profile-intro { align-self:stretch; min-height:0; padding:clamp(28px,3.5vw,52px); border-radius:28px 0 0 28px; background:#1d1e21; color:#fff; }
+.photo-slot { width:min(100%,204px); border:1px solid rgba(255,255,255,.16); border-radius:22px; background:linear-gradient(145deg,#f5f6f8,#d9dce3); }
+.profile-name { margin-top:18px; color:#fff; font-size:clamp(34px,3.1vw,46px); }
+.profile-role { color:#c6cad3; font-size:15px; }
+.profile-contact { margin-top:auto; padding-top:36px; }
+.profile-contact h2 { padding-bottom:11px; border-bottom-color:#f37321; color:#fff; font-size:14px; letter-spacing:.02em; }
+.profile-contact dl>div { grid-template-columns:52px minmax(0,1fr); padding:8px 0; color:#d9dce1; font-size:11px; }
+.profile-contact dt { color:#949ba7; }.profile-contact dd { min-width:0; color:#f5f5f7; overflow-wrap:anywhere; }
+.profile-details { align-self:stretch; width:auto; min-height:0; padding:clamp(30px,4.2vw,62px); border-radius:0 28px 28px 0; background:#fff; }
+.profile-details>h1 { max-width:620px; font-size:clamp(34px,3.35vw,52px); }
+.personal-strengths { max-width:680px; margin-block:clamp(1.6rem,3vw,2.5rem); }
+.cover-secondary { gap:0; margin-top:auto; border-top:2px solid #24262b; }
+.cover-info-panel { min-height:0; padding:18px 0 0; border:0; border-radius:0; background:transparent; box-shadow:none; }
+.cover-info-panel.journey-awards, .cover-info-panel.journey-skills { border-top:0; }
+.cover-info-panel.journey-awards { padding-right:24px; }
+.cover-info-panel.journey-skills { padding-left:24px; border-left:1px solid #d9dce2; }
+.cover-info-panel h3 { min-height:0; padding:0 0 12px; border-bottom:1px solid #d9dce2; font-size:14px; }
+.cover-info-panel.journey-awards p { min-height:34px; padding:5px 0; }
+.cover-info-panel .journey-skill { min-height:34px; padding:5px 0; }
+@media (max-height:920px) and (min-width:761px) { .cover-page { padding:28px 5vw; }.profile-intro, .profile-details { padding:27px 34px; }.photo-slot { width:152px; }.profile-name { margin-top:12px; font-size:34px; }.profile-contact { padding-top:22px; }.personal-strengths { margin-block:1.2rem; }.cover-info-panel.journey-awards p, .cover-info-panel .journey-skill { min-height:30px; padding:3px 0; } }
+@media (max-width:760px) { .cover-page { display:block; padding:24px; background:#f2f3f5; }.profile-intro { min-height:0; padding:28px; border-radius:24px 24px 0 0; }.photo-slot { width:144px; }.profile-contact { margin-top:28px; padding-top:24px; }.profile-details { padding:32px 24px; border-radius:0 0 24px 24px; }.profile-details>h1 { font-size:36px; }.cover-secondary { grid-template-columns:1fr; gap:0; }.cover-info-panel.journey-awards { padding-right:0; }.cover-info-panel.journey-skills { margin-top:20px; padding:20px 0 0; border-top:1px solid #d9dce2; border-left:0; } }
+
+/* 첫 화면의 정보 밀도를 낮추고, 제목의 두 줄을 의도적으로 분리합니다. */
+.cover-page { grid-template-columns:minmax(205px,.58fr) minmax(0,1.42fr); padding:clamp(24px,3.2vw,48px); }
+.profile-intro { padding:clamp(22px,2.8vw,38px); }
+.photo-slot { width:min(100%,172px); border-radius:18px; }
+.profile-name { margin-top:14px; font-size:clamp(30px,2.5vw,38px); }
+.profile-role { font-size:13px; }.profile-contact { padding-top:24px; }.profile-contact h2 { font-size:12px; }.profile-contact dl>div { padding:6px 0; font-size:10px; }
+.profile-details { padding:clamp(26px,3.4vw,48px); }
+.profile-details>h1 { max-width:650px; font-size:clamp(29px,2.75vw,42px); line-height:1.28; }
+.profile-details>h1>span { display:block; }.profile-details>h1 .cover-title-follow { margin-top:.18em; margin-left:clamp(1.4rem,7vw,5.5rem); }
+.personal-strengths { margin-block:clamp(1.25rem,2.4vw,1.8rem); }.personal-strengths li { grid-template-columns:2.8rem minmax(0,1fr); gap:.7rem; padding-block:.42rem; }.talent-symbol { width:2.5rem; height:2.5rem; }.personal-strengths h3 { font-size:clamp(.9rem,1.1vw,1rem); }.personal-strengths p { font-size:.8rem; line-height:1.5; }
+.cover-secondary { margin-top:clamp(.8rem,2vw,1.25rem); }.cover-info-panel { padding-top:14px; }.cover-info-panel h3 { padding-bottom:9px; font-size:12px; }.cover-info-panel.journey-awards p, .cover-info-panel .journey-skill { min-height:29px; padding:3px 0; }.cover-info-panel.journey-awards p strong, .cover-info-panel .journey-skill { font-size:10px; }.cover-info-panel .certificate-item small { font-size:9px; }.cover-info-panel .journey-skill img { width:16px; height:16px; }.cover-info-panel .journey-skill { grid-template-columns:19px minmax(0,1fr) 50px; gap:7px; }.cover-info-panel .journey-skill-meter i { height:4px; }
+@media (max-width:760px) { .profile-details>h1 { font-size:30px; }.profile-details>h1 .cover-title-follow { margin-left:1.8rem; }.personal-strengths { margin-block:1.2rem; }.personal-strengths p { font-size:.78rem; }.cover-info-panel.journey-awards p, .cover-info-panel .journey-skill { min-height:34px; padding:4px 0; } }
+
+/* 화면을 꽉 채우던 소개 보드를 콘텐츠 높이로 줄입니다. */
+.cover-page { align-content:center; padding-top:clamp(76px,8vw,104px); padding-bottom:clamp(48px,6vw,76px); }
+.hanwha-logo { top:16px; }.page-number { top:54px; }
+.profile-intro { padding:clamp(20px,2.4vw,32px); }.photo-slot { width:min(100%,154px); }.profile-name { margin-top:12px; font-size:clamp(26px,2.1vw,32px); }.profile-role { font-size:12px; }.profile-contact { padding-top:20px; }
+.profile-details { padding:clamp(22px,2.8vw,38px); }.profile-details>h1 { max-width:590px; font-size:clamp(25px,2.25vw,34px); line-height:1.32; }.profile-details>h1 .cover-title-follow { margin-left:clamp(1rem,6vw,4rem); }
+.personal-strengths { margin-block:1rem 1.25rem; }.personal-strengths li { grid-template-columns:2.45rem minmax(0,1fr); padding-block:.32rem; }.talent-symbol { width:2.2rem; height:2.2rem; }.personal-strengths h3 { font-size:.86rem; }.personal-strengths p { font-size:.74rem; line-height:1.45; }
+.personal-strengths { margin-block:.7rem .95rem; }.personal-strengths li { grid-template-columns:1.9rem minmax(0,1fr); gap:.55rem; padding-block:.24rem; }.talent-symbol { width:1.7rem; height:1.7rem; }.personal-strengths h3 { font-size:.78rem; line-height:1.35; }.personal-strengths p { margin-top:.1rem; font-size:.68rem; line-height:1.4; }
+.cover-next { position:absolute; bottom:16px; left:50%; display:inline-flex; align-items:center; gap:.4rem; color:#6d737e; font-size:9px; font-weight:800; letter-spacing:.12em; transform:translateX(-50%); }.cover-next svg { color:var(--orange); animation:cover-arrow 1.4s ease-in-out infinite; }
+@keyframes cover-arrow { 50% { transform:translateY(4px); } }
+@media (max-width:760px) { .cover-page { padding-top:66px; padding-bottom:54px; }.hanwha-logo { top:12px; }.page-number { top:47px; }.profile-intro { padding:24px; }.profile-details { padding:26px 22px; }.profile-details>h1 { font-size:27px; }.profile-details>h1 .cover-title-follow { margin-left:1.15rem; }.cover-next { bottom:16px; } }
+
+/* 프로필은 오른쪽 소개 보드와 같은 높이로 늘어나지 않는 독립 카드입니다. */
+.cover-page { align-items:start; }
+.profile-intro { align-self:start; border-radius:24px; }
+.profile-details { align-self:start; }
+
+/* 선택 시안 03: 카드를 나열하지 않고 한 장의 포트폴리오 표지처럼 구성합니다. */
+#introduction.cover-page {
+  --cover-paper:#f8f8f6;
+  --cover-rule:#d9dad6;
+  display:grid;
+  grid-template-columns:clamp(156px,13.5vw,208px) minmax(0,1fr);
+  column-gap:clamp(38px,6vw,92px);
+  align-items:center;
+  min-height:100svh;
+  padding:clamp(72px,8vw,116px) clamp(38px,6.8vw,112px) clamp(66px,7vw,94px);
+  background:var(--cover-paper);
+}
+#introduction .profile-intro {
+  align-self:stretch;
+  display:flex;
+  align-items:center;
+  min-height:0;
+  padding:clamp(10px,1.4vw,18px) clamp(22px,2.2vw,34px) 14px 0;
+  border:0;
+  border-right:1px solid var(--cover-rule);
+  border-radius:0;
+  background:transparent;
+  color:#202124;
+  text-align:center;
+}
+#introduction .photo-slot {
+  width:min(100%,178px);
+  overflow:visible;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+#introduction .photo-slot img { display:block; width:100%; height:auto; filter:drop-shadow(0 12px 18px rgba(25,28,34,.12)); }
+#introduction .profile-name {
+  margin:18px 0 0;
+  color:#1d1d1f;
+  font-size:clamp(22px,1.8vw,29px);
+  font-weight:800;
+  letter-spacing:-.075em;
+}
+#introduction .profile-role { margin:4px 0 0; color:#737780; font-size:12px; font-weight:700; }
+#introduction .profile-contact {
+  width:100%;
+  margin-top:auto;
+  padding-top:24px;
+  text-align:center;
+}
+#introduction .profile-contact::before {
+  display:block;
+  width:26px;
+  margin:0 auto 18px;
+  border-top:1px solid #303238;
+  content:"";
+}
+#introduction .profile-contact h2 { display:none; }
+#introduction .profile-contact dl { margin:0; }
+#introduction .profile-contact dl>div { display:flex; justify-content:center; padding:0 0 9px; color:#656a73; font-size:10px; line-height:1.45; }
+#introduction .profile-contact dt { display:none; }
+#introduction .profile-contact dd { margin:0; color:#5c626c; }
+#introduction .profile-contact a { display:inline-flex; align-items:center; gap:7px; color:inherit; text-decoration:none; }
+#introduction .profile-contact a svg { flex:0 0 auto; color:#33363d; }
+#introduction .profile-contact a img { flex:0 0 auto; width:14px; height:14px; }
+#introduction .profile-details {
+  align-self:center;
+  width:100%;
+  min-height:0;
+  padding:0;
+  border-radius:0;
+  background:transparent;
+}
+#introduction .profile-details>h1 {
+  max-width:720px;
+  margin:0;
+  color:#1c1d20;
+  font-size:clamp(30px,3.05vw,46px);
+  font-weight:800;
+  letter-spacing:-.084em;
+  line-height:1.24;
+}
+#introduction .profile-details>h1>span { display:block; }
+#introduction .profile-details>h1 .cover-title-follow {
+  width:max-content;
+  max-width:100%;
+  margin:7px 0 0 clamp(18px,5vw,78px);
+}
+#introduction .profile-details>h1 em { color:var(--orange); }
+#introduction .personal-strengths {
+  max-width:none;
+  margin:clamp(34px,5vh,58px) 0 clamp(30px,4vh,48px);
+  padding-top:26px;
+  border-top:1px solid #e2e2df;
+}
+#introduction .personal-strengths ol {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  margin:0;
+  padding:0;
+}
+#introduction .personal-strengths li {
+  display:block;
+  min-height:138px;
+  padding:0 clamp(14px,2vw,32px);
+  border:0;
+  border-left:1px solid var(--cover-rule);
+}
+#introduction .personal-strengths li:first-child { padding-left:0; border-left:0; }
+#introduction .strength-marker { margin:0 0 14px; }
+#introduction .talent-symbol { width:34px; height:34px; }
+#introduction .personal-strengths h3 { margin:0; color:#222328; font-size:clamp(13px,1.15vw,16px); font-weight:780; letter-spacing:-.055em; line-height:1.35; }
+#introduction .personal-strengths p { margin:7px 0 0; color:#686d76; font-size:clamp(10px,.87vw,12px); font-weight:560; letter-spacing:-.04em; line-height:1.6; word-break:keep-all; }
+#introduction .cover-secondary {
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(290px,.95fr);
+  gap:0;
+  margin:0;
+  border-top:1.5px solid #26282d;
+}
+#introduction .cover-info-panel {
+  min-height:0;
+  padding:18px 0 0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+#introduction .cover-info-panel.journey-awards { padding-right:clamp(20px,3vw,46px); }
+#introduction .cover-info-panel.journey-skills { padding-left:clamp(20px,3vw,46px); border-left:1px solid var(--cover-rule); }
+#introduction .cover-info-panel h3 { min-height:0; margin:0 0 10px; padding:0 0 10px; border-bottom:1px solid var(--cover-rule); color:#23242a; font-size:12px; font-weight:800; letter-spacing:-.045em; }
+#introduction .cover-info-panel.journey-awards p { display:grid; grid-template-columns:58px minmax(0,1fr); min-height:0; gap:10px; margin:0; padding:6px 0; border-bottom:1px solid #e6e6e3; }
+#introduction .cover-info-panel.journey-awards p span { color:#8a8e97; font-size:10px; font-weight:750; }
+#introduction .cover-info-panel.journey-awards p strong { display:block; color:#363940; font-size:10px; font-weight:730; letter-spacing:-.04em; line-height:1.35; }
+#introduction .cover-info-panel .certificate-item small { display:none; }
+#introduction .cover-info-panel .journey-skill { display:grid; grid-template-columns:20px minmax(0,1fr) 46px; min-height:0; gap:8px; margin:0; padding:6px 0; border-bottom:1px solid #e6e6e3; color:#4e535b; font-size:10px; font-weight:730; }
+#introduction .cover-info-panel .journey-skill img { width:16px; height:16px; }
+#introduction .cover-info-panel .journey-skill-meter { gap:3px; align-self:center; }
+#introduction .cover-info-panel .journey-skill-meter i { height:3px; border-radius:0; }
+#introduction .hanwha-logo { top:clamp(20px,2.6vw,42px); right:clamp(38px,6.8vw,112px); width:142px; height:42px; }
+#introduction .page-number { top:clamp(58px,5.3vw,84px); right:clamp(39px,6.9vw,114px); color:var(--orange); font-size:11px; }
+#introduction .cover-next { bottom:clamp(18px,2.4vw,34px); color:#777b83; font-size:9px; }
+
+@media (max-width:900px) and (min-width:761px) {
+  #introduction.cover-page { grid-template-columns:154px minmax(0,1fr); column-gap:34px; padding-inline:38px; }
+  #introduction .profile-details>h1 { font-size:30px; }
+  #introduction .personal-strengths li { min-height:128px; padding-inline:14px; }
+  #introduction .personal-strengths p { font-size:10px; }
+  #introduction .cover-info-panel.journey-awards { padding-right:18px; }
+  #introduction .cover-info-panel.journey-skills { padding-left:18px; }
+}
+@media (max-width:760px) {
+  #introduction.cover-page { display:block; min-height:auto; padding:76px 24px 68px; }
+  #introduction .profile-intro { display:flex; align-items:center; padding:0 0 24px; border-right:0; border-bottom:1px solid var(--cover-rule); }
+  #introduction .photo-slot { width:130px; border-radius:0; }
+  #introduction .profile-name { margin:12px 0 0; font-size:24px; }
+  #introduction .profile-role { margin:3px 0 0; }
+  #introduction .profile-contact { width:100%; margin:16px 0 0; padding:0; }
+  #introduction .profile-contact::before { display:none; }
+  #introduction .profile-contact dl { display:flex; flex-direction:column; gap:3px; }
+  #introduction .profile-contact dl>div { padding:0; }
+  #introduction .profile-details { padding:36px 0 0; }
+  #introduction .profile-details>h1 { font-size:30px; }
+  #introduction .profile-details>h1 .cover-title-follow { margin-left:25px; }
+  #introduction .personal-strengths { margin:34px 0; padding-top:20px; }
+  #introduction .personal-strengths ol { grid-template-columns:1fr; }
+  #introduction .personal-strengths li,#introduction .personal-strengths li:first-child { display:grid; grid-template-columns:34px minmax(0,1fr); min-height:0; gap:12px; padding:14px 0; border-left:0; border-top:1px solid #e5e5e2; }
+  #introduction .personal-strengths li:first-child { padding-top:0; border-top:0; }
+  #introduction .strength-marker { margin:0; }
+  #introduction .cover-secondary { grid-template-columns:1fr; }
+  #introduction .cover-info-panel.journey-awards { padding-right:0; }
+  #introduction .cover-info-panel.journey-skills { margin-top:18px; padding:18px 0 0; border-top:1px solid var(--cover-rule); border-left:0; }
+  #introduction .hanwha-logo { top:15px; right:24px; width:116px; height:34px; }
+  #introduction .page-number { top:47px; right:24px; }
 }

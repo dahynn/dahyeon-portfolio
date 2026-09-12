@@ -1,0 +1,119 @@
+{
+  "task_id": "ARIA-20260912-PORTFOLIO-CASE-STUDY",
+  "version": 3,
+  "goal": "3개 프로젝트의 연속 기술 사례, 근거 기반 개인 강점, 버전 스택·담당 범위·페이지 내 테스트 결과를 구현하고 반응형 검증한다.",
+  "done_when": [
+    "SAN 포함 3개 패킷 비교와 순서 확정",
+    "3개 연속 사례·개인 강점·처리 도식 구현",
+    "동일 크기 단계 버튼·버전 스택·페이지 내 테스트 대시보드 구현",
+    "빌드·반응형·내부 앵커 검증 및 ARIA 인계"
+  ],
+  "constraints": [
+    "커밋·푸시·배포·도메인·Actions 변경 금지",
+    "Roundy 실제 화면 미확보, 가상 서비스 UI 생성 금지",
+    "한계·실패는 공개 필수 섹션이 아님",
+    "이번 공고 Discipline·Creative Thinking·Sense of Purpose 적용, 강제 1:1 배정 금지, 기업 조사 partial 범위 준수"
+  ],
+  "risk_level": "low",
+  "action_mode": "implement",
+  "status": "COMPLETED",
+  "owner_session": null,
+  "steps": [
+    {
+      "id": "feedback-and-packets",
+      "capability": "career-evidence",
+      "status": "completed",
+      "depends_on": [],
+      "artifacts": [
+        "docs/portfolio-redesign/02_증거접수-피드백.md"
+      ],
+      "evidence_ids": [
+        "CLM-PAY-001",
+        "CLM-STATE-001",
+        "CLM-AI-002",
+        "CLM-RND-002"
+      ]
+    },
+    {
+      "id": "plan-contracts",
+      "capability": "project-development",
+      "status": "completed",
+      "depends_on": [
+        "feedback-and-packets"
+      ],
+      "artifacts": [
+        "docs/portfolio-redesign/00_설계계획.md",
+        "docs/portfolio-redesign/01_컴포넌트-콘텐츠-계약.md",
+        "docs/portfolio-redesign/03_화면요청-인계.md"
+      ]
+    },
+    {
+      "id": "company-handoff",
+      "capability": "career-evidence",
+      "status": "completed",
+      "depends_on": [],
+      "artifacts": [
+        "docs/portfolio-redesign/04_직무-인재상-연결.md"
+      ],
+      "evidence_ids": [
+        "SRC-001",
+        "RCL-027",
+        "RCL-020",
+        "RCL-007"
+      ]
+    },
+    {
+      "id": "san-intake",
+      "capability": "career-evidence",
+      "status": "completed",
+      "depends_on": []
+    },
+    {
+      "id": "final-narrative",
+      "capability": "project-development",
+      "status": "completed",
+      "depends_on": [
+        "san-intake",
+        "company-handoff",
+        "plan-contracts"
+      ]
+    },
+    {
+      "id": "aria-handoff",
+      "capability": "aria",
+      "status": "completed",
+      "depends_on": [
+        "plan-contracts",
+        "company-handoff"
+      ],
+      "artifacts": [
+        "docs/portfolio-redesign/03_화면요청-인계.md",
+        "docs/portfolio-redesign/99_체크포인트.md"
+      ]
+    },
+    {
+      "id": "implementation-and-qa",
+      "capability": "project-development",
+      "status": "completed",
+      "depends_on": [
+        "final-narrative"
+      ],
+      "artifacts": [
+        "docs/portfolio-redesign/06_구현-검증-인계.md"
+      ]
+    }
+  ],
+  "resume_from": "사용자 역할·Roundy 인원 답변 반영 또는 원본 화면 캡처 교체",
+  "artifacts": [
+    "docs/portfolio-redesign/00_설계계획.md",
+    "docs/portfolio-redesign/03_화면요청-인계.md",
+    "docs/portfolio-redesign/05_프로젝트-구성-결정.md",
+    "docs/portfolio-redesign/06_구현-검증-인계.md"
+  ],
+  "blockers": [],
+  "updated_at": "2026-09-12T05:24:44+09:00",
+  "followups": [
+    "Roundy 총 인원과 프로젝트별 담당 범위 사용자 확인",
+    "실제 Roundy·SAN 서비스 캡처와 CapSure 결제 대사 캡처"
+  ]
+}
