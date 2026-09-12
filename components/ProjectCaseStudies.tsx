@@ -3,7 +3,7 @@
 /* oxlint-disable next/no-img-element -- 원본 캡처의 비율을 유지합니다. */
 import { Braces, CreditCard, Database, type LucideIcon, Video } from 'lucide-react';
 import { projectCases, type ProjectCase } from './projectCases';
-import { projectEvidence, type ProjectPresentation } from './projectEvidence';
+import { projectEvidence } from './projectEvidence';
 import { ServiceOverview } from './ServiceOverview';
 
 const stackIcons: Record<string, string> = {
