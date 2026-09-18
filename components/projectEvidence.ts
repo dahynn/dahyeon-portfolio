@@ -40,7 +40,7 @@ export const projectEvidence: Record<string, ProjectPresentation> = {
     record: '2026.09.12 로컬 합성 Postgres 16/Testcontainers 검증. 2 worker 중앙 처리량 908.19건/초, 개별 대사 p95 중앙 1.91ms입니다. 세 번째 22.47초 outlier의 원인은 미확정이어서 개선율은 주장하지 않습니다.',
   },
   roundy: {
-    team: '팀 프로젝트',
+    team: '6명 · FE 1 · BE 3 · AI 1 · INFRA 1',
     responsibility: '매칭, 인증, 방 접근 권한 보강',
     contribution: '경쟁 조건 재현, Redis 원자 처리와 조건부 정리 검증',
     stack: ['Java 21', 'Spring Boot 3.5.9', 'Redis와 Lua', 'MySQL', 'React 19', 'TypeScript 5.9', 'OpenVidu 2.32'],
@@ -64,7 +64,7 @@ export const projectEvidence: Record<string, ProjectPresentation> = {
     record: 'queue-concurrency / summary.json · 기준 6e60b8d → 보강 b960772. 인증 소비는 별도 실제 Redis 통합 테스트입니다.',
   },
   san: {
-    team: '7명',
+    team: '7명 · FE 1 · BE 3 · AI 2 · INFRA 1',
     responsibility: '서버 검색, AI 입력 보호, 작업 상태 관리',
     contribution: '검색 조건과 결과 검증, 입력 근거와 실패 재시도 흐름 정리',
     stack: ['Java 21', 'Spring Boot 3.5.14', 'Spring Data JPA', 'PostgreSQL', 'Redis', 'React 18.3', 'TypeScript 5.9'],
@@ -87,5 +87,29 @@ export const projectEvidence: Record<string, ProjectPresentation> = {
       { name: 'AI 입력·출력', input: 'Mock 모델 · 합성 fixture', output: '42개 통과 · 외부 네트워크 2개 제외' },
     ],
     record: 'card-query / summary.json · 1c8c252. 검색과 AI 테스트는 별도 기록입니다. 작은 데이터 규모의 첫 조회 결과가 일관되게 개선된 것은 아니어서, 여기서는 합성 1만 건 측정만 제시합니다.',
+  },
+  dasibom: {
+    team: '4명 · FE 1 · BE 1 · AI 2',
+    responsibility: '서비스 기획·UI/UX, React Native 화면과 카메라·음성·지도·차트 연동',
+    contribution: '민감 미디어 최소수집, 입력·응답 계약과 소유자 조회 경계 정리',
+    stack: ['React Native', 'Spring Boot', 'MySQL', 'AI 분석 API'],
+    nodes: [
+      { name: '모바일 입력', detail: '얼굴 · 음성 · 설문' },
+      { name: '입력 검증', detail: '크기 · 형식 경계' },
+      { name: 'AI 분석', detail: '요청 메모리 전달' },
+      { name: '진단 기록', detail: '파생 결과만 저장' },
+    ],
+    inspection: ['원본 업로드가 실제 분석 흐름에 필요한지부터 확인합니다.', '파일별 상한과 전송 형식을 AI 호출 전에 검사합니다.', 'AI 응답의 판정과 확률이 계약 범위일 때만 저장합니다.', '진단 상세는 사용자 ID까지 함께 조회합니다.'],
+    metrics: [
+      { label: '얼굴 영상', value: '50MB', detail: 'mp4 · mov 허용 상한' },
+      { label: '음성 파일', value: '20MB', detail: 'wav · pcm · m4a 허용 상한' },
+      { label: '전체 요청', value: '75MB', detail: 'multipart 요청 상한' },
+    ],
+    checks: [
+      { name: '미디어 입력', input: '빈 파일 · 크기 초과 · 형식 불일치', output: 'AI 호출 전 차단' },
+      { name: 'AI 응답', input: '판정 0/1 · 확률 0~1 범위 밖 응답', output: '안전한 upstream 오류 처리' },
+      { name: '진단 상세', input: 'diagnosisId와 요청 사용자', output: '소유자 기록만 반환' },
+    ],
+    record: '로컬 테스트 격리 기준입니다. 실제 AI 수신 서버의 원본 보존 정책과 파일 시그니처 검증은 이 저장소 범위 밖의 확인 항목입니다.',
   },
 };

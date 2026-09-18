@@ -14,12 +14,17 @@ const projects = [
   {
     name: 'Roundy', summary: '성향 퀴즈와 얼굴 인증으로 시작하는 온라인 로테이션 미팅', icon: '/assets/project-roundy-hd.png', href: '#roundy',
     stack: [{ name: 'Java 21', icon: '/assets/tech-icons/java.png' }, { name: 'Spring Boot', icon: '/assets/tech-icons/spring.png' }, { name: 'Redis', icon: '/assets/tech-icons/redis.png' }, { name: 'React', icon: '/assets/tech-icons/react.svg' }],
-    team: '팀 프로젝트', teamDetail: '매칭과 인증 기능 담당', role: ['성향 퀴즈 흐름 연결', '얼굴 인증과 방 접근', '마스킹 미팅 화면 구현'],
+    team: '6명', teamDetail: 'FE 1, BE 3, AI 1, INFRA 1', role: ['성향 퀴즈 흐름 연결', '얼굴 인증과 방 접근', '마스킹 미팅 화면 구현'],
   },
   {
     name: 'SAN', summary: '크롬 확장 프로그램으로 저장한 자료를 다시 찾고 정리하는 서비스', icon: '/assets/project-san-hd.png', href: '#san',
     stack: [{ name: 'Java 21', icon: '/assets/tech-icons/java.png' }, { name: 'Spring Boot', icon: '/assets/tech-icons/spring.png' }, { name: 'PostgreSQL', icon: '/assets/tech-icons/postgresql.svg' }, { name: 'React', icon: '/assets/tech-icons/react.svg' }],
-    team: '7명', teamDetail: 'BE 3, FE 1', role: ['서버 검색 기능 구현', 'AI 입력 보호 설계', '작업 상태 관리'],
+    team: '7명', teamDetail: 'FE 1, BE 3, AI 2, INFRA 1', role: ['서버 검색 기능 구현', 'AI 입력 보호 설계', '작업 상태 관리'],
+  },
+  {
+    name: '다시봄', summary: '얼굴·음성·설문으로 뇌졸중 위험 신호를 확인하는 모바일 앱', icon: '/assets/project-dasibom-hd.png', href: '#dasibom',
+    stack: [{ name: 'React Native', icon: '/assets/tech-icons/react.svg' }, { name: 'Spring Boot', icon: '/assets/tech-icons/spring.png' }, { name: 'AI 분석 API', icon: '/assets/tech-icons/ai-analysis.svg' }, { name: 'MySQL', icon: '/assets/tech-icons/sql.svg' }],
+    team: '4명', teamDetail: 'FE 1, BE 1, AI 2', role: ['서비스 기획과 UI/UX', '카메라·음성 입력 연결', '지도·차트 화면 구현'], brief: true,
   },
 ];
 
@@ -38,7 +43,7 @@ const activities = [
   { date: '2024.09–2025.02', title: 'University of Lancashire', detail: '영국 교환학생 · 최우수 성적' },
   { date: '2025.03–2025.06', title: '구름톤 유니브 4기', detail: '개발자 커뮤니케이션' },
   { date: '2025.07–2026.06', title: '삼성청년SW·AI 아카데미 14기', detail: '자바 · 스프링 기반 백엔드 개발' },
-  { date: '2025.08', title: '한화금융캠퍼스 15기', detail: '금융 실무 교육 · 현직자 멘토링' },
+  { date: '2026.08', title: '한화금융캠퍼스 15기', detail: '금융 실무 교육 · 현직자 멘토링' },
 ];
 const awards = [
   { date: '2025.11', awardedOn: '2025-11', title: 'AICompS 2025 Best Poster Award', issuer: '한국정보처리학회' },
@@ -56,7 +61,7 @@ const skills = [
   { name: 'Spring Boot', icon: '/assets/tech-icons/spring.png', level: 4 },
   { name: 'Spring Security', icon: '/assets/tech-icons/spring.png', level: 3 },
   { name: 'Redis', icon: '/assets/tech-icons/redis.png', level: 3 },
-  { name: 'SQL', icon: '/assets/tech-icons/sql.svg', level: 3 },
+  { name: 'SQL', icon: '/assets/tech-icons/postgresql-elephant.png', level: 3 },
   { name: 'React', icon: '/assets/tech-icons/react.svg', level: 4 },
   { name: 'TypeScript', icon: '/assets/tech-icons/typescript.svg', level: 4 },
 ];
@@ -78,8 +83,9 @@ export default function Home() {
         <a href="#journey" title="개발 여정"><span>02</span><b>개발 여정</b></a>
         <a href="#projects" title="Project Store"><span>03</span><b>Project Store</b></a>
         <a href="#capsure" title="CapSure"><span>04</span><b>CapSure</b></a>
-        <a href="#roundy" title="Roundy"><span>06</span><b>Roundy</b></a>
-        <a href="#san" title="SAN"><span>08</span><b>SAN</b></a>
+        <a href="#roundy" title="Roundy"><span>08</span><b>Roundy</b></a>
+        <a href="#san" title="SAN"><span>12</span><b>SAN</b></a>
+        <a href="#dasibom" title="다시봄"><span>16</span><b>다시봄</b></a>
       </nav>
       <section className="cover-page" data-page id="introduction" aria-labelledby="portfolio-title">
         <div className="profile-intro">
@@ -185,15 +191,15 @@ export default function Home() {
         <div className="index-heading">
           <p className="store-kicker">Selected work</p>
           <h2 id="projects-title">Project Store</h2>
-          <p>프로젝트를 선택하면 아래에서 문제를 풀어낸 과정을 볼 수 있습니다.</p>
+          <p>서비스의 핵심 흐름과 제가 맡은 범위를 간략히 정리했습니다.</p>
         </div>
         <ul className="store-list">
           {projects.map((project) => (
-            <li className="store-item" key={project.name}>
+            <li className={`store-item${project.brief ? ' store-item-brief' : ''}`} key={project.name}>
               <div className="store-project-intro">
                 <span className="store-number" aria-hidden="true">{String(projects.indexOf(project) + 1).padStart(2, '0')}</span>
                 <img className={`store-icon ${project.name === 'CapSure' ? 'project-icon-capsure' : ''}`} src={project.icon} alt="" width="112" height="112" />
-                <div className="store-copy"><h3>{project.name}</h3><p>{project.summary}</p></div>
+                <div className="store-copy">{project.brief && <span className="store-brief-label">Project brief</span>}<h3>{project.name}</h3><p>{project.summary}</p></div>
               </div>
               <div className="store-tech" aria-label={`${project.name} 기술 스택`}>
                 <p>기술 스택</p>
@@ -208,8 +214,8 @@ export default function Home() {
                 <p>담당 범위</p>
                 <ul>{project.role.map((item) => <li key={item}><CheckCircle2 size={13} strokeWidth={2.1} aria-hidden="true" />{item}</li>)}</ul>
               </div>
-              <a className="store-scroll" href={project.href} aria-label={`${project.name} 설명으로 아래로 이동`}>
-                프로젝트 과정 보기 <ArrowDown size={16} strokeWidth={2} aria-hidden="true" />
+              <a className="store-scroll" href={project.href} aria-label={`${project.name} 상세 내용으로 이동`}>
+                자세히 보기 <ArrowDown size={16} strokeWidth={2} aria-hidden="true" />
               </a>
             </li>
           ))}

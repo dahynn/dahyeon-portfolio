@@ -45,4 +45,16 @@ export const serviceOverviews: Record<string, ServiceOverview> = {
     ],
     bridge: '저장한 자료가 많아져도 필요한 결과를 빠짐없이 찾도록 검색 방식을 개선했습니다.',
   },
+  dasibom: {
+    title: 'AI 분석 결과를 확인하고, 가까운 병원을 찾습니다.',
+    platform: 'React Native + AI 분석 API 모바일 앱',
+    audience: '뇌졸중 의심 신호를 확인하고, 다음 행동을 안내받고 싶은 사용자',
+    problem: '민감한 건강 입력은 안전하게 다루고, 결과는 의료 확정 진단이 아닌 다음 행동 안내로 전달해야 합니다.',
+    journey: [
+      { action: '얼굴·음성 입력', result: '카메라와 음성으로 위험 신호 확인에 필요한 입력을 준비합니다.' },
+      { action: '자가 설문', result: '시선, 팔 움직임과 인지 관련 항목을 차례로 확인합니다.' },
+      { action: '결과·병원 탐색', result: '분석 결과와 가까운 병원 정보를 함께 확인합니다.' },
+    ],
+    bridge: '민감 원본을 남기지 않고 AI 분석 결과만 안전하게 연결한 과정을 소개합니다.',
+  },
 };
