@@ -103,7 +103,7 @@
       ]
     }
   ],
-  "resume_from": "사용자 역할·Roundy 인원 답변 반영 또는 원본 화면 캡처 교체",
+  "resume_from": "사용자 역할 답변 반영 또는 원본 화면 캡처 교체",
   "artifacts": [
     "docs/portfolio-redesign/00_설계계획.md",
     "docs/portfolio-redesign/03_화면요청-인계.md",
@@ -113,7 +113,7 @@
   "blockers": [],
   "updated_at": "2026-09-12T05:24:44+09:00",
   "followups": [
-    "Roundy 총 인원과 프로젝트별 담당 범위 사용자 확인",
+    "프로젝트별 개인 담당 범위 사용자 확인",
     "실제 Roundy·SAN 서비스 캡처와 CapSure 결제 대사 캡처"
   ]
 }

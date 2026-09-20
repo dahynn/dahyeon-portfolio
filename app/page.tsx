@@ -83,9 +83,9 @@ export default function Home() {
         <a href="#journey" title="개발 여정"><span>02</span><b>개발 여정</b></a>
         <a href="#projects" title="Project Store"><span>03</span><b>Project Store</b></a>
         <a href="#capsure" title="CapSure"><span>04</span><b>CapSure</b></a>
-        <a href="#roundy" title="Roundy"><span>08</span><b>Roundy</b></a>
-        <a href="#san" title="SAN"><span>12</span><b>SAN</b></a>
-        <a href="#dasibom" title="다시봄"><span>16</span><b>다시봄</b></a>
+        <a href="#roundy" title="Roundy"><span>07</span><b>Roundy</b></a>
+        <a href="#san" title="SAN"><span>10</span><b>SAN</b></a>
+        <a href="#dasibom" title="다시봄"><span>13</span><b>다시봄</b></a>
       </nav>
       <section className="cover-page" data-page id="introduction" aria-labelledby="portfolio-title">
         <div className="profile-intro">
@@ -180,7 +180,7 @@ export default function Home() {
           </ol>
           <div className="journey-destination">
             <img src="/assets/hanwha-life-wordmark-transparent.png" alt="한화생명" width="980" height="360" />
-            <p>쌓아온 경험을,<br /><strong>한화생명에서 이어가겠습니다.</strong></p>
+            <p>쌓아온 경험을,<br /><strong>한화 금융에서 이어가겠습니다.</strong></p>
           </div>
         </div>
       </section>

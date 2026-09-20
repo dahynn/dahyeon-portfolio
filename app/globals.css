@@ -1030,6 +1030,7 @@ a { color:inherit; text-decoration:none; }
   .store-copy p { font-size:.9375rem; }
   .store-scroll { font-size:.875rem; padding:.5rem .875rem; }
 }
+
 @media(prefers-reduced-motion:reduce) {
   html { scroll-behavior:auto; }
 }

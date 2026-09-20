@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './evidence-stories.css';
 
 export const metadata: Metadata = {
   title: '유다현 포트폴리오',

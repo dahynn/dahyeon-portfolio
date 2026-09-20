@@ -1,10 +1,13 @@
 'use client';
 
 /* oxlint-disable next/no-img-element -- 원본 캡처의 비율을 유지합니다. */
-import { ArrowRight, Braces, CreditCard, Database, type LucideIcon, Video } from 'lucide-react';
+import { ArrowRight, Braces, CreditCard, Database, FileText, Image as ImageIcon, Link2, Sparkles, type LucideIcon, Video } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import { projectCases, type ProjectCase } from './projectCases';
 import { projectEvidence } from './projectEvidence';
 import { ServiceOverview } from './ServiceOverview';
+import { EvidenceCaseSlide } from './EvidenceCaseSlides';
+import { portfolioStories } from './portfolioStories';
 
 const stackIcons: Record<string, string> = {
   'Java 21': '/assets/tech-icons/java.png',
@@ -31,6 +34,60 @@ const stackFallbackIcons: Record<string, LucideIcon> = {
   'OpenVidu 2.32': Video,
 };
 
+function SanHeroFlow() {
+  const figureRef = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [replay, setReplay] = useState(0);
+
+  useEffect(() => {
+    const figure = figureRef.current;
+    if (!figure) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setVisible(entry.isIntersecting && entry.intersectionRatio >= .25);
+    }, { threshold: .25 });
+    observer.observe(figure);
+    return () => observer.disconnect();
+  }, []);
+
+  return <figure ref={figureRef} className="case-hero-media project-hero-san-flow" aria-label="자료를 익스텐션에 저장하면 지식 나무로 정리되는 SAN 서비스 흐름">
+    <div key={replay} className={`san-flow-sequence${visible ? ' is-playing' : ''}`}>
+      <div className="san-flow-heading">
+        <span className="san-flow-step san-flow-step-ingest"><b>01</b> 자료를 익스텐션에 넣고</span>
+        <ArrowRight aria-hidden="true" />
+        <span className="san-flow-step san-flow-step-tree"><b>02</b> 지식 나무로 모아보기</span>
+        <ArrowRight aria-hidden="true" />
+        <span className="san-flow-step san-flow-step-til"><b>03</b> TIL로 정리하고</span>
+        <ArrowRight aria-hidden="true" />
+        <span className="san-flow-step san-flow-step-profile"><b>04</b> 마이페이지에서 돌아보기</span>
+      </div>
+      <div className="san-flow-viewport">
+        <div className="san-extension-stage">
+          <img src="/assets/san-extension-ingest-latest.png" alt="텍스트, 이미지, 링크를 드래그해 지식을 저장하는 SAN 크롬 확장 프로그램 화면" width="630" height="1218" />
+          <div className="san-drop-target" aria-hidden="true" />
+          <div className="san-source-tokens" aria-hidden="true">
+            <span className="san-source-token san-source-token-text"><FileText /></span>
+            <span className="san-source-token san-source-token-link"><Link2 /></span>
+            <span className="san-source-token san-source-token-image"><ImageIcon /></span>
+          </div>
+        </div>
+        <div className="san-tree-stage">
+          <img className="san-raw-screen san-raw-screen-main" src="/assets/san-knowledge-tree-latest.png" alt="저장한 자료가 카테고리별 지식 나무로 모인 SAN 화면" width="2880" height="1832" />
+          <p className="san-tree-caption"><Sparkles aria-hidden="true" /> 흩어진 자료가 하나의 지식 나무로</p>
+        </div>
+        <div className="san-til-stage">
+          <img className="san-raw-screen san-raw-screen-main" src="/assets/san-til-latest.png" alt="저장한 지식을 바탕으로 오늘의 학습을 정리하는 SAN TIL 화면" width="2880" height="1839" />
+          <p className="san-tree-caption"><Sparkles aria-hidden="true" /> 저장한 지식을 오늘의 TIL로</p>
+        </div>
+        <div className="san-profile-stage">
+          <img className="san-raw-screen san-raw-screen-main" src="/assets/san-profile-latest.png" alt="학습 기록과 활동을 한눈에 보는 SAN 마이페이지 화면" width="2880" height="1839" />
+          <p className="san-tree-caption"><Sparkles aria-hidden="true" /> 쌓인 기록을 마이페이지에서</p>
+        </div>
+      </div>
+    </div>
+    <button className="san-flow-replay" type="button" onClick={() => setReplay(value => value + 1)} aria-label="자료가 익스텐션에 들어가 지식 나무로 정리되는 흐름 다시 보기">다시 보기 <span aria-hidden="true">↻</span></button>
+  </figure>;
+}
+
 function CaseHeroMedia({ id }: Pick<ProjectCase, 'id'>) {
   if (id === 'capsure') {
     return <figure className="case-hero-media project-hero-capsure-live" aria-label="CapSure 실제 가입 흐름 화면">
@@ -52,15 +109,17 @@ function CaseHeroMedia({ id }: Pick<ProjectCase, 'id'>) {
   if (id === 'roundy') {
     return <figure className="case-hero-media project-hero-roundy-raw" aria-label="Roundy 최신 실제 웹 화면">
       <img className="roundy-raw-screen roundy-raw-screen-landing" src="/assets/roundy-landing-latest.png" alt="Roundy 온라인 로테이션 소개 랜딩 화면" width="2880" height="1810" />
-      <img className="roundy-raw-screen roundy-raw-screen-impression" src="/assets/roundy-first-impression-latest.png" alt="Roundy 첫인상 선택 화면" width="2880" height="1806" />
+      <img className="roundy-raw-screen roundy-raw-screen-meeting" src="/assets/roundy-meeting-latest.png" alt="Roundy 로테이션 미팅 화면" width="2880" height="1906" />
+      <span className="roundy-heart roundy-heart-one" aria-hidden="true">♥</span>
+      <span className="roundy-heart roundy-heart-two" aria-hidden="true">♥</span>
+      <span className="roundy-heart roundy-heart-three" aria-hidden="true">♥</span>
+      <span className="roundy-heart roundy-heart-four" aria-hidden="true">♥</span>
+      <span className="roundy-heart roundy-heart-five" aria-hidden="true">♥</span>
     </figure>;
   }
 
   if (id === 'san') {
-    return <figure className="case-hero-media project-hero-san-raw" aria-label="SAN 최신 실제 웹 화면">
-      <img className="san-raw-screen san-raw-screen-tree" src="/assets/san-knowledge-tree-latest.png" alt="SAN 지식 아카이브 트리 화면" width="2880" height="1832" />
-      <img className="san-raw-screen san-raw-screen-til" src="/assets/san-til-latest.png" alt="SAN TIL 작성과 복습 화면" width="2880" height="1839" />
-    </figure>;
+    return <SanHeroFlow />;
   }
 
   return null;
@@ -316,11 +375,11 @@ const screenExplainers: Record<'capsure' | 'roundy' | 'san', ScreenExplainer[]> 
   roundy: [
     { eyebrow: 'Verification', title: '등록 사진과 실시간 촬영을 대조해 본인인증을 완료하는 화면', frame: 'web', shots: [
       { source: '/assets/roundy-face-matching-latest.png', alt: '등록 사진과 실시간 촬영을 대조하는 Roundy AI 페이스매칭 화면', label: 'AI 본인인증' },
-      { source: '/assets/roundy-first-impression-latest.png', alt: '본인인증 뒤 첫인상을 선택하는 Roundy 화면', label: '첫인상 선택' },
-    ], notes: ['등록 사진과 실시간 촬영 대조', '인증 후 매칭 정보 입력'] },
+    ], notes: ['등록 사진과 실시간 촬영 대조', '인증 완료'] },
     { eyebrow: 'Preference to meeting', title: '선택한 취향이 상대 실루엣의 프로필 태그로 이어지는 화면', frame: 'web', shots: [
       { source: '/assets/roundy-preference-analysis-latest.png', alt: '연애 목표와 데이트 스타일을 선택하는 Roundy 취향 분석 화면', label: '취향 분석' },
       { source: '/assets/roundy-silhouette-meeting-latest.png', alt: '상대 실루엣 위에 취향 태그가 표시되는 Roundy 미팅 화면', label: '실루엣 미팅' },
+      { source: '/assets/roundy-first-impression-latest.png', alt: '상대의 첫인상을 선택하는 Roundy 투표 화면', label: '첫인상 투표' },
     ], notes: ['연애 목표와 데이트 스타일 선택', '상대 실루엣에 취향 태그 표시'], flowLabel: '취향 선택값을 미팅 상대 프로필로 연결' },
   ],
   san: [
@@ -339,7 +398,7 @@ function CaseScreenExplainer({ project, index }: { project: ProjectCase; index: 
   const visual = screenExplainers[project.id as keyof typeof screenExplainers]?.[index - 1];
   if (!visual) return <TechnicalDiagram project={project} index={index} />;
   if (visual.frame === 'web') {
-    return <div className={`raw-png-stack raw-png-stack-${project.id}`} aria-label={visual.title}>
+    return <div className={`raw-png-stack raw-png-stack-${project.id} raw-png-stack-${project.id}-${visual.shots.length}`} aria-label={visual.title}>
       {visual.shots.map(shot => <img key={shot.source} src={shot.source} alt={shot.alt} width="2880" height="1839" />)}
     </div>;
   }
@@ -396,6 +455,7 @@ function ProjectCaseSlide({ project, slide, index }: { project: ProjectCase; sli
 function CaseStudy({ project }: { project: ProjectCase }) {
   const evidence = projectEvidence[project.id];
   const slides = getCaseSlides(project);
+  const stories = portfolioStories[project.id];
   const chromeStoreUrl = project.id === 'san'
     ? 'https://chromewebstore.google.com/detail/san-scrap-and-notify/ladkflfemhhaiimhcpfpockdgjfcnflh?utm_source=item-share-cp'
     : null;
@@ -415,8 +475,8 @@ function CaseStudy({ project }: { project: ProjectCase }) {
           {chromeStoreUrl && <a className="case-external-link" href={chromeStoreUrl} target="_blank" rel="noreferrer">Chrome Web Store에서 SAN 보기 <span aria-hidden="true">↗</span></a>}
           <ServiceOverview id={project.id} name={project.name} variant="hero" />
           <nav className="case-outline" aria-label={`${project.name} 기술 사례 목록`}>
-            <p>구현 사례 <span>각 사례는 한 화면에서 읽습니다.</span></p>
-            <ol>{slides.map((slide, index) => {
+            <p>문제 해결 사례 <span>문제 → 판단 → 구현 → 검증</span></p>
+            <ol>{(stories ?? slides).map((slide, index) => {
               const caseNumber = String(index + 1).padStart(2, '0');
               return <li key={slide.title}><a href={`#${project.id}-case-${caseNumber}`}><span>Case {caseNumber}</span><strong>{slide.title}</strong></a></li>;
             })}</ol>
@@ -424,11 +484,10 @@ function CaseStudy({ project }: { project: ProjectCase }) {
         </header>
       </div>
     </div>
-    <div className="case-container">
+    <div className={`case-container${stories ? ' case-container-evidence' : ''}`}>
       <div className="case-slide-deck" id={`${project.id}-detail`}>
-        {slides.map((slide, index) => <ProjectCaseSlide key={slide.title} project={project} slide={slide} index={index} />)}
+        {stories ? stories.map((story, index) => <EvidenceCaseSlide key={story.visual} projectId={project.id} projectName={project.name} story={story} index={index}/>) : slides.map((slide, index) => <ProjectCaseSlide key={slide.title} project={project} slide={slide} index={index} />)}
       </div>
-      <a className="case-back" href="#projects">프로젝트 목록으로 ↑</a>
     </div>
   </section>;
 }
