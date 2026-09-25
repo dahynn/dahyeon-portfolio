@@ -88,6 +88,67 @@ function SanHeroFlow() {
   </figure>;
 }
 
+const roundyHeroStages = [
+  {
+    number: '01',
+    label: '회원가입 취향 분석',
+    source: '/assets/roundy-preference-analysis-latest.png',
+    alt: '회원가입 과정에서 연애 목표와 데이트 스타일을 선택하는 Roundy 취향 분석 화면',
+  },
+  {
+    number: '02',
+    label: '얼굴 인증',
+    source: '/assets/roundy-face-matching-latest.png',
+    alt: '회원가입 때 등록한 왼쪽 사진과 실시간 촬영을 대조하는 Roundy 얼굴 인증 화면',
+  },
+  {
+    number: '03',
+    label: '마스킹 대화',
+    source: '/assets/roundy-silhouette-meeting-latest.png',
+    alt: '서로의 얼굴을 가린 상태에서 취향 태그를 보며 대화하는 Roundy 마스킹 미팅 화면',
+  },
+  {
+    number: '04',
+    label: '취향 투표',
+    source: '/assets/roundy-first-impression-latest.png',
+    alt: '대화 뒤 상대의 첫인상을 선택하는 Roundy 취향 투표 화면',
+  },
+  {
+    number: '05',
+    label: '최종 얼굴 공개',
+    source: '/assets/roundy-final-reveal-generated.png',
+    alt: '서로의 선택이 확인된 뒤 얼굴을 공개하는 Roundy 최종 화면 예시',
+  },
+] as const;
+
+function RoundyHeroFlow() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const timer = window.setInterval(() => setActiveIndex(current => (current + 1) % roundyHeroStages.length), 4200);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const positions = ['is-current', 'is-next', 'is-far-next', 'is-far-prev', 'is-prev'] as const;
+
+  return <figure className="case-hero-media project-hero-roundy-flow" aria-label="회원가입 취향 분석부터 최종 얼굴 공개까지 이어지는 Roundy 서비스 흐름">
+    <div className="roundy-flow-stage">
+      {roundyHeroStages.map((stage, index) => {
+        const relativeIndex = (index - activeIndex + roundyHeroStages.length) % roundyHeroStages.length;
+        return <figure className={`roundy-flow-frame ${positions[relativeIndex]}`} aria-hidden={relativeIndex !== 0} key={stage.number}>
+        <img src={stage.source} alt={stage.alt} width="2880" height="1839" />
+        <figcaption><b>{stage.number}</b><span>{stage.label}</span></figcaption>
+      </figure>;
+      })}
+    </div>
+    <ol className="roundy-flow-progress" aria-label="Roundy 서비스 단계">
+      {roundyHeroStages.map((stage, index) => <li className={index === activeIndex ? 'is-current' : ''} key={stage.number}><button type="button" onClick={() => setActiveIndex(index)} aria-current={index === activeIndex ? 'step' : undefined}><b>{stage.number}</b><span>{stage.label}</span></button></li>)}
+    </ol>
+    <p className="roundy-flow-note">등록 사진과 실시간 촬영을 대조한 뒤, 마스킹 대화와 상호 선택을 거쳐 얼굴을 공개합니다.</p>
+  </figure>;
+}
+
 function CaseHeroMedia({ id }: Pick<ProjectCase, 'id'>) {
   if (id === 'capsure') {
     return <figure className="case-hero-media project-hero-capsure-live" aria-label="CapSure 실제 가입 흐름 화면">
@@ -107,15 +168,7 @@ function CaseHeroMedia({ id }: Pick<ProjectCase, 'id'>) {
   }
 
   if (id === 'roundy') {
-    return <figure className="case-hero-media project-hero-roundy-raw" aria-label="Roundy 최신 실제 웹 화면">
-      <img className="roundy-raw-screen roundy-raw-screen-landing" src="/assets/roundy-landing-latest.png" alt="Roundy 온라인 로테이션 소개 랜딩 화면" width="2880" height="1810" />
-      <img className="roundy-raw-screen roundy-raw-screen-meeting" src="/assets/roundy-meeting-latest.png" alt="Roundy 로테이션 미팅 화면" width="2880" height="1906" />
-      <span className="roundy-heart roundy-heart-one" aria-hidden="true">♥</span>
-      <span className="roundy-heart roundy-heart-two" aria-hidden="true">♥</span>
-      <span className="roundy-heart roundy-heart-three" aria-hidden="true">♥</span>
-      <span className="roundy-heart roundy-heart-four" aria-hidden="true">♥</span>
-      <span className="roundy-heart roundy-heart-five" aria-hidden="true">♥</span>
-    </figure>;
+    return <RoundyHeroFlow />;
   }
 
   if (id === 'san') {

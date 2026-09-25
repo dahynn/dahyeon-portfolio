@@ -422,6 +422,34 @@ html { scroll-snap-type: y proximity; }
 @keyframes roundy-heart-rise { 0% { opacity: 0; transform: translate3d(0, .7rem, 0) scale(.55) rotate(-8deg); } 17% { opacity: .96; } 70% { opacity: .74; } 100% { opacity: 0; transform: translate3d(.6rem, -8rem, 0) scale(1.15) rotate(12deg); } }
 .project-hero-roundy-raw { overflow:visible; background:transparent; box-shadow:none; }
 .project-hero-roundy-raw .roundy-raw-screen { border-radius:0; box-shadow:none; background:transparent; }
+
+/* Roundy 메인은 기존 소개 레이아웃을 유지하고, 실제 화면 영역만 서비스 순서대로 전환합니다. */
+.project-hero-roundy-flow { position:relative; min-height:min(68svh,39rem); margin:0; isolation:isolate; }
+.roundy-flow-stage { position:absolute; inset:2% 0 16%; overflow:hidden; border:0; border-radius:1.45rem; background:transparent; box-shadow:none; perspective:1300px; transform-style:preserve-3d; }
+.roundy-flow-stage::after { content:none; }
+.roundy-flow-frame { position:absolute; top:5%; left:10%; width:80%; height:84%; margin:0; overflow:visible; border:0; background:transparent; box-shadow:none; opacity:0; transform-origin:50% 70%; backface-visibility:hidden; transition:transform .9s cubic-bezier(.2,.78,.22,1),opacity .7s ease,filter .7s ease; pointer-events:none; }
+.roundy-flow-frame.is-current { z-index:5; opacity:1; transform:translate3d(0,0,0) rotateY(0) scale(1); filter:none; }
+.roundy-flow-frame.is-prev { z-index:3; opacity:.48; transform:translate3d(-58%,2%,-190px) rotateY(28deg) scale(.8); filter:brightness(.55); }
+.roundy-flow-frame.is-next { z-index:3; opacity:.48; transform:translate3d(58%,2%,-190px) rotateY(-28deg) scale(.8); filter:brightness(.55); }
+.roundy-flow-frame.is-far-prev { z-index:1; opacity:0; transform:translate3d(-88%,4%,-310px) rotateY(40deg) scale(.68); }
+.roundy-flow-frame.is-far-next { z-index:1; opacity:0; transform:translate3d(88%,4%,-310px) rotateY(-40deg) scale(.68); }
+.roundy-flow-frame img { display:block; width:100%; height:100%; border-radius:1rem; object-fit:contain; object-position:center; filter:drop-shadow(0 1.15rem 1.6rem #0005); }
+.roundy-flow-frame figcaption { position:absolute; z-index:10; left:1rem; bottom:.75rem; display:flex; align-items:baseline; gap:.65rem; color:#fff; text-shadow:0 .2rem .8rem #000; opacity:0; transition:opacity .35s ease; }
+.roundy-flow-frame.is-current figcaption { opacity:1; }
+.roundy-flow-frame figcaption b { color:#ff5eae; font-size:clamp(1.35rem,2.5vw,2.15rem); font-variant-numeric:tabular-nums; }
+.roundy-flow-frame figcaption span { font-size:clamp(.78rem,1.05vw,.95rem); font-weight:760; }
+.roundy-flow-progress { position:absolute; right:.3rem; bottom:5%; left:.3rem; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:.35rem; margin:0; padding:0; list-style:none; }
+.roundy-flow-progress li { min-width:0; color:#7e8290; font-size:.58rem; font-weight:700; }
+.roundy-flow-progress button { display:grid; grid-template-columns:auto minmax(0,1fr); align-items:center; gap:.3rem; width:100%; padding:0; border:0; background:transparent; color:inherit; font:inherit; text-align:left; cursor:pointer; }
+.roundy-flow-progress button::after { grid-column:1/-1; height:2px; background:#343640; content:''; transition:background .35s ease; }
+.roundy-flow-progress li.is-current { color:#f0f1f4; }
+.roundy-flow-progress li.is-current button::after { background:#f45aa7; }
+.roundy-flow-progress b { color:#f45aa7; font-size:.62rem; }
+.roundy-flow-progress span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.roundy-flow-note { position:absolute; left:.3rem; right:.3rem; bottom:0; margin:0; color:#9fa4b0; font-size:.62rem; line-height:1.45; }
+@media (prefers-reduced-motion:reduce) {
+  .roundy-flow-frame { transition:none; }
+}
 .project-hero-san-flow { position: relative; min-width: 0; margin: 0; isolation: isolate; }
 .san-flow-heading { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.5rem; font-size: clamp(.7rem, 1vw, .85rem); font-weight: 650; }
 .san-flow-heading > svg { width: 1rem; color: #7c9d88; }

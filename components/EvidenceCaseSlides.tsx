@@ -1,5 +1,5 @@
 /* oxlint-disable next/no-img-element -- 사용자 원본 서비스 캡처를 그대로 표시합니다. */
-import { ArrowRight, Check, FileLock2 } from 'lucide-react';
+import { ArrowRight, Check, FileLock2, LockKeyhole } from 'lucide-react';
 import type { PortfolioStory, StoryVisual } from './portfolioStories';
 
 function FlowStep({ number, title, detail, status, tone = '' }: { number: string; title: string; detail: string; status: string; tone?: string }) {
@@ -34,16 +34,42 @@ function DeadlineVisual() {
 
 function RaceVisual() {
   return <div className="story-diagram">
-    <div className="story-visual-label">동시성 제어와 부하 관측 <span>ROUNDY LOAD DASHBOARD</span></div>
-    <figure className="story-observability-capture"><img src="/assets/roundy-load-observability.svg" alt="Roundy 매칭 부하 테스트 관측 대시보드" loading="lazy"/><figcaption>AWS 서울 환경에서 합성 사용자 9,000명을 3회 실행한 관측 기록</figcaption></figure>
-    <ol className="story-event-line"><li><small>현재 상태</small><strong>새 세션 B 배정</strong></li><li><small>늦은 요청</small><strong>이전 세션 정리 요청</strong></li><li><small>대상 세션 불일치</small><strong>현재 세션 B 유지 <Check size={20} aria-hidden="true"/></strong></li></ol>
-    <p className="story-visual-note">인증 소비 → 큐 등록 → 방 배정은 하나의 Lua 실행으로. 정리에는 roomId 비교 조건을 추가했습니다.</p>
+    <div className="story-visual-label">두 요청이 같은 상태에 도착한 순간 <span>REDIS CURRENT ROOM</span></div>
+    <div className="story-race-timeline">
+      <div className="story-race-spine" aria-hidden="true"><i/><i/><i/></div>
+      <article className="story-race-lane story-race-lane-current">
+        <span>t0 · REQUEST 01</span><h4>새 세션 B 배정</h4><p>매칭이 끝나 현재 방을 B로 교체합니다.</p><code>SET currentRoom B</code>
+      </article>
+      <article className="story-race-state">
+        <small>SHARED STATE</small><strong>currentRoom</strong><b>B</b><p>새 방으로 덮어쓴 상태</p>
+      </article>
+      <article className="story-race-lane story-race-lane-late">
+        <span>t1 · REQUEST 02</span><h4>늦은 이전 세션 A 정리</h4><p>정리 대상은 A지만, 삭제 요청은 뒤늦게 도착합니다.</p><code>cleanup(roomId: A)</code>
+      </article>
+      <div className="story-race-guard">
+        <div><small>삭제 전 확인</small><strong>currentRoom == roomId?</strong></div><b>A ≠ B</b><div className="is-resolved"><Check aria-hidden="true" size={20}/><strong>삭제하지 않음</strong><small>새 세션 B 유지</small></div>
+      </div>
+    </div>
+    <div className="story-race-proof">
+      <div><small>BEFORE</small><strong>100/100</strong><span>새 방 유실</span></div><ArrowRight aria-hidden="true"/><div className="is-resolved"><small>AFTER</small><strong>0/100</strong><span>조건부 정리 적용</span></div>
+      <figure className="story-observability-mini"><img src="/assets/roundy-load-observability.svg" alt="Roundy 매칭 부하 테스트 관측 대시보드" loading="lazy"/><figcaption>합성 사용자 9,000명 · 3회 관측</figcaption></figure>
+    </div>
   </div>;
+}
+
+function RoundyCurrentRoomVisual() {
+  return <figure className="roundy-current-room-visual"><img src="/assets/roundy-current-room-diagram.svg" alt="새 세션 B 배정과 늦은 이전 세션 A 정리 요청이 Redis currentRoom에서 충돌하고, 현재 방 비교로 삭제를 막는 흐름"/></figure>;
 }
 
 function VerificationVisual() {
   return <div>
     <figure className="story-service-capture"><img src="/assets/roundy-face-matching-latest.png" alt="등록 사진과 실시간 촬영을 대조하는 라운디 얼굴 인증 화면" width="2880" height="1810" loading="lazy"/><figcaption>프라이버시를 위해 포트폴리오 화면은 모자이크 처리했습니다. 실제 서비스에서는 회원가입 시 등록한 사진과 실시간 촬영을 대조합니다.</figcaption></figure>
+    <ol className="story-auth-machine" aria-label="인증 결과 상태 전이">
+      <li><span>01</span><strong>PENDING</strong><small>아직 소비하지 않음</small></li>
+      <li><span>02</span><strong>VERIFIED</strong><small>본인 요청만 1회 허용</small></li>
+      <li><span>03</span><strong>CONSUMED</strong><small>재사용 불가</small></li>
+    </ol>
+    <div className="story-auth-key"><small>소유권 키</small><code>verify:&#123;userId&#125;:&#123;requestId&#125;</code><span>타인 요청 · 중복 소비 · 늦은 완료 응답 차단</span></div>
     <div className="story-auth-result"><div><span>CONCURRENT CONSUMPTION</span><strong>1<small>/ 16 REQUESTS</small></strong><small>한 번만 소비 승인</small></div><ul><li><Check aria-hidden="true" size={17}/> 소유자의 VERIFIED만 소비</li><li><Check aria-hidden="true" size={17}/> 타인 요청·재소비 차단</li><li><Check aria-hidden="true" size={17}/> 늦은 완료로 재생성하지 않음</li></ul></div>
   </div>;
 }
@@ -106,7 +132,114 @@ function DasibomSourceScreens() {
 
 const visuals: Record<StoryVisual, () => React.JSX.Element> = { payment: PaymentVisual, deadline: DeadlineVisual, race: RaceVisual, verification: VerificationVisual, search: SearchVisual, snapshot: SnapshotVisual, 'health-input': HealthInputVisual, 'health-owner': HealthOwnerVisual };
 
+function RoundyRaceCase({ story }: { story: PortfolioStory }) {
+  return <section className="roundy-race-case" id="roundy-case-01" data-page aria-labelledby="roundy-race-title">
+    <div className="roundy-race-canvas">
+      <header className="roundy-race-header">
+        <div><span>PROBLEM 01</span><small>race condition · 상태 정합성</small></div>
+        <h3 id="roundy-race-title">{story.title}</h3>
+        <strong>{story.takeaway}</strong>
+      </header>
+
+      <div className="roundy-race-board">
+        <article className="roundy-race-copy roundy-race-problem">
+          <h4>01 · PROBLEM</h4>
+          <p>매칭이 끝난 사용자가 이전 방(A)의 종료 요청을 보냈지만, 네트워크 지연으로 요청이 늦게 도착했습니다.</p>
+          <p>지연 자체가 삭제를 만든 것은 아닙니다. 요청의 도착 순서가 뒤집힌 뒤, 과거 정리 요청이 최신 <code>currentRoom=B</code>를 조건 없이 삭제하면서 race condition이 발생했습니다.</p>
+        </article>
+
+        <div className="roundy-race-axis" aria-hidden="true"><span>01</span><i/><span>02</span><i/><span>03</span><i/><span>04</span></div>
+
+        <div className="roundy-race-visual-stack">
+          <RoundyCurrentRoomVisual/>
+        </div>
+
+        <section className="roundy-race-decision-list" aria-label="삭제 판단 기준">
+          <h4>02 · DECISION</h4>
+          <ul><li><Check aria-hidden="true"/> 현재 방과 대상 roomId가 일치하는 경우에만 삭제한다.</li><li><Check aria-hidden="true"/> 일치하지 않으면 삭제하지 않고 새 방을 유지한다.</li><li><Check aria-hidden="true"/> 비교와 삭제를 Redis Lua 안에서 원자적으로 처리한다.</li></ul>
+        </section>
+
+        <article className="roundy-race-copy roundy-race-build-copy">
+          <h4>03 · BUILD</h4>
+          <p>Redis Lua로 인증 소비·큐 등록·방 배정을 묶었듯이, <code>cleanup-room.lua</code>에도 현재 매핑이 정리 대상 roomId와 같은 때만 삭제하는 가드를 추가했습니다.</p>
+          <pre><code><span>local</span> currentRoom = redis.call(<b>&apos;GET&apos;</b>, key) <i>-- 현재 방 조회</i>{'\n'}<span>local</span> targetRoom = ARGV[1] <i>-- 정리 요청 대상</i>{'\n\n'}<span>if</span> currentRoom == targetRoom <span>then</span> <i>-- 여전히 같은 방일 때만</i>{'\n'}  redis.call(<b>&apos;DEL&apos;</b>, key) <i>-- 삭제</i>{'\n'}  <span>return</span> 1{'\n'}<span>else</span>{'\n'}  <span>return</span> 0 <i>-- 새 방이면 유지</i>{'\n'}<span>end</span></code></pre>
+        </article>
+
+        <article className="roundy-race-copy roundy-race-evidence-copy">
+          <h4>04 · EVIDENCE</h4>
+          <p>수정 전에는 100번 중 100번 새 방이 유실됐지만, 가드 적용 후에는 100번 중 0번으로 재현되지 않았습니다.</p>
+          <small>{story.scope}</small>
+        </article>
+
+      </div>
+    </div>
+  </section>;
+}
+
+function RoundyVerificationCase({ story }: { story: PortfolioStory }) {
+  return <section className="roundy-verification-case" id="roundy-case-02" data-page aria-labelledby="roundy-verification-title">
+    <div className="roundy-verification-canvas">
+      <header className="roundy-verification-header">
+        <div><span>PROBLEM 02</span><small>인증 결과 · 소유권과 일회성</small></div>
+        <h3 id="roundy-verification-title">{story.title}</h3>
+        <strong className="roundy-verification-summary">
+          <span>얼굴 인증이 성공해도, 그 결과를 다른 사람이 사용하거나 여러 번 재사용할 수 있는 문제가 있었습니다.</span>
+          <span>인증 결과의 소유권을 사용자에게 귀속시키고, 단 한 번만 사용할 수 있도록 설계하고 구현했습니다.</span>
+        </strong>
+      </header>
+
+      <div className="roundy-verification-board">
+        <div className="roundy-verification-flow">
+          <figure className="roundy-verification-capture" aria-label="얼굴 인증 시도">
+            <div className="roundy-verification-capture-frame">
+              <img src="/assets/roundy-face-matching-latest.png" alt="등록 사진과 실시간 촬영을 대조하는 Roundy 얼굴 인증 화면" width="2880" height="1810" loading="lazy"/>
+            </div>
+            <figcaption>등록 사진과 실시간 촬영을 대조하는 얼굴 인증</figcaption>
+          </figure>
+
+          <ArrowRight className="roundy-verification-arrow" aria-hidden="true"/>
+
+          <section className="roundy-verification-redis" aria-label="사용자 소유의 인증 토큰 발급">
+            <img src="/assets/tech-icons/redis.png" alt="Redis"/>
+            <h4>Redis Gate</h4>
+            <code>verify:&#123;userId&#125;:&#123;requestId&#125;</code>
+            <ul>
+              <li><Check aria-hidden="true"/><span><strong>소유자가 본인인가?</strong><small>요청한 userId와 일치하는가?</small></span></li>
+              <li><Check aria-hidden="true"/><span><strong>상태가 VERIFIED인가?</strong><small>아직 소비되지 않은 상태인가?</small></span></li>
+            </ul>
+          </section>
+
+          <ArrowRight className="roundy-verification-arrow" aria-hidden="true"/>
+
+          <section className="roundy-verification-lifecycle" aria-label="인증 결과 상태 생명주기">
+            <h4>인증 결과 상태 생명주기</h4>
+            <ol>
+              <li><span>•••</span><strong>PENDING</strong><small>인증 진행 중</small></li>
+              <li className="is-verified"><span><Check aria-hidden="true"/></span><strong>VERIFIED</strong><small>본인 확인 완료</small><b>1회 소비</b></li>
+              <li><span>×</span><strong>CONSUMED</strong><small>사용 완료 · 재사용 불가</small></li>
+            </ol>
+            <div className="roundy-verification-blocks">
+              <span><LockKeyhole aria-hidden="true"/><b>타인 요청</b><small>BLOCKED</small><p>다른 사용자의 요청에서<br/>해당 토큰 사용 불가</p></span>
+              <span><LockKeyhole aria-hidden="true"/><b>재소비</b><small>BLOCKED</small><p>이미 사용된 토큰은<br/>다시 사용할 수 없음</p></span>
+              <span><LockKeyhole aria-hidden="true"/><b>늦은 완료</b><small>BLOCKED</small><p>만료된 토큰은<br/>인증 완료 처리 불가</p></span>
+            </div>
+          </section>
+        </div>
+
+        <section className="roundy-verification-notes" aria-label="문제 해결 요약">
+          <article><h4>01 · PROBLEM</h4><p>{story.problem}</p></article>
+          <article><h4>02 · DECISION</h4><p>{story.decision}</p></article>
+          <article><h4>03 · BUILD</h4><p>{story.implementation}</p><pre className="roundy-verification-code"><code><span>if</span> owner == userId &amp;&amp; state == <b>VERIFIED</b> <span>then</span>{'\n'}  consume(result) <i>-- 1회 소비</i>{'\n'}<span>end</span></code></pre></article>
+          <article className="is-evidence"><h4>04 · EVIDENCE</h4><strong>{story.result}</strong><p>{story.scope}</p></article>
+        </section>
+      </div>
+    </div>
+  </section>;
+}
+
 export function EvidenceCaseSlide({ projectId, projectName, story, index }: { projectId: string; projectName: string; story: PortfolioStory; index: number }) {
+  if (projectId === 'roundy' && story.visual === 'race') return <RoundyRaceCase story={story}/>;
+  if (projectId === 'roundy' && story.visual === 'verification') return <RoundyVerificationCase story={story}/>;
   const caseNumber = String(index + 1).padStart(2, '0');
   const id = `${projectId}-case-${caseNumber}`;
   const Visual = visuals[story.visual];

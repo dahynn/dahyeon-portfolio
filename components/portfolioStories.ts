@@ -70,8 +70,8 @@ export const portfolioStories: Partial<Record<string, PortfolioStory[]>> = {
   roundy: [
     {
       visual: 'race', topic: '동시 요청 · 상태 정합성',
-      title: '이전 방의 종료 요청이 새 방을 지우고 있었습니다.',
-      takeaway: '입장을 원자화하는 것만으로는 부족했습니다. 정리할 때도 현재 방과 대상 방을 비교했습니다.',
+      title: '늦게 도착한 이전 방 정리 요청이 새 방까지 삭제했습니다.',
+      takeaway: '매칭 대기열에서 이전 방을 정리하는 과정이 동시에 들어온 새 세션 대기열 등록을 삭제하는 경쟁 상태(Race Condition)를 발생시켰습니다.',
       problem: '매칭 뒤 늦은 poll이 사용자를 다시 대기열에 넣고, 이전 방의 정리 요청이 새 currentRoom을 삭제하는 순서 문제를 재현했습니다.',
       decision: '입장 과정은 한 번에 처리하되, 삭제에는 “지금도 그 방인가?”라는 조건이 별도로 필요했습니다.',
       implementation: 'Redis Lua로 인증 소비·큐 등록·방 배정을 묶었습니다. cleanup-room.lua는 현재 매핑이 정리 대상 roomId와 같을 때만 삭제합니다.',
