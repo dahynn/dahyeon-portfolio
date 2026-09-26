@@ -6,6 +6,11 @@ function FlowStep({ number, title, detail, status, tone = '' }: { number: string
   return <li className={`story-flow-step ${tone}`}><span className="story-step-number">{number}</span><h4>{title}</h4><p>{detail}</p><strong>{status}</strong></li>;
 }
 
+function SentenceLines({ text }: { text: string }) {
+  const sentences = text.match(/.*?(?:[.!?](?=\s|$)|$)/g)?.map((sentence) => sentence.trim()).filter(Boolean) ?? [text];
+  return <>{sentences.map((sentence, index) => <span className="case-sentence-line" key={`${index}-${sentence}`}>{sentence}</span>)}</>;
+}
+
 function PaymentVisual() {
   return <div className="story-diagram">
     <div className="story-visual-label">같은 주문의 복구 과정 <span>합성 PG 예외 주입 시험</span></div>
@@ -145,7 +150,7 @@ function RoundyRaceCase({ story }: { story: PortfolioStory }) {
         <article className="roundy-race-copy roundy-race-problem">
           <h4>01 · PROBLEM</h4>
           <p>매칭이 끝난 사용자가 이전 방(A)의 종료 요청을 보냈지만, 네트워크 지연으로 요청이 늦게 도착했습니다.</p>
-          <p>지연 자체가 삭제를 만든 것은 아닙니다. 요청의 도착 순서가 뒤집힌 뒤, 과거 정리 요청이 최신 <code>currentRoom=B</code>를 조건 없이 삭제하면서 race condition이 발생했습니다.</p>
+          <p>지연 자체가 삭제를 만든 것은 아닙니다.<br/>요청의 도착 순서가 뒤집힌 뒤, 과거 정리 요청이 최신 <code>currentRoom=B</code>를 조건 없이 삭제하면서 race condition이 발생했습니다.</p>
         </article>
 
         <div className="roundy-race-axis" aria-hidden="true"><span>01</span><i/><span>02</span><i/><span>03</span><i/><span>04</span></div>
@@ -200,7 +205,7 @@ function RoundyVerificationCase({ story }: { story: PortfolioStory }) {
           <ArrowRight className="roundy-verification-arrow" aria-hidden="true"/>
 
           <section className="roundy-verification-redis" aria-label="사용자 소유의 인증 토큰 발급">
-            <img src="/assets/tech-icons/redis.png" alt="Redis"/>
+            <img src="/assets/tech-icons/redis.svg" alt="Redis"/>
             <h4>Redis Gate</h4>
             <code>verify:&#123;userId&#125;:&#123;requestId&#125;</code>
             <ul>
@@ -227,11 +232,54 @@ function RoundyVerificationCase({ story }: { story: PortfolioStory }) {
         </div>
 
         <section className="roundy-verification-notes" aria-label="문제 해결 요약">
-          <article><h4>01 · PROBLEM</h4><p>{story.problem}</p></article>
-          <article><h4>02 · DECISION</h4><p>{story.decision}</p></article>
-          <article><h4>03 · BUILD</h4><p>{story.implementation}</p><pre className="roundy-verification-code"><code><span>if</span> owner == userId &amp;&amp; state == <b>VERIFIED</b> <span>then</span>{'\n'}  consume(result) <i>-- 1회 소비</i>{'\n'}<span>end</span></code></pre></article>
-          <article className="is-evidence"><h4>04 · EVIDENCE</h4><strong>{story.result}</strong><p>{story.scope}</p></article>
+          <article><h4>01 · PROBLEM</h4><p><SentenceLines text={story.problem}/></p></article>
+          <article><h4>02 · DECISION</h4><p><SentenceLines text={story.decision}/></p></article>
+          <article><h4>03 · BUILD</h4><p><SentenceLines text={story.implementation}/></p><pre className="roundy-verification-code"><code><span>if</span> owner == userId &amp;&amp; state == <b>VERIFIED</b> <span>then</span>{'\n'}  consume(result) <i>-- 1회 소비</i>{'\n'}<span>end</span></code></pre></article>
+          <article className="is-evidence"><h4>04 · EVIDENCE</h4><strong><SentenceLines text={story.result}/></strong><p>{story.scope}</p></article>
         </section>
+      </div>
+    </div>
+  </section>;
+}
+
+function CapsureBlueprintCase({ story, index }: { story: PortfolioStory; index: number }) {
+  const caseNumber = String(index + 1).padStart(2, '0');
+  const id = `capsure-case-${caseNumber}`;
+  const isPayment = story.visual === 'payment';
+  const diagram = isPayment ? '/assets/capsure-payment-blueprint.svg' : '/assets/capsure-deadline-blueprint.svg';
+  const diagramAlt = isPayment
+    ? 'PG 승인 완료 뒤 내부 저장이 실패했을 때 기존 주문을 대사해 계약과 이벤트까지 복구하는 시스템 흐름'
+    : '유예 종료 시점을 기준으로 수납과 실효 배치가 동일한 계약 상태를 판단하는 시스템 흐름';
+
+  return <section className={`capsure-blueprint-case capsure-blueprint-${story.visual}`} id={id} data-page aria-labelledby={`${id}-title`}>
+    <div className="capsure-blueprint-canvas">
+      <header className="capsure-blueprint-header">
+        <div className="capsure-blueprint-eyebrow">
+          <span>PROBLEM {caseNumber}</span>
+          <small>{story.topic}</small>
+        </div>
+        <h3 id={`${id}-title`}>{story.title}</h3>
+        <p>{story.takeaway}</p>
+      </header>
+
+      <div className="capsure-blueprint-board">
+        <div className="capsure-blueprint-main">
+          <figure className="capsure-blueprint-diagram">
+            <img src={diagram} alt={diagramAlt}/>
+          </figure>
+
+          <section className="capsure-blueprint-rule" aria-label="핵심 원칙">
+            <div><small>{isPayment ? '복구의 기준' : '변하지 않는 원칙'}</small><strong>{isPayment ? '승인은 반복하지 않고, 끊긴 내부 처리를 이어갑니다.' : '입금은 기록하되, 계약을 자동으로 되살리지 않습니다.'}</strong></div>
+            <p>{story.application}</p>
+          </section>
+        </div>
+
+        <aside className="capsure-blueprint-notes" aria-label="문제 해결 요약">
+          <article><h4>01 · PROBLEM</h4><p><SentenceLines text={story.problem}/></p></article>
+          <article><h4>02 · DECISION</h4><p><SentenceLines text={story.decision}/></p></article>
+          <article><h4>03 · BUILD</h4><p><SentenceLines text={story.implementation}/></p></article>
+          <article className="is-evidence"><h4>04 · EVIDENCE</h4><strong><SentenceLines text={story.result}/></strong><p>{story.scope}</p></article>
+        </aside>
       </div>
     </div>
   </section>;
@@ -240,12 +288,13 @@ function RoundyVerificationCase({ story }: { story: PortfolioStory }) {
 export function EvidenceCaseSlide({ projectId, projectName, story, index }: { projectId: string; projectName: string; story: PortfolioStory; index: number }) {
   if (projectId === 'roundy' && story.visual === 'race') return <RoundyRaceCase story={story}/>;
   if (projectId === 'roundy' && story.visual === 'verification') return <RoundyVerificationCase story={story}/>;
+  if (projectId === 'capsure') return <CapsureBlueprintCase story={story} index={index}/>;
   const caseNumber = String(index + 1).padStart(2, '0');
   const id = `${projectId}-case-${caseNumber}`;
   const Visual = visuals[story.visual];
-  return <section className={`evidence-story evidence-story-${projectId} ${index === 1 ? 'evidence-story-dark' : ''}`} id={id} data-page aria-labelledby={`${id}-title`}>
-    <div className="story-inner">
-      <header className="story-heading"><div className="story-eyebrow"><span className="story-project-mark"><img src={`/assets/project-${projectId}-hd.png`} alt="" width="28" height="28" />{projectName} / PROBLEM {caseNumber}</span><span>{story.topic}</span></div><h3 id={`${id}-title`}>{story.title}</h3><p>{story.takeaway}</p></header>
+  return <section className={`evidence-story evidence-story-${projectId} evidence-story-${story.visual} evidence-story-dark`} id={id} data-page aria-labelledby={`${id}-title`}>
+    <div className="story-shell"><div className="story-inner">
+      <header className="story-heading"><div className="story-eyebrow"><span className="story-problem-index">PROBLEM {caseNumber}</span><span className="story-project-mark"><img src={`/assets/project-${projectId}-hd.png`} alt="" width="28" height="28" />{projectName}</span><span>{story.topic}</span></div><h3 id={`${id}-title`}>{story.title}</h3><p>{story.takeaway}</p></header>
       <div className="story-body">
         <div className={`story-visual story-visual-${story.visual}`}><Visual/></div>
         <div className="story-explanation">
@@ -259,6 +308,6 @@ export function EvidenceCaseSlide({ projectId, projectName, story, index }: { pr
         <details className="story-evidence-details"><summary>검증 조건과 범위 보기</summary><p>{story.details}</p></details>
         {story.visual === 'health-owner' ? <DasibomSourceScreens/> : null}
       </div>
-    </div>
+    </div></div>
   </section>;
 }

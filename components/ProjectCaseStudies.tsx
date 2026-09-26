@@ -527,13 +527,6 @@ function CaseStudy({ project }: { project: ProjectCase }) {
           <dl className="case-project-meta"><div><dt>팀 구성</dt><dd>{evidence.team}</dd></div><div><dt>담당 범위</dt><dd>{evidence.responsibility}</dd></div></dl>
           {chromeStoreUrl && <a className="case-external-link" href={chromeStoreUrl} target="_blank" rel="noreferrer">Chrome Web Store에서 SAN 보기 <span aria-hidden="true">↗</span></a>}
           <ServiceOverview id={project.id} name={project.name} variant="hero" />
-          <nav className="case-outline" aria-label={`${project.name} 기술 사례 목록`}>
-            <p>문제 해결 사례 <span>문제 → 판단 → 구현 → 검증</span></p>
-            <ol>{(stories ?? slides).map((slide, index) => {
-              const caseNumber = String(index + 1).padStart(2, '0');
-              return <li key={slide.title}><a href={`#${project.id}-case-${caseNumber}`}><span>Case {caseNumber}</span><strong>{slide.title}</strong></a></li>;
-            })}</ol>
-          </nav>
         </header>
       </div>
     </div>

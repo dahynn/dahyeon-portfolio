@@ -16,7 +16,7 @@ export type ProjectPresentation = {
 export const projectEvidence: Record<string, ProjectPresentation> = {
   capsure: {
     team: '5명, 백엔드 3명, 프론트엔드 1명, 인프라 1명',
-    responsibility: 'FE Lead. 상품 선택, 결제, 구독 확정',
+    responsibility: 'FE Lead · Backend. 상품 선택 UI와 결제·계약 복구 흐름',
     contribution: '결제 상태와 계약 효력 설계, 복구 시나리오 검증과 통합',
     stack: ['Java 21', 'Spring Boot 3.5.11', 'MyBatis 3.0.5', 'PostgreSQL', 'React 19', 'Toss Payments SDK 2'],
     nodes: [

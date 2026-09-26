@@ -1,4 +1,4 @@
-.evidence-story,.roundy-race-case,.roundy-verification-case { --case-inline-gap:clamp(1.7rem,2.8vw,3rem); --case-block-start:clamp(1.15rem,2.25vh,1.7rem); --case-block-end:clamp(1rem,2vh,1.4rem); }
+.evidence-story,.roundy-race-case,.roundy-verification-case,.capsure-blueprint-case { --case-inline-gap:clamp(2.5rem,3.4vw,4rem); --case-block-start:clamp(2.25rem,4.5vh,3rem); --case-block-end:clamp(1.8rem,3.5vh,2.5rem); }
 .evidence-story { --story-accent:#087696; --story-ink:#18232b; --story-muted:#52616c; --story-line:#cdd5d8; --story-surface:#e5edef; color:var(--story-ink); background:#f4f5f1; min-height:100svh; padding:clamp(40px,5vw,76px) clamp(24px,5.5vw,90px); scroll-snap-align:start; }
 .evidence-story-roundy { --story-accent:#b51a70; }
 .evidence-story-san { --story-accent:#087b4d; }
@@ -251,6 +251,83 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
   .evidence-story-roundy:has(.story-visual-race) .story-explanation article>span { font-size:clamp(1rem,1.15vw,1.24rem); font-weight:900; }
   .evidence-story-roundy:has(.story-visual-race) .story-explanation p { font-size:clamp(.92rem,1.12vw,1.15rem); line-height:1.58; }
 }
+
+/* 각 문제의 원인 구조에 맞춘 개별 화면 문법 */
+.story-eyebrow { align-items:center; }
+.story-problem-index { color:var(--story-accent) !important; font-size:clamp(1.15rem,2.1vw,1.95rem); font-weight:950; letter-spacing:.04em !important; line-height:1; }
+.story-project-mark { order:2; }
+.story-eyebrow>span:last-child { order:3; }
+
+/* CapSure 01: 외부 승인 이후의 복구 단계를 왼쪽에서 오른쪽으로 추적합니다. */
+.evidence-story-payment .story-flow-step:nth-child(2) { transform:translateY(1.25rem); }
+.evidence-story-payment .story-flow-step:nth-child(3) { transform:translateY(2.5rem); }
+.evidence-story-payment .story-rule { margin-top:3.1rem; }
+.evidence-story-payment .story-counts { justify-content:space-between; padding-top:.75rem; border-top:1px dashed var(--story-line); }
+
+/* CapSure 02: 배치 시간이 아닌 업무 날짜가 중심이므로 설명과 시간축의 위치를 뒤집습니다. */
+.evidence-story-deadline .story-body { grid-template-columns:minmax(16rem,.82fr) minmax(0,1.28fr); }
+.evidence-story-deadline .story-visual { order:2; }
+.evidence-story-deadline .story-explanation { order:1; padding:0 clamp(1rem,2vw,1.75rem) 0 0; border-right:1px solid var(--story-line); border-left:0; }
+.evidence-story-deadline .story-deadline { position:relative; padding:1.4rem 0; border-block:1px solid var(--story-line); }
+.evidence-story-deadline .story-deadline::after { position:absolute; right:0; bottom:0; left:0; height:3px; background:linear-gradient(90deg,var(--story-accent) 0 48%,#ffba82 52% 100%); content:''; }
+
+/* Roundy 01: 선택한 Case Timeline 방향. 동시 요청과 조건부 정리를 한 인과 흐름으로 읽습니다. */
+.evidence-story-race .story-body { grid-template-columns:minmax(0,1.52fr) minmax(16rem,.72fr); align-items:stretch; }
+.evidence-story-race .story-visual { zoom:1 !important; overflow:visible !important; }
+.story-race-timeline { position:relative; display:grid; grid-template-columns:minmax(0,1fr) minmax(7rem,.42fr) minmax(0,1fr); grid-template-rows:auto auto; gap:1.1rem 1.3rem; padding:1.2rem 0; }
+.story-race-spine { position:absolute; top:.65rem; bottom:.65rem; left:50%; width:2px; background:var(--story-line); transform:translateX(-50%); }
+.story-race-spine i { position:absolute; left:50%; width:.72rem; height:.72rem; border:2px solid var(--story-accent); border-radius:50%; background:var(--story-surface); transform:translate(-50%,-50%); }
+.story-race-spine i:nth-child(1) { top:8%; }.story-race-spine i:nth-child(2) { top:50%; }.story-race-spine i:nth-child(3) { top:92%; }
+.story-race-lane { min-width:0; padding:1rem 1.05rem; border:1px solid var(--story-line); background:color-mix(in srgb,var(--story-surface) 58%,transparent); }
+.story-race-lane-current { grid-column:1; grid-row:1; border-top:3px solid var(--story-accent); }
+.story-race-lane-late { grid-column:3; grid-row:1; border-top:3px solid #c85f63; }
+.story-race-lane span,.story-race-state small,.story-race-guard small { color:var(--story-muted); font-size:.69rem; font-weight:800; letter-spacing:.06em; }
+.story-race-lane h4 { margin:.55rem 0 .35rem; font-size:1.12rem; letter-spacing:-.04em; }
+.story-race-lane p { min-height:2.6em; margin:0 0 .75rem; color:var(--story-muted); font-size:.8rem; line-height:1.45; word-break:keep-all; }
+.story-race-lane code { display:block; padding:.58rem .65rem; border:1px solid var(--story-line); background:var(--story-surface); color:var(--story-ink); font-size:.76rem; }
+.story-race-state { grid-column:2; grid-row:1; align-self:center; display:grid; justify-items:center; gap:.25rem; padding:.85rem .4rem; text-align:center; }
+.story-race-state strong { font-size:.8rem; }.story-race-state b { color:var(--story-accent); font-size:2.8rem; line-height:1; }.story-race-state p { margin:0; color:var(--story-muted); font-size:.68rem; }
+.story-race-guard { grid-column:1/-1; grid-row:2; display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:1rem; padding:1rem 1.1rem; border-left:4px solid var(--story-accent); background:color-mix(in srgb,var(--story-accent) 7%,transparent); }
+.story-race-guard>div { display:grid; gap:.28rem; }.story-race-guard>b { color:var(--story-accent); font-size:1.25rem; }.story-race-guard .is-resolved { grid-template-columns:auto 1fr; align-items:center; color:var(--story-accent); }.story-race-guard .is-resolved svg { grid-row:1/3; }.story-race-guard .is-resolved small { grid-column:2; }
+.story-race-proof { display:grid; grid-template-columns:auto auto auto minmax(12rem,1fr); align-items:center; gap:1rem; margin-top:.8rem; padding-top:.8rem; border-top:1px solid var(--story-line); }
+.story-race-proof>div { display:grid; }.story-race-proof small,.story-race-proof span { color:var(--story-muted); font-size:.65rem; }.story-race-proof strong { font-size:1.75rem; }.story-race-proof .is-resolved strong { color:var(--story-accent); }
+.story-observability-mini { min-width:0; margin:0 0 0 auto; }.story-observability-mini img { display:block; width:100%; max-height:5.8rem; object-fit:contain; object-position:right center; }.story-observability-mini figcaption { margin-top:.2rem; color:var(--story-muted); font-size:.58rem; text-align:right; }
+
+/* Roundy 02: 얼굴 인증 화면은 상태 머신과 소유권 키가 중심입니다. */
+.evidence-story-verification .story-body { grid-template-columns:minmax(16rem,.78fr) minmax(0,1.42fr); }
+.evidence-story-verification .story-visual { order:2; zoom:.82; }
+.evidence-story-verification .story-explanation { order:1; padding:0 clamp(1rem,2vw,1.75rem) 0 0; border-right:1px solid var(--story-line); border-left:0; }
+.evidence-story-verification .story-service-capture img { max-height:18rem; object-fit:cover; object-position:center; }
+.story-auth-machine { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.25rem; margin:1rem 0 0; padding:0; list-style:none; }
+.story-auth-machine li { position:relative; padding:1rem 0; border-block:1px solid var(--story-line); }
+.story-auth-machine li+li::before { position:absolute; left:-.95rem; top:50%; color:var(--story-accent); content:'→'; transform:translateY(-50%); }
+.story-auth-machine span,.story-auth-machine small { display:block; color:var(--story-muted); font-size:.68rem; }.story-auth-machine strong { display:block; margin:.35rem 0; color:var(--story-accent); font-size:1rem; }
+.story-auth-key { display:grid; grid-template-columns:auto minmax(0,1fr); gap:.35rem 1rem; margin-top:.85rem; padding:.7rem .85rem; border-left:3px solid var(--story-accent); background:color-mix(in srgb,var(--story-accent) 8%,transparent); }.story-auth-key small,.story-auth-key span { color:var(--story-muted); font-size:.68rem; }.story-auth-key code { font-size:.78rem; }.story-auth-key span { grid-column:1/-1; }
+
+/* SAN 01: 검색은 전후 성능 비교가 한눈에 보이는 분석판으로 구성합니다. */
+.evidence-story-search .story-body { grid-template-columns:minmax(0,1.42fr) minmax(16rem,.78fr); }
+.evidence-story-search .story-bars { gap:1.1rem; padding:1.1rem; border:1px solid var(--story-line); }
+.evidence-story-search .story-payload { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:.25rem 1rem; }.evidence-story-search .story-payload strong { grid-row:1/3; grid-column:2; margin:0; }.evidence-story-search .story-payload p { margin:0; }
+
+/* SAN 02: 원문·스냅샷·AI 입력을 가로로 읽고, 판단은 아래 세 칸으로 이어집니다. */
+.evidence-story-snapshot .story-body { grid-template-columns:1fr; gap:.85rem; align-content:center; }
+.evidence-story-snapshot .story-visual { zoom:.9; }
+.evidence-story-snapshot .story-explanation { grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.35rem; padding:1rem 0 0; border-top:1px solid var(--story-line); border-left:0; }
+.evidence-story-snapshot .story-explanation article+article { padding-left:1.35rem; border-left:1px solid var(--story-line); }
+.evidence-story-snapshot .story-snapshot article { min-height:8rem; }.evidence-story-snapshot .story-snapshot-lock { padding-inline:1.1rem; border:2px solid var(--story-accent); }
+
+/* 다시봄 01: 입력과 저장 경계를 파이프라인처럼, 02는 소유권 분기처럼 보여줍니다. */
+.evidence-story-health-input .story-flow { gap:2.2rem; }.evidence-story-health-input .story-flow-step { border-top:0; border-left:4px solid var(--story-line); padding:1rem 0 1rem 1rem; }.evidence-story-health-input .story-flow-step.is-resolved { border-color:var(--story-accent); }.evidence-story-health-input .story-flow-step+.story-flow-step::before { left:-1.55rem; top:50%; }
+.evidence-story-health-owner .story-body { grid-template-columns:minmax(16rem,.82fr) minmax(0,1.28fr); }.evidence-story-health-owner .story-visual { order:2; }.evidence-story-health-owner .story-explanation { order:1; padding:0 clamp(1rem,2vw,1.75rem) 0 0; border-right:1px solid var(--story-line); border-left:0; }.evidence-story-health-owner .story-owner-paths article:first-child { border-top:3px solid var(--story-accent); }.evidence-story-health-owner .story-owner-paths article:last-child { border-top:3px solid #d16f74; }
+
+@media (max-width:900px) {
+  .evidence-story-deadline .story-body,.evidence-story-verification .story-body,.evidence-story-health-owner .story-body { grid-template-columns:1fr; }
+  .evidence-story-deadline .story-visual,.evidence-story-verification .story-visual,.evidence-story-health-owner .story-visual { order:1; }
+  .evidence-story-deadline .story-explanation,.evidence-story-verification .story-explanation,.evidence-story-health-owner .story-explanation { order:2; padding:1.25rem 0 0; border-top:1px solid var(--story-line); border-right:0; }
+  .evidence-story-snapshot .story-explanation { grid-template-columns:1fr; }
+  .evidence-story-snapshot .story-explanation article+article { padding-left:0; border-left:0; }
+}
+
 /* Roundy Problem 01 — 선택한 Case Timeline 레퍼런스를 그대로 따르는 전용 기술 보드 */
 .roundy-race-case {
   --rr-bg:#0c1118;
@@ -284,7 +361,7 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
 .roundy-race-rail>a b { font-size:clamp(1.75rem,2.9vw,2.75rem); line-height:1; }.roundy-race-rail>a span { font-size:.72rem; font-weight:850; letter-spacing:.04em; }
 .roundy-race-rail>p { align-self:end; margin:0 0 2.2rem 2rem; color:#7f8a96; font-size:.56rem; line-height:1.6; letter-spacing:.18em; }
 
-.roundy-race-canvas { display:grid; grid-template-rows:auto auto; align-content:center; min-width:0; height:100%; padding:clamp(1.15rem,2.25vh,1.7rem) clamp(1.7rem,2.8vw,3rem) clamp(1rem,2vh,1.4rem); }
+.roundy-race-canvas { display:grid; grid-template-rows:auto minmax(0,1fr); align-content:stretch; min-width:0; height:100%; padding:var(--case-block-start) var(--case-inline-gap) var(--case-block-end); }
 .roundy-race-header { position:relative; padding:0 0 clamp(.8rem,1.5vh,1.15rem); border-bottom:1px solid #3a4651; }
 .roundy-race-header>div { display:flex; align-items:center; gap:1.1rem; border-left:0; padding-left:0; }
 .roundy-race-header>div span { color:var(--rr-pink); font-size:1.05rem; font-weight:950; letter-spacing:.06em; }.roundy-race-header>div small { color:#c1c8cf; font-size:.72rem; font-weight:800; }
@@ -344,7 +421,7 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
   .roundy-race-rail { grid-template-rows:3.8rem 5.5rem 5.5rem 1fr; }
   .roundy-race-rail>a:not(.roundy-race-brand) { padding-left:1.55rem; }
   .roundy-race-rail>a b { font-size:2.1rem; }
-  .roundy-race-canvas { padding:.7rem 2.5rem .6rem; }
+  .roundy-race-canvas { padding:var(--case-block-start) var(--case-inline-gap) var(--case-block-end); }
   .roundy-race-header { padding-bottom:.65rem; }
   .roundy-race-header h3 { margin:.35rem 0 .18rem; font-size:2.35rem; }
   .roundy-race-header>strong { font-size:.78rem; }
@@ -400,7 +477,7 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
   .technical-case-rail { grid-template-rows:3.8rem 5.5rem 5.5rem 1fr; }
   .technical-case-rail>a:not(.technical-case-brand) { padding-left:1.55rem; }
   .technical-case-rail>a b { font-size:2.1rem; }
-  .evidence-story,.roundy-race-case,.roundy-verification-case { --case-inline-gap:2.5rem; --case-block-start:.7rem; --case-block-end:.6rem; }
+  .evidence-story,.roundy-race-case,.roundy-verification-case,.capsure-blueprint-case { --case-inline-gap:2.5rem; --case-block-start:1.75rem; --case-block-end:1.4rem; }
   .story-shell { padding:var(--case-block-start) var(--case-inline-gap) var(--case-block-end); }
 }
 @media (max-width:900px) {
@@ -433,6 +510,7 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
   border-radius:0;
   background:transparent;
 }
+.roundy-race-copy.roundy-race-problem { border-top:0; }
 .roundy-race-copy p,.roundy-race-decision-list li { color:#454b53; }
 .roundy-race-copy code { color:#17191c; }
 .roundy-race-copy h4,.roundy-race-decision-list h4 { color:var(--rr-pink); font-weight:900; }
@@ -643,8 +721,137 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
   .roundy-verification-outcome>span { padding:.48rem .6rem; }
 }
 
+/* Case typography — Roundy와 CapSure의 같은 위계는 같은 크기 토큰을 사용합니다. */
+:where(.roundy-race-case,.roundy-verification-case,.capsure-blueprint-case) {
+  --case-index-size:clamp(1.05rem,1.32vw,1.38rem);
+  --case-title-size:clamp(2rem,3vw,3.15rem);
+  --case-summary-size:clamp(.82rem,1vw,1.08rem);
+  --case-summary-leading:1.5;
+  --case-section-size:clamp(1.1rem,1.45vw,1.55rem);
+  --case-body-size:clamp(.74rem,.82vw,.88rem);
+  --case-body-leading:1.5;
+}
+.roundy-race-header>div span,
+.roundy-verification-header>div>span:first-child,
+.capsure-blueprint-eyebrow>span:first-child { font-size:var(--case-index-size); }
+.roundy-race-header h3,
+.roundy-verification-header h3,
+.capsure-blueprint-header h3 { font-size:var(--case-title-size); }
+.roundy-race-header>strong,
+.roundy-verification-header>strong,
+.capsure-blueprint-header>p { font-size:var(--case-summary-size); line-height:var(--case-summary-leading); }
+.roundy-race-copy h4,
+.roundy-race-decision-list h4,
+.roundy-verification-notes h4,
+.capsure-blueprint-notes h4 { font-size:var(--case-section-size); }
+.roundy-race-copy p,
+.roundy-race-decision-list li,
+.roundy-verification-notes p,
+.roundy-verification-notes strong,
+.capsure-blueprint-notes p,
+.capsure-blueprint-notes strong { font-size:var(--case-body-size); line-height:var(--case-body-leading); }
+.case-sentence-line { display:block; }
+.case-sentence-line+.case-sentence-line { margin-top:.3rem; }
+
+/* CapSure — 선택한 System Blueprint 시안. 각 문제는 독립된 한 화면입니다. */
+.capsure-blueprint-case {
+  --cb-bg:#f3f5f7;
+  --cb-panel:#fff;
+  --cb-ink:#111820;
+  --cb-muted:#66727d;
+  --cb-line:#d7dfe5;
+  --cb-blue:#1179b8;
+  --cb-blue-soft:#edf7fc;
+  box-sizing:border-box;
+  width:100%;
+  height:100dvh;
+  min-height:0;
+  overflow:hidden;
+  color:var(--cb-ink);
+  background:var(--cb-bg);
+  scroll-snap-align:start;
+}
+.capsure-blueprint-canvas {
+  box-sizing:border-box;
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr);
+  width:min(100%,100rem);
+  height:100%;
+  margin:0 auto;
+  padding:var(--case-block-start) var(--case-inline-gap) var(--case-block-end);
+}
+.capsure-blueprint-header { padding:0 0 clamp(.8rem,1.5vh,1.15rem); border-bottom:1px solid #c9cfd4; }
+.capsure-blueprint-eyebrow { display:flex; align-items:center; gap:.8rem; color:var(--cb-muted); font-size:.72rem; font-weight:800; }
+.capsure-blueprint-eyebrow>span:first-child { color:var(--cb-blue); font-weight:950; letter-spacing:.06em; }
+.capsure-blueprint-eyebrow small { margin-left:0; font:inherit; color:var(--cb-muted); }
+.capsure-blueprint-header h3 { margin:clamp(.55rem,1.1vh,.85rem) 0 .25rem; font-weight:900; line-height:1.08; letter-spacing:-.055em; word-break:keep-all; }
+.capsure-blueprint-header>p { margin:0; color:var(--cb-muted); font-weight:550; line-height:1.45; word-break:keep-all; }
+
+.capsure-blueprint-board {
+  display:grid;
+  grid-template-columns:minmax(34rem,1.72fr) minmax(23rem,1fr);
+  grid-template-rows:minmax(0,1fr);
+  align-content:stretch;
+  gap:clamp(1.5rem,2.4vw,2.5rem);
+  min-height:0;
+  padding-top:clamp(.7rem,1.4vh,1rem);
+}
+.capsure-blueprint-main { display:grid; grid-template-rows:auto auto; align-content:center; gap:clamp(.75rem,1.35vh,1rem); min-width:0; min-height:0; }
+.capsure-blueprint-diagram { display:grid; align-items:center; min-width:0; min-height:0; margin:0; }
+.capsure-blueprint-diagram img { display:block; width:100%; height:100%; max-height:60vh; object-fit:contain; }
+.capsure-blueprint-notes { grid-column:2; grid-row:1; display:grid; grid-template-rows:repeat(4,minmax(0,1fr)); align-content:stretch; min-width:0; }
+.capsure-blueprint-notes article { display:flex; flex-direction:column; justify-content:center; padding:clamp(.8rem,1.4vh,1.2rem) clamp(.15rem,.4vw,.4rem); border-top:1px solid #202328; }
+.capsure-blueprint-notes article:first-child { border-top:0; }
+.capsure-blueprint-notes h4 { margin:0 0 clamp(.45rem,.75vh,.65rem); color:var(--cb-blue); font-weight:950; letter-spacing:.035em; }
+.capsure-blueprint-notes p,.capsure-blueprint-notes strong { margin:0; color:#3e4a54; word-break:keep-all; }
+.capsure-blueprint-notes strong { display:block; color:#1f2b35; font-weight:850; }
+.capsure-blueprint-notes .is-evidence p { margin-top:.4rem; color:#75808a; font-size:clamp(.7rem,.76vw,.82rem); }
+
+.capsure-blueprint-rule {
+  display:block;
+  min-width:0;
+  padding:.1rem .35rem 0;
+}
+.capsure-blueprint-rule>div { display:flex; align-items:baseline; gap:.7rem; min-width:0; }
+.capsure-blueprint-rule small { flex:0 0 auto; color:var(--cb-blue); font-size:.72rem; font-weight:900; letter-spacing:.04em; }
+.capsure-blueprint-rule strong { color:#16222c; font-size:clamp(1.04rem,1.16vw,1.22rem); line-height:1.35; word-break:keep-all; }
+.capsure-blueprint-rule p { margin:.3rem 0 0; color:#6a747d; font-size:clamp(.72rem,.78vw,.82rem); line-height:1.45; word-break:keep-all; }
+
+@media (min-width:1051px) and (max-height:860px) {
+  .capsure-blueprint-canvas { padding:var(--case-block-start) var(--case-inline-gap) var(--case-block-end); }
+  .capsure-blueprint-header { padding-bottom:.65rem; }
+  .capsure-blueprint-header h3 { margin:.35rem 0 .18rem; font-size:2.35rem; }
+  .capsure-blueprint-header>p { font-size:var(--case-summary-size); }
+  .capsure-blueprint-board { gap:.55rem 1.7rem; padding-top:.55rem; }
+  .capsure-blueprint-diagram img { max-height:59vh; }
+  .capsure-blueprint-notes h4 { margin-bottom:.32rem; font-size:1.25rem; }
+  .capsure-blueprint-notes p,.capsure-blueprint-notes strong { font-size:.8rem; line-height:1.46; }
+  .capsure-blueprint-notes article { padding:.52rem .15rem; }
+  .capsure-blueprint-rule { padding:.05rem .25rem 0; }
+}
+
+@media (max-width:1050px) {
+  .capsure-blueprint-case { height:auto; min-height:100dvh; overflow:visible; }
+  .capsure-blueprint-canvas { height:auto; padding:1.5rem 1.25rem; }
+  .capsure-blueprint-eyebrow { flex-wrap:wrap; }
+  .capsure-blueprint-eyebrow small { margin-left:0; }
+  .capsure-blueprint-board { grid-template-columns:1fr; grid-template-rows:auto; }
+  .capsure-blueprint-diagram img { max-height:none; }
+  .capsure-blueprint-notes { grid-column:1; grid-row:auto; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .capsure-blueprint-rule>div { align-items:flex-start; flex-direction:column; gap:.2rem; }
+}
+
+@media (max-width:620px) {
+  .capsure-blueprint-header h3 { font-size:2rem; }
+  .capsure-blueprint-board { display:block; }
+  .capsure-blueprint-diagram,.capsure-blueprint-notes,.capsure-blueprint-rule { margin-top:1rem; }
+  .capsure-blueprint-notes { display:grid; grid-template-columns:1fr; }
+  .capsure-blueprint-diagram { overflow-x:auto; }
+  .capsure-blueprint-diagram img { width:58rem; max-width:none; }
+}
+
 /* Roundy Problem 02 — 선택한 가로형 토큰 생명주기 시안. */
-.roundy-verification-canvas { grid-template-rows:auto auto; align-content:center; padding:var(--case-block-start) var(--case-inline-gap) var(--case-block-end); }
+.roundy-verification-canvas { grid-template-rows:auto minmax(0,1fr); align-content:stretch; padding:var(--case-block-start) var(--case-inline-gap) var(--case-block-end); }
 .roundy-verification-header { padding:0 0 clamp(.8rem,1.5vh,1.15rem); border-bottom:1px solid #c9cdd2; }
 .roundy-verification-header>div { gap:1.1rem; font-size:.72rem; }
 .roundy-verification-header>div>span:first-child { font-size:1.05rem; letter-spacing:.06em; }
@@ -652,20 +859,20 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
 .roundy-verification-header>strong { display:block; color:#636a73; font-size:clamp(.82rem,1vw,1.08rem); font-weight:550; }
 .roundy-verification-summary span { display:block; }
 .roundy-verification-summary span+span { margin-top:.12rem; }
-.roundy-verification-board { display:grid; grid-template-columns:1fr; grid-template-rows:max-content max-content; align-content:space-between; min-height:29.5rem; gap:clamp(.9rem,1.7vh,1.25rem); padding-top:clamp(.75rem,1.6vh,1.1rem); }
+.roundy-verification-board { display:grid; grid-template-columns:1fr; grid-template-rows:max-content max-content; align-content:center; height:100%; min-height:0; gap:clamp(2.4rem,5vh,4rem); padding-top:clamp(1.6rem,3.2vh,2.4rem); }
 
-.roundy-verification-flow { display:grid; grid-template-columns:minmax(15rem,.88fr) 1.45rem minmax(15rem,.72fr) 1.45rem minmax(28rem,1.55fr); align-items:center; justify-self:center; gap:clamp(.5rem,.8vw,.85rem); width:min(100%,76rem); min-width:0; }
+.roundy-verification-flow { position:relative; top:-2rem; display:grid; grid-template-columns:minmax(15rem,.88fr) 1.45rem minmax(15rem,.72fr) 1.45rem minmax(28rem,1.55fr); align-items:center; justify-self:center; gap:clamp(.5rem,.8vw,.85rem); width:min(100%,76rem); min-width:0; }
 .roundy-verification-arrow { width:1.25rem; color:#737b84; }
-.roundy-verification-capture { display:grid; align-content:center; justify-items:center; min-width:0; margin:0; }
+.roundy-verification-capture { position:relative; display:grid; align-content:center; justify-items:center; min-width:0; margin:0; }
 .roundy-verification-capture-frame { position:relative; width:90%; aspect-ratio:1.07; overflow:hidden; border-radius:.75rem; background:#f9f8fb; filter:drop-shadow(0 .55rem 1rem #11182712); }
 .roundy-verification-capture img { position:absolute; top:-7%; left:50%; width:182%; max-width:none; max-height:none; height:auto; transform:translateX(-50%); }
-.roundy-verification-capture figcaption { margin-top:.4rem; color:#666d76; font-size:.67rem; font-weight:700; text-align:center; }
+.roundy-verification-capture figcaption { position:absolute; top:calc(100% + .4rem); right:0; left:0; margin:0; color:#666d76; font-size:.67rem; font-weight:700; text-align:center; }
 
-.roundy-verification-redis { box-sizing:border-box; display:grid; justify-items:center; gap:.38rem; min-width:0; padding:.75rem .9rem .85rem; border:1.5px solid var(--rv-pink); border-radius:.85rem; background:#fff9fc; }
+.roundy-verification-redis { box-sizing:border-box; display:grid; align-self:stretch; align-content:center; justify-items:center; gap:.42rem; min-width:0; padding:.95rem .9rem 1rem; border:1.5px solid var(--rv-pink); border-radius:.85rem; background:#fff9fc; }
 .roundy-verification-redis>img { width:3.4rem; height:3.4rem; object-fit:contain; }
-.roundy-verification-redis>h4 { margin:0; color:#17191c; font-size:1.2rem; }
+.roundy-verification-redis>h4 { margin:0; color:#17191c; font-size:1.2rem; font-weight:900; }
 .roundy-verification-redis>code { width:100%; box-sizing:border-box; padding:.48rem .55rem; border-radius:.42rem; color:#c92d75; background:#fde8f2; font-size:clamp(.68rem,.78vw,.8rem); font-weight:850; text-align:center; }
-.roundy-verification-redis>ul { display:grid; width:100%; gap:.42rem; margin:.15rem 0 0; padding:.55rem .62rem; box-sizing:border-box; border:1px solid #f2bfd7; border-radius:.5rem; background:#fff; list-style:none; }
+.roundy-verification-redis>ul { position:relative; top:calc(.45rem + 3px); display:grid; width:100%; gap:.42rem; margin:.15rem 0 0; padding:.55rem .62rem; box-sizing:border-box; border:1px solid #f2bfd7; border-radius:.5rem; background:#fff; list-style:none; }
 .roundy-verification-redis li { display:grid; grid-template-columns:auto minmax(0,1fr); align-items:center; gap:.5rem; }
 .roundy-verification-redis li>svg { width:1.12rem; height:1.12rem; padding:.18rem; border-radius:50%; color:#fff; background:var(--rv-pink); }
 .roundy-verification-redis li>span { display:grid; gap:.04rem; }
@@ -694,9 +901,9 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
 .roundy-verification-blocks small { color:#747c84; font-size:.56rem; font-weight:850; }
 .roundy-verification-blocks p { grid-column:1/-1; margin:.34rem 0 0; color:#737b83; font-size:.53rem; line-height:1.35; text-align:center; }
 
-.roundy-verification-notes { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; padding-top:.75rem; border-top:1px solid #bfc4c8; }
+.roundy-verification-notes { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; padding-top:1rem; border-top:2px solid #202328; }
 .roundy-verification-notes article { min-width:0; padding-right:1rem; }
-.roundy-verification-notes article+article { padding-left:1rem; border-left:1px solid #d4d7da; }
+.roundy-verification-notes article+article { padding-left:1rem; border-left:1px solid #202328; }
 .roundy-verification-notes h4 { margin:0 0 .45rem; color:var(--rv-pink); font-size:clamp(1.1rem,1.45vw,1.55rem); font-weight:950; letter-spacing:.04em; }
 .roundy-verification-notes p,.roundy-verification-notes strong { margin:0; color:#4d555e; font-size:clamp(.74rem,.82vw,.88rem); line-height:1.5; word-break:keep-all; }
 .roundy-verification-notes strong { display:block; color:#202328; font-weight:850; }
@@ -713,10 +920,10 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
   .roundy-verification-canvas { padding:var(--case-block-start) var(--case-inline-gap) var(--case-block-end); }
   .roundy-verification-header { padding-bottom:.65rem; }
   .roundy-verification-header h3 { margin:.35rem 0 .18rem; font-size:2.35rem; }
-  .roundy-verification-header>strong { font-size:.78rem; }
-  .roundy-verification-board { min-height:29rem; gap:.65rem; padding-top:.55rem; }
+  .roundy-verification-header>strong { font-size:var(--case-summary-size); }
+  .roundy-verification-board { min-height:29rem; gap:1.6rem; padding-top:1.15rem; }
   .roundy-verification-flow { grid-template-columns:minmax(14rem,.88fr) 1.1rem minmax(14rem,.72fr) 1.1rem minmax(25rem,1.55fr); gap:.5rem; }
-  .roundy-verification-redis { gap:.25rem; padding:.55rem .7rem .6rem; }
+  .roundy-verification-redis { gap:.32rem; padding:.9rem .7rem .95rem; }
   .roundy-verification-redis>img { width:2.8rem; height:2.8rem; }
   .roundy-verification-redis>h4 { font-size:1rem; }
   .roundy-verification-redis>code { padding:.35rem .45rem; }
@@ -728,7 +935,7 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
   .roundy-verification-blocks { padding-top:.8rem; }
   .roundy-verification-blocks::before { top:.25rem; }
   .roundy-verification-blocks>span::before { top:-.58rem; height:.58rem; }
-  .roundy-verification-notes { padding-top:.55rem; }
+  .roundy-verification-notes { padding-top:1rem; }
   .roundy-verification-notes h4 { margin-bottom:.4rem; font-size:1.14rem; }
   .roundy-verification-notes p,.roundy-verification-notes strong { font-size:.74rem; line-height:1.42; }
   .roundy-verification-notes code { margin-top:.25rem; font-size:.58rem; }
