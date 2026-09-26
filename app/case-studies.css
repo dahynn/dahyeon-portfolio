@@ -451,8 +451,9 @@ html { scroll-snap-type: y proximity; }
   .roundy-flow-frame { transition:none; }
 }
 .project-hero-san-flow { position: relative; min-width: 0; margin: 0; isolation: isolate; }
-.san-flow-heading { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.5rem; font-size: clamp(.7rem, 1vw, .85rem); font-weight: 650; }
-.san-flow-heading > svg { width: 1rem; color: #7c9d88; }
+.san-flow-heading { display:grid; justify-content:center; gap:.65rem; margin-bottom:1.5rem; font-size:clamp(.7rem,1vw,.85rem); font-weight:650; }
+.san-flow-heading-row { display:flex; align-items:center; justify-content:center; gap:.6rem; }
+.san-flow-heading-row > svg { width:1rem; color:#7c9d88; }
 .san-flow-step { display: inline-flex; align-items: center; gap: .4rem; color: #a4b8ac; }
 .san-flow-step b { color: #66e39a; font-size: .65rem; }
 .san-flow-step-ingest { color: #e1f8e9; }

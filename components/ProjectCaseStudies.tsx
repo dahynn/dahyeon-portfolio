@@ -52,13 +52,16 @@ function SanHeroFlow() {
   return <figure ref={figureRef} className="case-hero-media project-hero-san-flow" aria-label="자료를 익스텐션에 저장하면 지식 나무로 정리되는 SAN 서비스 흐름">
     <div key={replay} className={`san-flow-sequence${visible ? ' is-playing' : ''}`}>
       <div className="san-flow-heading">
-        <span className="san-flow-step san-flow-step-ingest"><b>01</b> 자료를 익스텐션에 넣고</span>
-        <ArrowRight aria-hidden="true" />
-        <span className="san-flow-step san-flow-step-tree"><b>02</b> 지식 나무로 모아보기</span>
-        <ArrowRight aria-hidden="true" />
-        <span className="san-flow-step san-flow-step-til"><b>03</b> TIL로 정리하고</span>
-        <ArrowRight aria-hidden="true" />
-        <span className="san-flow-step san-flow-step-profile"><b>04</b> 마이페이지에서 돌아보기</span>
+        <div className="san-flow-heading-row">
+          <span className="san-flow-step san-flow-step-ingest"><b>01</b> 자료를 익스텐션에 넣고</span>
+          <ArrowRight aria-hidden="true" />
+          <span className="san-flow-step san-flow-step-tree"><b>02</b> 지식 나무로 모아보기</span>
+        </div>
+        <div className="san-flow-heading-row">
+          <span className="san-flow-step san-flow-step-til"><b>03</b> TIL로 정리하고</span>
+          <ArrowRight aria-hidden="true" />
+          <span className="san-flow-step san-flow-step-profile"><b>04</b> 유사 지식을 확인하며 지식 성장하기</span>
+        </div>
       </div>
       <div className="san-flow-viewport">
         <div className="san-extension-stage">

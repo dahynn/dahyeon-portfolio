@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 620" role="img" aria-labelledby="title desc">
+  <title id="title">카드 요약 순차 처리와 병렬 처리 비교</title>
+  <desc id="desc">위쪽은 카드 세 장을 차례로 요약한 흐름이고 아래쪽은 같은 카드 세 장을 동시에 요약한 흐름</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#18e486"/></marker>
+    <marker id="arrowMuted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#71887c"/></marker>
+    <style>
+      text{font-family:Pretendard,"Noto Sans KR",Arial,sans-serif}.mono{font-family:"SFMono-Regular",Consolas,monospace}.kicker{font-size:15px;font-weight:950;letter-spacing:1.2px;fill:#9aaca3}.head{font-size:17px;font-weight:900;fill:#f3f8f5}.sub{font-size:13px;font-weight:650;fill:#8ea198}.metric{font-size:12px;font-weight:900;letter-spacing:1px;fill:#7e9489}
+    </style>
+  </defs>
+
+  <text x="28" y="27" class="metric" fill="#18e486">PAIRED BENCHMARK</text>
+
+  <g transform="translate(28 55)">
+    <rect width="924" height="218" rx="14" fill="#08140f" stroke="#28473a"/>
+    <text x="24" y="34" class="kicker">BEFORE · SEQUENTIAL</text>
+    <text x="24" y="58" class="sub">카드 요약을 하나씩 순서대로 호출</text>
+    <g transform="translate(28 92)">
+      <rect width="160" height="84" rx="11" fill="#0c1d15" stroke="#315747"/>
+      <text x="80" y="34" class="head" text-anchor="middle">CARD 01</text><text x="80" y="62" class="mono" font-size="15" font-weight="850" fill="#aebfb6" text-anchor="middle">5.21s</text>
+    </g>
+    <path d="M198 134H242" stroke="#71887c" stroke-width="2" marker-end="url(#arrowMuted)"/>
+    <g transform="translate(254 92)">
+      <rect width="160" height="84" rx="11" fill="#0c1d15" stroke="#315747"/>
+      <text x="80" y="34" class="head" text-anchor="middle">CARD 02</text><text x="80" y="62" class="mono" font-size="15" font-weight="850" fill="#aebfb6" text-anchor="middle">6.32s</text>
+    </g>
+    <path d="M424 134H468" stroke="#71887c" stroke-width="2" marker-end="url(#arrowMuted)"/>
+    <g transform="translate(480 92)">
+      <rect width="160" height="84" rx="11" fill="#0c1d15" stroke="#315747"/>
+      <text x="80" y="34" class="head" text-anchor="middle">CARD 03</text><text x="80" y="62" class="mono" font-size="15" font-weight="850" fill="#aebfb6" text-anchor="middle">6.15s</text>
+    </g>
+    <text x="684" y="120" class="metric">TOTAL</text><text x="684" y="157" class="mono" font-size="30" font-weight="900" fill="#f2f7f4">17.68s</text>
+  </g>
+
+  <path d="M490 284V326" stroke="#18e486" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(28 338)">
+    <rect width="924" height="250" rx="14" fill="#091b13" stroke="#17834f" stroke-width="1.6"/>
+    <text x="24" y="34" class="kicker"><tspan fill="#18e486">AFTER</tspan><tspan> · PARALLEL</tspan></text>
+    <text x="24" y="58" class="sub">서로 독립적인 카드 요약을 동시에 호출</text>
+    <g transform="translate(100 82)">
+      <rect width="170" height="84" rx="11" fill="#0b2518" stroke="#16945a"/>
+      <text x="85" y="34" class="head" text-anchor="middle">CARD 01</text><text x="85" y="62" class="mono" font-size="15" font-weight="850" fill="#aaf5ca" text-anchor="middle">6.92s</text>
+    </g>
+    <g transform="translate(377 82)">
+      <rect width="170" height="84" rx="11" fill="#0b2518" stroke="#16945a"/>
+      <text x="85" y="34" class="head" text-anchor="middle">CARD 02</text><text x="85" y="62" class="mono" font-size="15" font-weight="850" fill="#aaf5ca" text-anchor="middle">6.91s</text>
+    </g>
+    <g transform="translate(654 82)">
+      <rect width="170" height="84" rx="11" fill="#0b2518" stroke="#16945a"/>
+      <text x="85" y="34" class="head" text-anchor="middle">CARD 03</text><text x="85" y="62" class="mono" font-size="15" font-weight="850" fill="#aaf5ca" text-anchor="middle">6.87s</text>
+    </g>
+    <path d="M185 166v18h554v-18M462 184v13" fill="none" stroke="#18e486" stroke-width="2"/>
+    <text x="462" y="217" class="metric" text-anchor="middle">TOTAL</text><text x="462" y="243" class="mono" font-size="28" font-weight="900" fill="#18e486" text-anchor="middle">6.92s</text>
+  </g>
+</svg>

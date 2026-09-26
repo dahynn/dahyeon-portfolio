@@ -65,8 +65,8 @@ export const projectEvidence: Record<string, ProjectPresentation> = {
   },
   san: {
     team: '7명 · FE 1 · BE 3 · AI 2 · INFRA 1',
-    responsibility: '서버 검색, AI 입력 보호, 작업 상태 관리',
-    contribution: '검색 조건과 결과 검증, 입력 근거와 실패 재시도 흐름 정리',
+    responsibility: '비동기 감사 추적, 로그인 브리지, AI 요약 병렬화',
+    contribution: '요청 맥락 복원, 1회용 Ticket 교환, AI 호출 성능 검증',
     stack: ['Java 21', 'Spring Boot 3.5.14', 'Spring Data JPA', 'PostgreSQL', 'Redis', 'React 18.3', 'TypeScript 5.9'],
     nodes: [
       { name: '대시보드', detail: '검색어·필터·페이지' },

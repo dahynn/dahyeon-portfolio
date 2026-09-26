@@ -135,7 +135,64 @@ function DasibomSourceScreens() {
   </details>;
 }
 
-const visuals: Record<StoryVisual, () => React.JSX.Element> = { payment: PaymentVisual, deadline: DeadlineVisual, race: RaceVisual, verification: VerificationVisual, search: SearchVisual, snapshot: SnapshotVisual, 'health-input': HealthInputVisual, 'health-owner': HealthOwnerVisual };
+function SanAuditVisual() {
+  return <figure className="san-svg-visual"><img src="/assets/san-async-audit-flow.svg?v=3" alt="Request Snapshot을 Queue와 Worker로 전달하고 Audit Log를 남긴 뒤 이전 Context를 복원하는 비동기 감사 흐름"/></figure>;
+}
+
+function SanTicketVisual() {
+  return <figure className="san-svg-visual"><img src="/assets/san-login-ticket-flow.svg?v=5" alt="Dashboard에서 발급한 One-Time Ticket을 Redis에 저장하고 getAndDelete로 한 번만 소비해 Chrome Extension 로그인으로 교환하는 흐름"/></figure>;
+}
+
+function SanBenchmarkVisual() {
+  return <figure className="san-svg-visual"><img src="/assets/san-ai-parallel-benchmark.svg?v=5" alt="같은 입력의 카드 요약을 위쪽 Sequential과 아래쪽 Parallel로 비교한 Paired Benchmark"/></figure>;
+}
+
+function SanBenchmarkCase({ story, caseNumber, id }: { story: PortfolioStory; caseNumber: string; id: string }) {
+  return <section className="san-evidence-case san-evidence-san-benchmark" id={id} data-page aria-labelledby={`${id}-title`}>
+    <div className="san-evidence-canvas san-benchmark-canvas">
+      <header className="san-evidence-header">
+        <div><span>PROBLEM {caseNumber}</span><small>{story.topic}</small></div>
+        <h3 id={`${id}-title`}>{story.title}</h3>
+        <p><SentenceLines text={story.takeaway}/></p>
+      </header>
+      <div className="san-benchmark-main">
+        <section className="san-benchmark-left" aria-label="문제 해결 요약">
+          <article><h4>01 · PROBLEM</h4><p><SentenceLines text={story.problem}/></p></article>
+          <article><h4>02 · DECISION</h4><p><SentenceLines text={story.decision}/></p></article>
+          <article><h4>03 · BUILD</h4><p><SentenceLines text={story.implementation}/></p></article>
+          <article className="is-evidence"><h4>04 · EVIDENCE</h4><strong><SentenceLines text={story.result}/></strong>{story.scope && <p>{story.scope}</p>}</article>
+        </section>
+        <div className="san-evidence-stage"><SanBenchmarkVisual/></div>
+      </div>
+    </div>
+  </section>;
+}
+
+function SanEvidenceCase({ story, index }: { story: PortfolioStory; index: number }) {
+  const caseNumber = String(index + 1).padStart(2, '0');
+  const id = `san-case-${caseNumber}`;
+  if (story.visual === 'san-benchmark') return <SanBenchmarkCase story={story} caseNumber={caseNumber} id={id}/>;
+  const Visual = story.visual === 'san-audit' ? SanAuditVisual : story.visual === 'san-ticket' ? SanTicketVisual : SanBenchmarkVisual;
+
+  return <section className={`san-evidence-case san-evidence-${story.visual}`} id={id} data-page aria-labelledby={`${id}-title`}>
+    <div className="san-evidence-canvas">
+      <header className="san-evidence-header">
+        <div><span>PROBLEM {caseNumber}</span><small>{story.topic}</small></div>
+        <h3 id={`${id}-title`}>{story.title}</h3>
+        <p><SentenceLines text={story.takeaway}/></p>
+      </header>
+      <div className="san-evidence-stage"><Visual/></div>
+      <section className="san-evidence-notes" aria-label="문제 해결 요약">
+        <article><h4>01 · PROBLEM</h4><p><SentenceLines text={story.problem}/></p></article>
+        <article><h4>02 · DECISION</h4><p><SentenceLines text={story.decision}/></p></article>
+        <article><h4>03 · BUILD</h4><p><SentenceLines text={story.implementation}/></p></article>
+        <article className="is-evidence"><h4>04 · EVIDENCE</h4><strong><SentenceLines text={story.result}/></strong>{story.scope && <p>{story.scope}</p>}</article>
+      </section>
+    </div>
+  </section>;
+}
+
+const visuals: Partial<Record<StoryVisual, () => React.JSX.Element>> = { payment: PaymentVisual, deadline: DeadlineVisual, race: RaceVisual, verification: VerificationVisual, search: SearchVisual, snapshot: SnapshotVisual, 'health-input': HealthInputVisual, 'health-owner': HealthOwnerVisual };
 
 function RoundyRaceCase({ story }: { story: PortfolioStory }) {
   return <section className="roundy-race-case" id="roundy-case-01" data-page aria-labelledby="roundy-race-title">
@@ -289,9 +346,11 @@ export function EvidenceCaseSlide({ projectId, projectName, story, index }: { pr
   if (projectId === 'roundy' && story.visual === 'race') return <RoundyRaceCase story={story}/>;
   if (projectId === 'roundy' && story.visual === 'verification') return <RoundyVerificationCase story={story}/>;
   if (projectId === 'capsure') return <CapsureBlueprintCase story={story} index={index}/>;
+  if (projectId === 'san') return <SanEvidenceCase story={story} index={index}/>;
   const caseNumber = String(index + 1).padStart(2, '0');
   const id = `${projectId}-case-${caseNumber}`;
   const Visual = visuals[story.visual];
+  if (!Visual) return null;
   return <section className={`evidence-story evidence-story-${projectId} evidence-story-${story.visual} evidence-story-dark`} id={id} data-page aria-labelledby={`${id}-title`}>
     <div className="story-shell"><div className="story-inner">
       <header className="story-heading"><div className="story-eyebrow"><span className="story-problem-index">PROBLEM {caseNumber}</span><span className="story-project-mark"><img src={`/assets/project-${projectId}-hd.png`} alt="" width="28" height="28" />{projectName}</span><span>{story.topic}</span></div><h3 id={`${id}-title`}>{story.title}</h3><p>{story.takeaway}</p></header>
