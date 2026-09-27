@@ -15,32 +15,6 @@ export type PortfolioStory = {
 };
 
 export const portfolioStories: Partial<Record<string, PortfolioStory[]>> = {
-  dasibom: [
-    {
-      visual: 'health-input', topic: '민감한 입력 · AI 응답 검증',
-      title: '분석에 쓴 원본과, 기록에 남길 결과를 분리했습니다.',
-      takeaway: '프로젝트에서 원본 업로드 경로를 제거하고, 입력과 AI 응답을 각각 검사하는 경계를 검증했습니다.',
-      problem: '기존 진단 경로는 AI 호출 전 얼굴·음성 파일을 S3에 올렸습니다. 분석 뒤에도 원본을 보관해야 하는 이유는 확인되지 않았습니다.',
-      decision: '원본은 분석에 전달하되 서비스 저장소에는 남기지 않고, 허용 범위의 판정값·확률만 기록하는 기준입니다.',
-      implementation: 'S3 업로드 의존을 제거했습니다. 형식·용량은 AI 호출 전에, 판정값 0/1과 유한한 확률 0~1은 저장 전에 검사합니다. 외부 오류는 일반화된 코드로 반환합니다.',
-      result: '잘못된 입력은 AI 호출 전 차단. 판정값 2·확률 1.3 응답은 기록 저장 차단.',
-      scope: 'Mockito · H2 · 전체 백엔드 테스트 11건 통과',
-      details: '2026-09-19 백엔드 테스트를 강제 재실행해 5개 클래스의 11건이 실패·오류·스킵 없이 통과했습니다. 영상 mp4/mov 최대 50MB, 음성 wav/pcm/m4a 최대 20MB, 전체 multipart 요청 75MB 기준으로 검사합니다. 검증 대상은 서비스의 입력·응답 처리와 저장 경로입니다.',
-      application: '민감한 자료를 분석에 사용하는 목적과 서비스에 보관할 대상을 분리하는 관점입니다.',
-    },
-    {
-      visual: 'health-owner', topic: '기록 조회 · 소유권 검사',
-      title: '로그인했어도, 다른 사람의 기록은 열 수 없게.',
-      takeaway: '진단 ID만 찾던 조회를 사용자 ID까지 함께 확인하도록 바꾸고, 타인 요청의 차단 범위를 검증했습니다.',
-      problem: '진단 ID만 조회하면 요청자와 기록 소유자가 연결되지 않습니다. 다른 사람의 ID를 아는 요청이 상세 기록으로 이어질 여지가 있었습니다.',
-      decision: '기록의 존재 여부보다 소유권을 먼저 확인합니다. 일치하지 않으면 연관 병원 정보 조회도 진행하지 않습니다.',
-      implementation: '인증 사용자 ID를 컨트롤러에서 서비스로 전달합니다. findByIdAndUserId로 기록을 조회하고, 일치하지 않으면 DIAGNOSIS_NOT_FOUND로 처리합니다.',
-      result: '타인 기록 요청은 404. 이때 연관 병원 저장소 조회도 호출되지 않음을 확인.',
-      scope: 'Mockito · 소유권 서비스·컨트롤러 테스트 각 1건',
-      details: 'DiagnosisQueryServiceTest에서 타인 진단 ID 요청의 404 응답과 병원 저장소 미호출을 확인했습니다. DiagnosisControllerTest에서는 인증 사용자 ID가 서비스로 전달되는지 검사했습니다. 서비스·컨트롤러 단위의 검증입니다.',
-      application: '개인별 청구·건강 관련 기록을 조회할 때 로그인 여부와 대상 데이터의 소유권을 따로 검사하는 관점입니다.',
-    },
-  ],
   capsure: [
     {
       visual: 'payment', topic: '결제 복구 · 멱등성',
@@ -71,7 +45,7 @@ export const portfolioStories: Partial<Record<string, PortfolioStory[]>> = {
     {
       visual: 'race', topic: '동시 요청 · 상태 정합성',
       title: '늦게 도착한 이전 방 정리 요청이 새 방까지 삭제했습니다.',
-      takeaway: '매칭 대기열에서 이전 방을 정리하는 과정이 동시에 들어온 새 세션 대기열 등록을 삭제하는 경쟁 상태(Race Condition)를 발생시켰습니다.',
+      takeaway: '새 세션 B 배정 → 지연된 이전 세션 A 정리 순서에서 충돌했습니다. 현재 방이 정리 대상과 같을 때만 삭제하도록 고쳤습니다.',
       problem: '매칭 뒤 늦은 poll이 사용자를 다시 대기열에 넣고, 이전 방의 정리 요청이 새 currentRoom을 삭제하는 순서 문제를 재현했습니다.',
       decision: '입장 과정은 한 번에 처리하되, 삭제에는 “지금도 그 방인가?”라는 조건이 별도로 필요했습니다.',
       implementation: 'Redis Lua로 인증 소비·큐 등록·방 배정을 묶었습니다. cleanup-room.lua는 현재 매핑이 정리 대상 roomId와 같을 때만 삭제합니다.',
@@ -120,13 +94,13 @@ export const portfolioStories: Partial<Record<string, PortfolioStory[]>> = {
     },
     {
       visual: 'san-benchmark', topic: 'AI 요약 · 지연 측정',
-      title: '실제 AI 호출을 병렬화해 처리 시간을 약 59% 단축했습니다.',
+      title: '실제 AI 카드 요약을 병렬화해 중앙값 기준 약 59% 단축했습니다.',
       takeaway: '같은 모델과 같은 입력으로 순차 처리와 병렬 처리를 짝지어 비교했습니다. 평균과 p95가 함께 줄어드는지 확인해 카드 요약 단계의 개선만 증명했습니다.',
       problem: '카드 3개의 AI 요약을 순차 호출하면서 각 응답 대기가 그대로 누적됐습니다. 카드 요약 단계만 평균 17.68초까지 길어졌습니다.',
       decision: '모델·입력·카드 수를 동일하게 고정했습니다. 실행 순서의 영향을 줄이기 위해 AB/BA를 균형 배치한 paired benchmark로 비교했습니다.',
       implementation: '서로 독립적인 카드 요약 3건을 CompletableFuture로 동시에 실행했습니다. gpt-5-mini, 합성 카드 3개, 10쌍·총 20회 조건을 동일하게 유지했습니다.',
       result: '평균 17.68s → 6.92s, p95 21.30s → 8.59s, 중앙값 기준 59.45% 단축.',
-      scope: '성공 10/10 · 카드 요약 단계만 측정 · 전체 TIL·UI 응답 시간 제외',
+      scope: '측정: 동일 합성 카드 3개 · 10쌍 · 카드 요약 단계만 / 제외: 전체 TIL·UI 응답 시간',
       details: '2026-09-14 paired benchmark JSON과 보고서의 결과입니다. 동일 모델, 동일 합성 카드 3개, AB/BA balanced 10 pairs(20 runs) 조건입니다. 최종 TIL 통합, embedding, Java 백엔드와 UI, 운영 SLA나 사용자 체감 속도는 측정 범위에 포함하지 않았습니다.',
       application: '자동화 작업의 지연을 실제 호출과 동일 조건의 반복 측정으로 관리하는 관점입니다.',
     },

@@ -91,7 +91,7 @@ export const projectEvidence: Record<string, ProjectPresentation> = {
   dasibom: {
     team: '4명 · FE 1 · BE 1 · AI 2',
     responsibility: '서비스 기획·UI/UX, React Native 화면과 카메라·음성·지도·차트 연동',
-    contribution: '민감 미디어 최소수집, 입력·응답 계약과 소유자 조회 경계 정리',
+    contribution: 'React Native 앱 화면과 카메라·음성·지도 흐름',
     stack: ['React Native', 'Spring Boot', 'MySQL', 'AI 분석 API'],
     nodes: [
       { name: '모바일 입력', detail: '얼굴 · 음성 · 설문' },

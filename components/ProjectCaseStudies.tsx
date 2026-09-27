@@ -1,7 +1,7 @@
 'use client';
 
 /* oxlint-disable next/no-img-element -- 원본 캡처의 비율을 유지합니다. */
-import { ArrowRight, Braces, CreditCard, Database, FileText, Image as ImageIcon, Link2, Sparkles, type LucideIcon, Video } from 'lucide-react';
+import { ArrowRight, Braces, ChevronDown, CreditCard, Database, FileText, Image as ImageIcon, Link2, Sparkles, type LucideIcon, Video } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { projectCases, type ProjectCase } from './projectCases';
 import { projectEvidence } from './projectEvidence';
@@ -65,7 +65,7 @@ function SanHeroFlow() {
       </div>
       <div className="san-flow-viewport">
         <div className="san-extension-stage">
-          <img src="/assets/san-extension-ingest-latest.png" alt="텍스트, 이미지, 링크를 드래그해 지식을 저장하는 SAN 크롬 확장 프로그램 화면" width="630" height="1218" />
+          <img src="/assets/san-extension-ingest-latest.png" alt="텍스트, 이미지, 링크를 드래그해 지식을 저장하는 SAN 크롬 확장 프로그램 화면" width="630" height="1218" loading="lazy" decoding="async" />
           <div className="san-drop-target" aria-hidden="true" />
           <div className="san-source-tokens" aria-hidden="true">
             <span className="san-source-token san-source-token-text"><FileText /></span>
@@ -74,15 +74,15 @@ function SanHeroFlow() {
           </div>
         </div>
         <div className="san-tree-stage">
-          <img className="san-raw-screen san-raw-screen-main" src="/assets/san-knowledge-tree-latest.png" alt="저장한 자료가 카테고리별 지식 나무로 모인 SAN 화면" width="2880" height="1832" />
+          <img className="san-raw-screen san-raw-screen-main" src="/assets/san-knowledge-tree-latest.png" alt="저장한 자료가 카테고리별 지식 나무로 모인 SAN 화면" width="2880" height="1832" loading="lazy" decoding="async" />
           <p className="san-tree-caption"><Sparkles aria-hidden="true" /> 흩어진 자료가 하나의 지식 나무로</p>
         </div>
         <div className="san-til-stage">
-          <img className="san-raw-screen san-raw-screen-main" src="/assets/san-til-latest.png" alt="저장한 지식을 바탕으로 오늘의 학습을 정리하는 SAN TIL 화면" width="2880" height="1839" />
+          <img className="san-raw-screen san-raw-screen-main" src="/assets/san-til-latest.png" alt="저장한 지식을 바탕으로 오늘의 학습을 정리하는 SAN TIL 화면" width="2880" height="1839" loading="lazy" decoding="async" />
           <p className="san-tree-caption"><Sparkles aria-hidden="true" /> 저장한 지식을 오늘의 TIL로</p>
         </div>
         <div className="san-profile-stage">
-          <img className="san-raw-screen san-raw-screen-main" src="/assets/san-profile-latest.png" alt="학습 기록과 활동을 한눈에 보는 SAN 마이페이지 화면" width="2880" height="1839" />
+          <img className="san-raw-screen san-raw-screen-main" src="/assets/san-profile-latest.png" alt="학습 기록과 활동을 한눈에 보는 SAN 마이페이지 화면" width="2880" height="1839" loading="lazy" decoding="async" />
           <p className="san-tree-caption"><Sparkles aria-hidden="true" /> 쌓인 기록을 마이페이지에서</p>
         </div>
       </div>
@@ -140,7 +140,7 @@ function RoundyHeroFlow() {
       {roundyHeroStages.map((stage, index) => {
         const relativeIndex = (index - activeIndex + roundyHeroStages.length) % roundyHeroStages.length;
         return <figure className={`roundy-flow-frame ${positions[relativeIndex]}`} aria-hidden={relativeIndex !== 0} key={stage.number}>
-        <img src={stage.source} alt={stage.alt} width="2880" height="1839" />
+        <img src={stage.source} alt={stage.alt} width="2880" height="1839" loading="lazy" decoding="async" />
         <figcaption><b>{stage.number}</b><span>{stage.label}</span></figcaption>
       </figure>;
       })}
@@ -156,17 +156,17 @@ function CaseHeroMedia({ id }: Pick<ProjectCase, 'id'>) {
   if (id === 'capsure') {
     return <figure className="case-hero-media project-hero-capsure-live" aria-label="CapSure 실제 가입 흐름 화면">
       <div className="capsure-live-devices">
-        <figure className="capsure-live-device"><img src="/assets/capsure-search-live.gif" alt="CapSure 월 보험료 입력과 캡슐 구성이 움직이는 애니메이션 화면" width="654" height="1432" /></figure>
-        <figure className="capsure-live-device"><img src="/assets/capsure-dashboard-live.gif" alt="CapSure 대시보드가 표시되는 애니메이션 화면" width="654" height="1432" /></figure>
+        <figure className="capsure-live-device"><img src="/assets/capsure-search-live.gif" alt="CapSure 월 보험료 입력과 캡슐 구성이 움직이는 애니메이션 화면" width="654" height="1432" loading="lazy" decoding="async" /></figure>
+        <figure className="capsure-live-device"><img src="/assets/capsure-dashboard-live.gif" alt="CapSure 대시보드가 표시되는 애니메이션 화면" width="654" height="1432" loading="lazy" decoding="async" /></figure>
       </div>
     </figure>;
   }
 
   if (id === 'dasibom') {
     return <figure className="case-hero-media project-hero-dasibom" aria-label="다시봄의 모바일 자가 확인과 병원 탐색 흐름">
-      <img className="dasibom-hero-capture dasibom-hero-capture-home" src="/assets/dasibom-home-mockup-user.png" alt="하루 한 번 자가 진단을 시작하는 다시봄 iPhone 목업 화면" width="451" height="934" />
-      <img className="dasibom-hero-capture dasibom-hero-capture-face" src="/assets/dasibom-face-guide-mockup-user.png" alt="표정과 한쪽 눈 윙크를 안내하는 다시봄 iPhone 목업 화면" width="900" height="1840" />
-      <img className="dasibom-hero-capture dasibom-hero-capture-map" src="/assets/dasibom-map-mockup-user.png" alt="가까운 병원 정보를 지도에 표시한 다시봄 iPhone 목업 화면" width="900" height="1840" />
+      <img className="dasibom-hero-capture dasibom-hero-capture-home" src="/assets/dasibom-home-mockup-user.png" alt="하루 한 번 자가 진단을 시작하는 다시봄 iPhone 목업 화면" width="451" height="934" loading="lazy" decoding="async" />
+      <img className="dasibom-hero-capture dasibom-hero-capture-face" src="/assets/dasibom-final-result-mockup-user.png" alt="다시봄 앱의 최종 진단 결과와 가까운 병원 안내 화면" width="908" height="1840" loading="lazy" decoding="async" />
+      <img className="dasibom-hero-capture dasibom-hero-capture-map" src="/assets/dasibom-map-mockup-user.png" alt="가까운 병원 정보를 지도에 표시한 다시봄 iPhone 목업 화면" width="900" height="1840" loading="lazy" decoding="async" />
     </figure>;
   }
 
@@ -179,6 +179,118 @@ function CaseHeroMedia({ id }: Pick<ProjectCase, 'id'>) {
   }
 
   return null;
+}
+
+const dasibomBriefScreens: { number: string; label: string; detail: string; source: string; alt: string; width: number; height: number; crop?: 'left' | 'center' }[] = [
+  {
+    number: '01',
+    label: '얼굴 확인',
+    detail: '카메라 앞에서 표정과 눈 움직임을 안내합니다.',
+    source: '/assets/dasibom-simulator-face-guide.png',
+    alt: '정면을 바라보고 눈을 감았다 뜨도록 안내하는 다시봄 얼굴 확인 화면',
+    width: 1206,
+    height: 2622,
+  },
+  {
+    number: '02',
+    label: '음성 확인',
+    detail: '화면의 문장을 읽고 음성을 녹음합니다.',
+    source: '/assets/dasibom-simulator-voice-recording.png',
+    alt: '문장을 읽고 녹음하도록 안내하는 다시봄 음성 확인 화면',
+    width: 1206,
+    height: 2622,
+  },
+  {
+    number: '03',
+    label: '중간 결과',
+    detail: '얼굴·음성 확인 뒤 먼저 결과를 확인합니다.',
+    source: '/assets/dasibom-interim-result-user.png',
+    alt: '얼굴과 음성 확인 뒤 정상 범위라는 중간 결과와 자가 확인 진입 버튼을 보여주는 다시봄 화면',
+    width: 2358,
+    height: 5112,
+  },
+  {
+    number: '04',
+    label: '추가 설문',
+    detail: '필요할 때만 CG-FAST 기준 문항으로 이어집니다.',
+    source: '/assets/dasibom-cg-fast-question-user.png',
+    alt: '팔마비 여부를 묻는 CG-FAST 자가 확인 문항 화면',
+    width: 2358,
+    height: 5112,
+  },
+  {
+    number: '05',
+    label: '설문 결과',
+    detail: '문항 응답 뒤 최종 결과와 안내를 봅니다.',
+    source: '/assets/dasibom-result-flow-user.png',
+    alt: '자가 확인 점수와 결과 안내를 보여주는 다시봄 화면 목업의 첫 화면',
+    width: 7594,
+    height: 5112,
+    crop: 'left',
+  },
+  {
+    number: '06',
+    label: '병원 정보',
+    detail: '가까운 병원의 위치와 상세 정보를 봅니다.',
+    source: '/assets/dasibom-map-flow-user.png',
+    alt: '가까운 병원의 거리와 상세 정보를 표시한 다시봄 화면 목업',
+    width: 7670,
+    height: 5112,
+    crop: 'center',
+  },
+] as const;
+
+function DasibomBrief() {
+  return <section className="dasibom-brief" id="dasibom-case-01" data-page aria-labelledby="dasibom-brief-title">
+    <header className="dasibom-brief-heading">
+      <p><strong>PROJECT BRIEF</strong><span>다시봄</span></p>
+      <h3 id="dasibom-brief-title">얼굴·음성 확인에서 병원 탐색까지</h3>
+      <span>먼저 얼굴·음성 결과를 보고, 추가 확인이 필요할 때 CG-FAST 기준 설문으로 이어집니다.</span>
+    </header>
+    <ol className="dasibom-brief-gallery" aria-label="다시봄 앱 화면 흐름">
+      {dasibomBriefScreens.map(screen => <li key={screen.number}>
+        <figure>
+          <div className="dasibom-brief-image">
+            <div className="dasibom-brief-device">
+              <img className={screen.crop ? `dasibom-brief-crop-${screen.crop}` : undefined} src={screen.source} alt={screen.alt} width={screen.width} height={screen.height} loading="lazy" decoding="async" />
+            </div>
+          </div>
+          <figcaption><b>{screen.number}</b><strong>{screen.label}</strong><span>{screen.detail}</span></figcaption>
+        </figure>
+      </li>)}
+    </ol>
+    <DasibomTechnicalReference />
+  </section>;
+}
+
+const dasibomTechnicalViews = [
+  { key: 'flow', label: '처리 구조', source: '/assets/dasibom-self-check-flow.png', alt: '영상과 음성 분석 결과를 받고 필요 시 설문 응답을 더해 결과를 반환하는 처리 흐름', width: 1864, height: 926 },
+  { key: 'face', label: '얼굴 분석 과정', source: '/assets/dasibom-face-analysis.png', alt: '다시봄 얼굴 분석 과정 발표 자료', width: 1868, height: 924 },
+  { key: 'voice', label: '음성 분석 과정', source: '/assets/dasibom-voice-analysis.png', alt: '다시봄 음성 분석 과정 발표 자료', width: 1870, height: 926 },
+  { key: 'architecture', label: '전체 기술 구성', source: '/assets/dasibom-architecture.png', alt: '다시봄 전체 기술 구성 발표 자료', width: 580, height: 507 },
+] as const;
+
+function DasibomTechnicalReference() {
+  const [activeKey, setActiveKey] = useState<(typeof dasibomTechnicalViews)[number]['key']>('flow');
+  const [isOpen, setIsOpen] = useState(false);
+  const activeView = dasibomTechnicalViews.find(view => view.key === activeKey) ?? dasibomTechnicalViews[0];
+
+  return <section className="dasibom-technical-reference" aria-label="다시봄 기술 자료">
+    <div className="dasibom-technical-toolbar">
+      <div className="dasibom-technical-summary-copy"><strong>기술 구성과 처리 흐름</strong><small>얼굴·음성 → 중간 결과 → 필요 시 설문</small></div>
+      <fieldset className="dasibom-technical-sources" aria-label="표시할 기술 자료 선택">
+        {dasibomTechnicalViews.map(view => <button type="button" key={view.key} className={isOpen && activeKey === view.key ? 'is-active' : undefined} aria-pressed={isOpen && activeKey === view.key} aria-controls="dasibom-technical-panel" onClick={() => { setActiveKey(view.key); setIsOpen(true); }}><ImageIcon aria-hidden="true" size={15}/>{view.label}</button>)}
+        {isOpen && <button type="button" className="dasibom-technical-close" aria-controls="dasibom-technical-panel" onClick={() => setIsOpen(false)}>접기 <ChevronDown aria-hidden="true" size={15}/></button>}
+      </fieldset>
+    </div>
+    {isOpen && <div className="dasibom-technical-inner" id="dasibom-technical-panel">
+      <figure className="dasibom-technical-flow">
+        <div className="dasibom-technical-image"><img key={activeView.key} src={activeView.source} alt={activeView.alt} width={activeView.width} height={activeView.height} decoding="async" /></div>
+        <figcaption>{activeView.label} · 팀 발표 자료</figcaption>
+      </figure>
+      <p className="dasibom-technical-note">프로젝트 구조를 설명하는 자료이며, 의료적 진단 성능을 검증한 자료는 아닙니다.</p>
+    </div>}
+  </section>;
 }
 
 type CaseSlide = {
@@ -388,7 +500,7 @@ function DasibomResultCapture() {
       <strong>위험 신호 안내 뒤, 즉시 행동과 가까운 병원 탐색으로 이어지는 실제 결과 화면</strong>
       <small>원본 결과 화면을 별도 목업 없이 그대로 사용했습니다.</small>
     </figcaption>
-    <img src="/assets/dasibom-result-flow-user.png" alt="뇌졸중 위험도와 가까운 병원을 안내하는 다시봄 결과 화면 흐름" width="7594" height="5112" />
+    <img src="/assets/dasibom-result-flow-user.png" alt="뇌졸중 위험도와 가까운 병원을 안내하는 다시봄 결과 화면 흐름" width="7594" height="5112" loading="lazy" decoding="async" />
   </figure>;
 }
 
@@ -399,7 +511,7 @@ function DasibomMapCapture() {
       <strong>결과 안내에서 가까운 병원 탐색으로 이어지는 실제 지도 화면</strong>
       <small>원본 지도 흐름을 별도 목업 없이 그대로 사용했습니다.</small>
     </figcaption>
-    <img src="/assets/dasibom-map-flow-user.png" alt="병원 검색과 상세 정보, 검색 목록을 보여주는 다시봄 원본 지도 화면 흐름" width="7670" height="5112" />
+    <img src="/assets/dasibom-map-flow-user.png" alt="병원 검색과 상세 정보, 검색 목록을 보여주는 다시봄 원본 지도 화면 흐름" width="7670" height="5112" loading="lazy" decoding="async" />
   </figure>;
 }
 
@@ -455,7 +567,7 @@ function CaseScreenExplainer({ project, index }: { project: ProjectCase; index: 
   if (!visual) return <TechnicalDiagram project={project} index={index} />;
   if (visual.frame === 'web') {
     return <div className={`raw-png-stack raw-png-stack-${project.id} raw-png-stack-${project.id}-${visual.shots.length}`} aria-label={visual.title}>
-      {visual.shots.map(shot => <img key={shot.source} src={shot.source} alt={shot.alt} width="2880" height="1839" />)}
+      {visual.shots.map(shot => <img key={shot.source} src={shot.source} alt={shot.alt} width="2880" height="1839" loading="lazy" decoding="async" />)}
     </div>;
   }
   return <figure className={`screen-explainer screen-explainer-${visual.frame} screen-explainer-${project.id}-${index}`}>
@@ -463,11 +575,11 @@ function CaseScreenExplainer({ project, index }: { project: ProjectCase; index: 
     <div className="screen-explainer-frame">
       {visual.mockup
         ? Array.isArray(visual.mockup)
-          ? <div className="screen-explainer-mockup-sequence">{visual.mockup.map((source, mockupIndex) => <img key={source} className="screen-explainer-mockup" src={source} alt={`${visual.title} ${mockupIndex + 1}번째 아이폰 목업`} width="3420" height="6920" />)}</div>
-          : <img className="screen-explainer-mockup" src={visual.mockup} alt={`${visual.title} 아이폰 목업`} width="8000" height="6000" />
+          ? <div className="screen-explainer-mockup-sequence">{visual.mockup.map((source, mockupIndex) => <img key={source} className="screen-explainer-mockup" src={source} alt={`${visual.title} ${mockupIndex + 1}번째 아이폰 목업`} width="3420" height="6920" loading="lazy" decoding="async" />)}</div>
+          : <img className="screen-explainer-mockup" src={visual.mockup} alt={`${visual.title} 아이폰 목업`} width="8000" height="6000" loading="lazy" decoding="async" />
         : <div className="screen-explainer-gallery">
           {visual.shots.map((shot, shotIndex) => <figure className={`screen-explainer-shot screen-explainer-shot-${shotIndex + 1}`} key={shot.source + shot.label}>
-            <img src={shot.source} alt={shot.alt} width={visual.frame === 'phone' ? 390 : 1920} height={visual.frame === 'phone' ? 844 : 1080} />
+            <img src={shot.source} alt={shot.alt} width={visual.frame === 'phone' ? 390 : 1920} height={visual.frame === 'phone' ? 844 : 1080} loading="lazy" decoding="async" />
             <figcaption>{shot.label}</figcaption>
           </figure>)}
         </div>}
@@ -492,7 +604,7 @@ function ProjectCaseSlide({ project, slide, index }: { project: ProjectCase; sli
   const caseNumber = String(index + 1).padStart(2, '0');
   const layout = index === 0 ? 'product' : index === 1 ? 'system' : 'outcome';
   return <section className={`case-slide case-slide-${project.id} case-slide-${layout}`} id={`${project.id}-case-${caseNumber}`} data-page aria-labelledby={`${project.id}-case-${caseNumber}-title`}>
-    <header className="case-slide-heading"><p>Case {caseNumber}</p><h3 id={`${project.id}-case-${caseNumber}-title`}>{slide.title}</h3><div className="case-slide-project"><img src={`/assets/project-${project.id}-hd.png`} alt="" width="30" height="30" /><span>{project.name}</span></div></header>
+    <header className="case-slide-heading"><p>Case {caseNumber}</p><h3 id={`${project.id}-case-${caseNumber}-title`}>{slide.title}</h3><div className="case-slide-project"><img src={`/assets/project-${project.id}-hd.png`} alt="" width="30" height="30" loading="lazy" decoding="async" /><span>{project.name}</span></div></header>
     <div className="case-slide-top">
       <CaseSlideVisual project={project} index={index} />
       <article className="case-slide-brief">
@@ -520,12 +632,12 @@ function CaseStudy({ project }: { project: ProjectCase }) {
       <div className="case-hero-inner">
         <CaseHeroMedia id={project.id} />
         <header className="case-heading">
-          <div className="case-identity"><img src={`/assets/project-${project.id}-hd.png`} alt="" width="68" height="68" /><div><p>{project.category}</p><strong>{project.name}</strong></div><span className="case-number">{project.number} / {String(projectCases.length).padStart(2, '0')}</span></div>
+          <div className="case-identity"><img src={`/assets/project-${project.id}-hd.png`} alt="" width="68" height="68" loading="lazy" decoding="async" /><div><p>{project.category}</p><strong>{project.name}</strong></div><span className="case-number">{project.number} / {String(projectCases.length).padStart(2, '0')}</span></div>
           <h2 id={`${project.id}-title`}>{project.headline}</h2>
           <p className="case-intro-text">{project.summary}</p>
           <ul className="case-stack" aria-label={`${project.name} 기술 스택`}>{evidence.stack.map(tech => {
             const FallbackIcon = stackFallbackIcons[tech] ?? Braces;
-            return <li key={tech}>{stackIcons[tech] ? <img src={stackIcons[tech]} alt="" width="18" height="18" /> : <FallbackIcon aria-hidden="true" size={17} strokeWidth={2} />}<span>{tech}</span></li>;
+            return <li key={tech}>{stackIcons[tech] ? <img src={stackIcons[tech]} alt="" width="18" height="18" loading="lazy" decoding="async" /> : <FallbackIcon aria-hidden="true" size={17} strokeWidth={2} />}<span>{tech}</span></li>;
           })}</ul>
           <dl className="case-project-meta"><div><dt>팀 구성</dt><dd>{evidence.team}</dd></div><div><dt>담당 범위</dt><dd>{evidence.responsibility}</dd></div></dl>
           {chromeStoreUrl && <a className="case-external-link" href={chromeStoreUrl} target="_blank" rel="noreferrer">Chrome Web Store에서 SAN 보기 <span aria-hidden="true">↗</span></a>}
@@ -535,7 +647,7 @@ function CaseStudy({ project }: { project: ProjectCase }) {
     </div>
     <div className={`case-container${stories ? ' case-container-evidence' : ''}`}>
       <div className="case-slide-deck" id={`${project.id}-detail`}>
-        {stories ? stories.map((story, index) => <EvidenceCaseSlide key={story.visual} projectId={project.id} projectName={project.name} story={story} index={index}/>) : slides.map((slide, index) => <ProjectCaseSlide key={slide.title} project={project} slide={slide} index={index} />)}
+        {project.id === 'dasibom' ? <DasibomBrief /> : stories ? stories.map((story, index) => <EvidenceCaseSlide key={story.visual} projectId={project.id} projectName={project.name} story={story} index={index}/>) : slides.map((slide, index) => <ProjectCaseSlide key={slide.title} project={project} slide={slide} index={index} />)}
       </div>
     </div>
   </section>;

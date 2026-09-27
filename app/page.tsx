@@ -22,7 +22,7 @@ const projects = [
     team: '7명', teamDetail: 'FE 1, BE 3, AI 2, INFRA 1', role: ['서버 검색 기능 구현', 'AI 입력 보호 설계', '작업 상태 관리'],
   },
   {
-    name: '다시봄', summary: '얼굴·음성·설문으로 뇌졸중 위험 신호를 확인하는 모바일 앱', icon: '/assets/project-dasibom-hd.png', href: '#dasibom',
+    name: '다시봄', summary: '얼굴·음성 결과를 먼저 보고, 필요 시 설문으로 이어지는 모바일 앱', icon: '/assets/project-dasibom-hd.png', href: '#dasibom',
     stack: [{ name: 'React Native', icon: '/assets/tech-icons/react.svg' }, { name: 'Spring Boot', icon: '/assets/tech-icons/spring.png' }, { name: 'AI 분석 API', icon: '/assets/tech-icons/ai-analysis.svg' }, { name: 'MySQL', icon: '/assets/tech-icons/sql.svg' }],
     team: '4명', teamDetail: 'FE 1, BE 1, AI 2', role: ['서비스 기획과 UI/UX', '카메라·음성 입력 연결', '지도·차트 화면 구현'], brief: true,
   },
@@ -89,14 +89,14 @@ export default function Home() {
       </nav>
       <section className="cover-page" data-page id="introduction" aria-labelledby="portfolio-title">
         <div className="profile-intro">
-          <div className="photo-slot"><img src="/assets/profile.png" alt="유다현 프로필 사진" /></div>
+          <div className="photo-slot"><img src="/assets/profile.png" alt="유다현 프로필 사진" fetchPriority="high" decoding="async" /></div>
           <p className="profile-name">유다현</p>
           <p className="profile-role">개발자</p>
           <section className="profile-contact" aria-labelledby="profile-contact-title">
             <h2 id="profile-contact-title">Contact</h2>
             <dl>
               <div><dt>이메일</dt><dd><a href="mailto:lyra0720@naver.com"><Mail size={14} strokeWidth={1.9} aria-hidden="true" /><span>lyra0720@naver.com</span></a></dd></div>
-              <div><dt>깃허브</dt><dd><a href="https://github.com/dahynn" target="_blank" rel="noreferrer"><img src="https://cdn.simpleicons.org/github/33363d" alt="" aria-hidden="true" width="14" height="14" /><span>github.com/dahynn</span></a></dd></div>
+              <div><dt>깃허브</dt><dd><a href="https://github.com/dahynn" target="_blank" rel="noreferrer"><img src="https://cdn.simpleicons.org/github/33363d" alt="" aria-hidden="true" width="14" height="14" loading="lazy" decoding="async" /><span>github.com/dahynn</span></a></dd></div>
             </dl>
           </section>
         </div>
@@ -127,7 +127,7 @@ export default function Home() {
               <h3 id="cover-skills-title">Tech Stack</h3>
               {skills.map((skill) => (
                 <p className="journey-skill" key={skill.name}>
-                  <img src={skill.icon} alt="" aria-hidden="true" />
+                  <img src={skill.icon} alt="" aria-hidden="true" loading="lazy" decoding="async" />
                   <span>{skill.name}</span>
                   <span className="journey-skill-meter" aria-label={`숙련도 ${skill.level} / 5`}>
                     {Array.from({ length: 5 }, (_, index) => <i className={index < skill.level ? 'active' : ''} key={index} />)}
@@ -179,7 +179,7 @@ export default function Home() {
             ))}
           </ol>
           <div className="journey-destination">
-            <img src="/assets/hanwha-life-wordmark-transparent.png" alt="한화생명" width="980" height="360" />
+            <img src="/assets/hanwha-life-wordmark-transparent.png" alt="한화생명" width="980" height="360" loading="lazy" decoding="async" />
             <p>쌓아온 경험을,<br /><strong>한화 금융에서 이어가겠습니다.</strong></p>
           </div>
         </div>
@@ -198,12 +198,12 @@ export default function Home() {
             <li className={`store-item${project.brief ? ' store-item-brief' : ''}`} key={project.name}>
               <div className="store-project-intro">
                 <span className="store-number" aria-hidden="true">{String(projects.indexOf(project) + 1).padStart(2, '0')}</span>
-                <img className={`store-icon ${project.name === 'CapSure' ? 'project-icon-capsure' : ''}`} src={project.icon} alt="" width="112" height="112" />
+                <img className={`store-icon ${project.name === 'CapSure' ? 'project-icon-capsure' : ''}`} src={project.icon} alt="" width="112" height="112" loading="lazy" decoding="async" />
                 <div className="store-copy">{project.brief && <span className="store-brief-label">Project brief</span>}<h3>{project.name}</h3><p>{project.summary}</p></div>
               </div>
               <div className="store-tech" aria-label={`${project.name} 기술 스택`}>
                 <p>기술 스택</p>
-                <ul>{project.stack.map((tech) => <li key={tech.name}><img src={tech.icon} alt="" aria-hidden="true" />{tech.name}</li>)}</ul>
+                <ul>{project.stack.map((tech) => <li key={tech.name}><img src={tech.icon} alt="" aria-hidden="true" loading="lazy" decoding="async" />{tech.name}</li>)}</ul>
               </div>
               <div className="store-team" aria-label={`${project.name} 팀 구성`}>
                 <p>팀 구성</p>
