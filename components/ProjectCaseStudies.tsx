@@ -275,20 +275,32 @@ function DasibomTechnicalReference() {
   const [isOpen, setIsOpen] = useState(false);
   const activeView = dasibomTechnicalViews.find(view => view.key === activeKey) ?? dasibomTechnicalViews[0];
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [isOpen]);
+
   return <section className="dasibom-technical-reference" aria-label="다시봄 기술 자료">
     <div className="dasibom-technical-toolbar">
       <div className="dasibom-technical-summary-copy"><strong>기술 구성과 처리 흐름</strong><small>얼굴·음성 → 중간 결과 → 필요 시 설문</small></div>
       <fieldset className="dasibom-technical-sources" aria-label="표시할 기술 자료 선택">
         {dasibomTechnicalViews.map(view => <button type="button" key={view.key} className={isOpen && activeKey === view.key ? 'is-active' : undefined} aria-pressed={isOpen && activeKey === view.key} aria-controls="dasibom-technical-panel" onClick={() => { setActiveKey(view.key); setIsOpen(true); }}><ImageIcon aria-hidden="true" size={15}/>{view.label}</button>)}
-        {isOpen && <button type="button" className="dasibom-technical-close" aria-controls="dasibom-technical-panel" onClick={() => setIsOpen(false)}>접기 <ChevronDown aria-hidden="true" size={15}/></button>}
       </fieldset>
     </div>
-    {isOpen && <div className="dasibom-technical-inner" id="dasibom-technical-panel">
-      <figure className="dasibom-technical-flow">
-        <div className="dasibom-technical-image"><img key={activeView.key} src={activeView.source} alt={activeView.alt} width={activeView.width} height={activeView.height} decoding="async" /></div>
-        <figcaption>{activeView.label} · 팀 발표 자료</figcaption>
-      </figure>
-      <p className="dasibom-technical-note">프로젝트 구조를 설명하는 자료이며, 의료적 진단 성능을 검증한 자료는 아닙니다.</p>
+    {isOpen && <div className="dasibom-technical-overlay">
+      <button type="button" className="dasibom-technical-backdrop" onClick={() => setIsOpen(false)} aria-label="기술 자료 닫기" />
+      <dialog open className="dasibom-technical-inner" id="dasibom-technical-panel" aria-modal="true" aria-label={`${activeView.label} 상세 보기`}>
+        <button type="button" className="dasibom-technical-close" onClick={() => setIsOpen(false)} aria-label="기술 자료 닫기">닫기 <ChevronDown aria-hidden="true" size={15}/></button>
+        <figure className="dasibom-technical-flow">
+          <div className="dasibom-technical-image"><img key={activeView.key} src={activeView.source} alt={activeView.alt} width={activeView.width} height={activeView.height} decoding="async" /></div>
+          <figcaption>{activeView.label} · 팀 발표 자료</figcaption>
+        </figure>
+        <p className="dasibom-technical-note">프로젝트 구조를 설명하는 자료이며, 의료적 진단 성능을 검증한 자료는 아닙니다.</p>
+      </dialog>
     </div>}
   </section>;
 }

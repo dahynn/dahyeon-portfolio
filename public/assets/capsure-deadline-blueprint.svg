@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 540" role="img" aria-labelledby="title desc">
   <title id="title">유예 종료 시점을 기준으로 한 계약 상태 판단 흐름</title>
-  <desc id="desc">수납과 실효 배치가 같은 업무 날짜 기준을 사용해 유예 종료 전에는 계약을 활성화하고 종료 후에는 입금만 기록한 채 계약을 실효 상태로 유지하는 과정</desc>
+  <desc id="desc">수납 전 계약을 잠그고 배치와 같은 만료 기준을 적용합니다. 기한 안에 완납하면 수납 후 계약이 활성화되고, 기한 후 입금은 계약을 실효 상태로 유지한 채 수납 후 지연 검토를 기록합니다.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#116eaa"/>
@@ -36,11 +36,11 @@
     <circle cx="852" cy="70" r="10"/><path d="M852 64v7l5 3"/>
   </g>
   <text x="298" y="101" text-anchor="middle" class="label">Payment arrival</text>
-  <text x="298" y="122" text-anchor="middle" class="sub">(입금 수납)</text>
+  <text x="298" y="122" text-anchor="middle" class="sub">(입금 요청 도착)</text>
   <text x="575" y="101" text-anchor="middle" class="label">계약 잠금 · beforeSettlement</text>
   <text x="575" y="122" text-anchor="middle" class="sub">(계약 잠금 · 만료 기준 확인)</text>
-  <text x="852" y="101" text-anchor="middle" class="label">Lapse batch</text>
-  <text x="852" y="122" text-anchor="middle" class="sub">(지연 배치)</text>
+  <text x="852" y="101" text-anchor="middle" class="label">afterSettlement</text>
+  <text x="852" y="122" text-anchor="middle" class="sub">(수납 후 상태·검토 기록)</text>
 
   <rect x="180" y="148" width="790" height="44" rx="9" class="rule"/>
   <text x="575" y="176" text-anchor="middle" class="title">통일한 기준 · 계약 만료일(유예 종료일)을 업무 날짜로 판단</text>
@@ -53,15 +53,15 @@
   <text x="30" y="289" class="sub">(모든 미납 회차 해소)</text>
   <rect x="180" y="222" width="236" height="104" rx="11" class="node"/>
   <text x="298" y="263" text-anchor="middle" class="title">입금 도착</text>
-  <text x="298" y="293" text-anchor="middle" class="sub">(전액 수납 기록)</text>
+  <text x="298" y="293" text-anchor="middle" class="sub">(완납 요청)</text>
   <path d="M416 274 H450" class="flow"/>
   <rect x="450" y="222" width="250" height="104" rx="11" class="good"/>
   <text x="575" y="263" text-anchor="middle" class="title">만료일 이전 확인</text>
-  <text x="575" y="293" text-anchor="middle" class="status">ACTIVE (계약 활성)</text>
+  <text x="575" y="293" text-anchor="middle" class="status">수납 진행</text>
   <path d="M700 274 H752" class="flow"/>
   <rect x="752" y="222" width="200" height="104" rx="11" class="node"/>
-  <text x="852" y="263" text-anchor="middle" class="title">배치 실행 전</text>
-  <text x="852" y="293" text-anchor="middle" class="sub">(이미 ACTIVE 상태)</text>
+  <text x="852" y="263" text-anchor="middle" class="title">계약 활성화</text>
+  <text x="852" y="293" text-anchor="middle" class="sub">(완납 후 ACTIVE)</text>
 
   <rect x="510" y="344" width="130" height="34" rx="17" fill="#eef2f5"/>
   <text x="575" y="366" text-anchor="middle" class="sub">유예 종료</text>
@@ -70,15 +70,15 @@
   <text x="30" y="463" class="sub">(다음 날 · 배치 실행 전)</text>
   <rect x="180" y="396" width="236" height="104" rx="11" class="warn"/>
   <text x="298" y="437" text-anchor="middle" class="title">입금 도착</text>
-  <text x="298" y="467" text-anchor="middle" class="sub">(입금 기록만 저장)</text>
+  <text x="298" y="467" text-anchor="middle" class="sub">(기한 후 수납 요청)</text>
   <path d="M416 448 H450" class="flow"/>
   <rect x="450" y="396" width="250" height="104" rx="11" class="warn"/>
   <text x="575" y="437" text-anchor="middle" class="title">만료일 이후 확인</text>
-  <text x="575" y="467" text-anchor="middle" class="status warning">LAPSED 유지</text>
+  <text x="575" y="467" text-anchor="middle" class="status warning">LAPSED로 전이</text>
   <path d="M700 448 H752" class="flow"/>
   <rect x="752" y="396" width="200" height="104" rx="11" class="warn"/>
-  <text x="852" y="437" text-anchor="middle" class="title">배치에서 재확인</text>
-  <text x="852" y="467" text-anchor="middle" class="sub">(지연 검토 1건 생성)</text>
+  <text x="852" y="437" text-anchor="middle" class="title">수납 후 지연 검토</text>
+  <text x="852" y="467" text-anchor="middle" class="sub">(검토 1건 · LAPSED 유지)</text>
 
   <text x="575" y="527" text-anchor="middle" class="sub">입금은 기록하되, 계약을 자동으로 되살리지 않습니다.</text>
 </svg>

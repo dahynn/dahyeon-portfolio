@@ -1,65 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" role="img" aria-labelledby="title desc">
-  <title id="title">대시보드와 익스텐션 사이의 일회용 로그인 티켓 흐름</title>
-  <desc id="desc">대시보드가 일회용 티켓을 발급하고 Redis에 짧게 저장한 뒤 익스텐션이 조회 즉시 한 번만 소비하는 흐름</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 410" role="img" aria-labelledby="title desc">
+  <title id="title">SAN 일회용 로그인 티켓 흐름</title>
+  <desc id="desc">대시보드가 서버에 로그인 티켓 발급을 요청합니다. 서버는 토큰과 출처를 확인해 Redis에 저장하고 대시보드에 반환합니다. 대시보드는 메시지로 크롬 익스텐션에 티켓을 전달하고, 익스텐션의 교환 요청을 받은 서버가 Redis에서 티켓을 한 번만 소비합니다. 만료 또는 재사용된 티켓은 거절됩니다.</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#18e486"/></marker>
-    <marker id="arrowTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#59bdd0"/></marker>
-    <style>
-      text{font-family:Pretendard,"Noto Sans KR",Arial,sans-serif}.mono{font-family:"SFMono-Regular",Consolas,monospace}.step{font-size:13px;font-weight:950;fill:#18e486;letter-spacing:1.05px}.head{font-size:18px;font-weight:900;fill:#f3f8f5}.sub{font-size:12px;font-weight:650;fill:#8fa39a}.body{font-size:13px;font-weight:650;fill:#c2d0c8}.tiny{font-size:11px;font-weight:850;fill:#758b80;letter-spacing:.8px}
-    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M1 1 9 5 1 9" fill="none" stroke="#4f9482" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <style>text{font-family:Pretendard,"Noto Sans KR",Arial,sans-serif}.step{font-size:17px;font-weight:850;letter-spacing:.7px;fill:#4f9482}.title{font-size:30px;font-weight:900;fill:#1b3027}.detail{font-size:18px;font-weight:650;fill:#667a6f}.branch{font-size:23px;font-weight:900;fill:#a75c56}.branchSub{font-size:17px;font-weight:700;fill:#85645f}.link{fill:none;stroke:#4f9482;stroke-width:2.5;stroke-linecap:round;marker-end:url(#arrow)}</style>
   </defs>
-
-  <text x="20" y="26" class="tiny" fill="#18e486">ONE-TIME LOGIN BRIDGE</text>
-  <text x="1580" y="26" class="tiny" text-anchor="end">장기 Token 대신 짧게 살아 있는 Ticket만 URL로 전달</text>
-
-  <g transform="translate(20 58)">
-    <rect width="290" height="236" rx="10" fill="#091710" stroke="#234a38"/>
-    <text x="20" y="28" class="step">01 · DASHBOARD</text><text x="20" y="51" class="sub">웹 애플리케이션</text>
-    <rect x="18" y="73" width="254" height="140" rx="8" fill="#0c2017" stroke="#2a5240"/>
-    <text x="34" y="101" class="head">유효한 Access Token</text>
-    <g class="body"><text x="34" y="131">• 사용자 인증됨</text><text x="34" y="156">• Role 정보 포함</text><text x="34" y="181">• 요청 출처 검증</text></g>
-    <text x="34" y="202" font-size="11" font-weight="850" fill="#18e486">Source client와 역할 정보 보존</text>
-  </g>
-  <path d="M310 176H346" stroke="#18e486" stroke-width="2.1" marker-end="url(#arrow)"/>
-
-  <g transform="translate(350 58)">
-    <rect width="290" height="236" rx="10" fill="#091710" stroke="#234a38"/>
-    <text x="20" y="28" class="step">02 · TICKET SERVICE</text><text x="20" y="51" class="sub">로그인 브리지</text>
-    <rect x="18" y="73" width="254" height="140" rx="8" fill="#0c2017" stroke="#2a5240"/>
-    <text x="34" y="101" class="head">1회용 Ticket 발급</text>
-    <text x="34" y="130" class="mono" font-size="12" fill="#b8cac1">SecureRandom 32-byte</text>
-    <path d="M42 140H218c0 7 6 12 14 13v21c-8 1-14 6-14 13H42c0-7-6-12-14-13v-21c8-1 14-6 14-13Z" fill="#07150f" stroke="#18e486" stroke-width="1.5"/>
-    <path d="M68 147v33" stroke="#276c4a" stroke-dasharray="3 4"/>
-    <text x="137" y="168" class="mono" font-size="12" font-weight="900" fill="#a9f4c9" text-anchor="middle">tk_9a3f...e7c2</text>
-    <text x="34" y="205" font-size="11" font-weight="850" fill="#18e486">장기 Token은 URL에 남기지 않음</text>
-  </g>
-  <path d="M640 176H676" stroke="#18e486" stroke-width="2.1" marker-end="url(#arrow)"/>
-
-  <g transform="translate(680 58)">
-    <rect width="290" height="236" rx="10" fill="#091710" stroke="#234a38"/>
-    <text x="20" y="28" class="step">03 · REDIS</text><text x="20" y="51" class="sub">Ticket 저장소</text>
-    <rect x="18" y="73" width="254" height="140" rx="8" fill="#0c2017" stroke="#2a5240"/>
-    <image href="/assets/tech-icons/redis.svg" x="30" y="88" width="34" height="34"/>
-    <text x="80" y="108" class="head">1회용 Ticket 저장</text>
-    <g class="body"><text x="34" y="150">• 사용자 정보 · Role</text><text x="34" y="175">• 요청 출처</text><text x="34" y="200">• TTL 2분</text></g>
-  </g>
-  <path d="M970 176H1006" stroke="#18e486" stroke-width="2.1" marker-end="url(#arrow)"/>
-
-  <g transform="translate(1010 58)">
-    <rect width="290" height="236" rx="10" fill="#091710" stroke="#234a38"/>
-    <text x="20" y="28" class="step">04 · CHROME EXTENSION</text><text x="20" y="51" class="sub">Chrome 익스텐션</text>
-    <rect x="18" y="73" width="254" height="140" rx="8" fill="#0c2017" stroke="#2a5240"/>
-    <text x="34" y="111" class="head">Ticket 소비 후 로그인</text>
-    <text x="34" y="151" class="mono" font-size="12" fill="#9ff3c2">getAndDelete(ticket)</text>
-    <g class="body"><text x="34" y="178">• Ticket 유효성 검증</text><text x="34" y="202">• 사용자 Context 복원</text></g>
-  </g>
-
-  <path d="M1300 176H1322V135H1340" fill="none" stroke="#ff5f62" stroke-width="1.8" stroke-dasharray="6 5"/>
-  <path d="M1322 176V235H1340" fill="none" stroke="#ff5f62" stroke-width="1.8" stroke-dasharray="6 5"/>
-  <g transform="translate(1340 103)"><rect width="238" height="64" rx="9" fill="#241010" stroke="#cf4c50"/><circle cx="30" cy="32" r="13" fill="#431718" stroke="#ff5f62"/><path d="m24 26 12 12m0-12L24 38" stroke="#ff6b6e" stroke-width="2"/><text x="54" y="27" font-size="13" font-weight="950" fill="#ff6b6e">EXPIRED</text><text x="54" y="46" class="sub">만료된 Ticket · 로그인 차단</text></g>
-  <g transform="translate(1340 203)"><rect width="238" height="64" rx="9" fill="#241010" stroke="#cf4c50"/><circle cx="30" cy="32" r="13" fill="#431718" stroke="#ff5f62"/><path d="m24 26 12 12m0-12L24 38" stroke="#ff6b6e" stroke-width="2"/><text x="54" y="27" font-size="13" font-weight="950" fill="#ff6b6e">REUSED</text><text x="54" y="46" class="sub">이미 소비된 Ticket · 재사용 차단</text></g>
-
-  <path d="M1154 310V348H170V310" fill="none" stroke="#59bdd0" stroke-width="1.8" stroke-dasharray="8 6" marker-end="url(#arrowTeal)"/>
-  <rect x="544" y="329" width="338" height="38" rx="19" fill="#07120e" stroke="#24555c"/>
-  <text x="713" y="353" font-size="12" font-weight="850" fill="#65bfd0" text-anchor="middle">EXTENSION → DASHBOARD · TTL 30초</text>
+  <text x="48" y="32" font-size="15" font-weight="850" letter-spacing="2" fill="#7f998a">일회용 로그인 브리지</text>
+  <path d="M150 139H443" class="link"/><path d="M545 139H838" class="link"/><path d="M940 139H1233" class="link"/>
+  <circle cx="106" cy="139" r="18" fill="#e0eee4" stroke="#79ad91" stroke-width="2"/><circle cx="106" cy="139" r="5" fill="#4f9482"/>
+  <circle cx="501" cy="139" r="18" fill="#d7eadb" stroke="#4f9482" stroke-width="2"/><circle cx="501" cy="139" r="5" fill="#4f9482"/>
+  <circle cx="896" cy="139" r="18" fill="#e0eee4" stroke="#79ad91" stroke-width="2"/><circle cx="896" cy="139" r="5" fill="#4f9482"/>
+  <circle cx="1291" cy="139" r="18" fill="#e0eee4" stroke="#79ad91" stroke-width="2"/><circle cx="1291" cy="139" r="5" fill="#4f9482"/>
+  <g transform="translate(40 0)"><text y="84" class="step">01 / 대시보드</text><text y="212" class="title">발급 요청</text><text y="246" class="detail">access token을 서버로</text></g>
+  <g transform="translate(435 0)"><text y="84" class="step">02 / 백엔드</text><text y="212" class="title">검증·발급</text><text y="246" class="detail">출처 확인 후 Redis 저장</text></g>
+  <g transform="translate(830 0)"><text y="84" class="step">03 / 대시보드</text><text y="212" class="title">티켓 전달</text><text y="246" class="detail">익스텐션에 메시지 전송</text></g>
+  <g transform="translate(1225 0)"><text y="84" class="step">04 / 크롬 익스텐션</text><text y="212" class="title">서버 교환 요청</text><text y="246" class="detail">서버에서 1회 소비</text></g>
+  <path d="M478 285h208c0 10 8 18 18 18v33c-10 0-18 8-18 18H478c0-10-8-18-18-18v-33c10 0 18-8 18-18Z" fill="#f5faf6" stroke="#82b39b" stroke-width="2"/>
+  <path d="M507 290v59" stroke="#aacbb8" stroke-width="2" stroke-dasharray="5 5"/>
+  <text x="582" y="326" text-anchor="middle" font-size="17" font-weight="800" fill="#3f7b67">tk_9a3f…e7c2</text>
+  <path d="M1291 268v30h-18" fill="none" stroke="#bf8278" stroke-width="2"/>
+  <path d="M1273 298H1060M1273 298h255" fill="none" stroke="#bf8278" stroke-width="2"/>
+  <circle cx="1060" cy="298" r="4" fill="#bf8278"/><circle cx="1528" cy="298" r="4" fill="#bf8278"/>
+  <text x="1060" y="338" class="branch">만료</text><text x="1060" y="367" class="branchSub">로그인 차단</text>
+  <text x="1430" y="338" class="branch">재사용</text><text x="1430" y="367" class="branchSub">로그인 차단</text>
 </svg>

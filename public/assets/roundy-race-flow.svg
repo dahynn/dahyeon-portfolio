@@ -26,7 +26,7 @@
   <circle cx="594" cy="198" r="5" fill="#76818b"/>
 
   <text class="heading" x="50" y="82">새 방 B 배정</text>
-  <text class="body" x="50" y="111">사용자가 방을 B로 배정합니다.</text>
+  <text class="body" x="50" y="111">사용자가 새 방 B에 배정됩니다.</text>
   <rect x="69" y="148" width="194" height="42" rx="5" fill="#fbeef4" stroke="#f3c8dc"/>
   <text class="code" x="87" y="175">SET currentRoom B</text>
   <text class="small" x="50" y="284">사용자 활동 · 현재 세션</text>
@@ -35,7 +35,7 @@
   <text class="body" x="570" y="111" text-anchor="end">지연된 이전 세션의</text>
   <text class="body" x="570" y="132" text-anchor="end">정리 요청이 도착합니다.</text>
   <rect x="357" y="148" width="211" height="42" rx="5" fill="#f1f2f3" stroke="#e0e2e4"/>
-  <text class="code" x="373" y="175">DEL currentRoom A</text>
+  <text class="code" x="373" y="175">cleanup(roomId: A)</text>
   <text class="small" x="570" y="284" text-anchor="end">네트워크 지연 · 늦은 요청</text>
 
   <path d="M26 198 C26 252 135 245 208 255 C258 262 278 284 294 301" fill="none" stroke="#e33485" stroke-width="2.3" stroke-linecap="round" marker-end="url(#pink-arrow)"/>

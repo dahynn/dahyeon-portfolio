@@ -599,6 +599,15 @@ html { scroll-snap-type: y proximity; }
 .dasibom-technical-sources .dasibom-technical-close { border-color:transparent; background:transparent; color:#687182; }
 .dasibom-technical-close svg { transform:rotate(180deg); }
 .dasibom-technical-note { margin: .85rem 0 0; color: #707786; font-size: .73rem; line-height: 1.5; }
+.dasibom-technical-overlay { position:fixed; z-index:1000; inset:0; display:grid; place-items:center; padding:clamp(1rem,3vw,2.5rem); background:#171b2db8; backdrop-filter:blur(10px); cursor:zoom-out; }
+.dasibom-technical-backdrop { position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; background:transparent; cursor:zoom-out; }
+.dasibom-technical-overlay .dasibom-technical-inner { position:relative; display:flex; flex-direction:column; width:min(100%,1100px); max-height:100%; min-height:0; margin:auto; padding:clamp(.8rem,1.5vw,1.25rem); overflow:auto; border:0; border-radius:1.25rem; background:#fff; box-shadow:0 1.5rem 5rem #0c112d55; cursor:default; }
+.dasibom-technical-overlay .dasibom-technical-flow { display:flex; flex:1; flex-direction:column; min-height:0; padding:0; border:0; box-shadow:none; }
+.dasibom-technical-overlay .dasibom-technical-image { flex:1; min-height:0; }
+.dasibom-technical-overlay .dasibom-technical-flow img { max-height:calc(100dvh - 10rem); }
+.dasibom-technical-overlay .dasibom-technical-close { display:inline-flex; align-self:flex-end; align-items:center; gap:.35rem; margin-bottom:.55rem; padding:.4rem .65rem; border:0; background:transparent; color:#4d589f; font:inherit; font-size:.8rem; font-weight:800; cursor:pointer; }
+.dasibom-technical-overlay .dasibom-technical-close:hover { color:#283f95; }
+.dasibom-technical-overlay .dasibom-technical-close:focus-visible { outline:2px solid #6672c9; outline-offset:2px; }
 @media (max-width: 700px) {
   .dasibom-brief { min-height: auto; padding-block: 5rem 3rem; }
   .dasibom-brief-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1140,12 +1149,12 @@ html { scroll-snap-type: y proximity; }
   .screen-explainer-note i { display: none; }
 }
 
-/* Project Store는 한 화면의 프로젝트 선택 단계로 압축합니다.
-   상세 기술·팀 정보는 각각의 프로젝트 소개에서 이어서 보여 줍니다. */
+.journey-gpa { display:inline-block; margin-left:.55rem; color:inherit; font-size:clamp(.75rem,.9vw,.875rem); font-weight:650; letter-spacing:-.01em; vertical-align:baseline; white-space:nowrap; }
+/* Project Store는 한 화면을 우선하되, 메타 정보가 늘어나면 잘리지 않고 자연스럽게 확장합니다. */
 @media (min-width: 761px) {
   .project-store {
-    height: 100dvh;
-    min-height: 100svh;
+    height: auto;
+    min-height: 100dvh;
     padding: clamp(2.5rem, 6svh, 4.5rem) 10vw clamp(2rem, 4svh, 3rem);
   }
   .project-store .index-heading { margin-bottom: clamp(1rem, 2svh, 1.75rem); }
@@ -1155,7 +1164,7 @@ html { scroll-snap-type: y proximity; }
     column-gap: 1rem;
     row-gap: .3rem;
     min-height: 0;
-    padding: clamp(.35rem, .8svh, .6rem) 0;
+    padding: .25rem 0;
   }
   .store-project-intro {
     grid-column: 1 / -1;
@@ -1171,7 +1180,9 @@ html { scroll-snap-type: y proximity; }
   .store-role { display: none; }
   .store-item + .store-item::before { left: 0; }
   .store-copy h3 { font-size: clamp(1.2rem, 1.7vw, 1.55rem); }
-  .store-copy p { font-size: clamp(.78rem, 1vw, .9rem); }
+  .store-copy p { max-width:none; font-size: clamp(.78rem, 1vw, .9rem); }
+  .store-meta { margin-top:.3rem; }
+  .store-meta p { font-size:clamp(.75rem,.88vw,.82rem); }
   .store-scroll {
     position: static;
     grid-column: 2;
@@ -1185,10 +1196,10 @@ html { scroll-snap-type: y proximity; }
 
 @media (max-width: 760px) {
   .project-store {
-    height: 100dvh;
+    height: auto;
     min-height: 100svh;
     padding: clamp(3.5rem, 8svh, 4.5rem) 1.25rem clamp(1.25rem, 3svh, 2rem);
-    overflow: hidden;
+    overflow: visible;
   }
   .project-store .index-heading { margin: 0 0 .85rem; }
   .project-store .index-heading h2 { font-size: clamp(1.85rem, 9vw, 2.4rem); }
@@ -1212,7 +1223,10 @@ html { scroll-snap-type: y proximity; }
   .store-icon { width: 3.8rem; height: 3.8rem; }
   .store-number { left: 4.42rem; }
   .store-copy h3 { font-size: 1.08rem; }
-  .store-copy p { margin-top: .18rem; font-size: .72rem; line-height: 1.3; }
+  .store-copy p { max-width:none; margin-top: .18rem; font-size: .72rem; line-height: 1.3; }
+  .store-meta { gap:.12rem; margin-top:.3rem; }
+  .store-meta > span { font-size:.72rem; }
+  .store-meta p { margin:0; font-size:.78rem; line-height:1.4; }
   .store-tech,
   .store-team,
   .store-role { display: none; }
@@ -1226,4 +1240,145 @@ html { scroll-snap-type: y proximity; }
     padding: .25rem .65rem;
     font-size: .7rem;
   }
+}
+
+/* Desktop chapters keep the complete content visible without a second scroll. */
+@media (min-width:901px) {
+  .project-store { min-height:100dvh; padding-block:clamp(2rem,4svh,3.25rem); }
+  .project-store .index-heading { margin-bottom:clamp(.75rem,1.6svh,1.25rem); }
+  .store-item { grid-template-rows:auto; align-items:center; padding:.25rem 0; }
+  .store-project-intro { grid-column:1; grid-row:1; }
+  .store-scroll { grid-column:2; grid-row:1; align-self:center; }
+  .case-hero { padding-block:clamp(2rem,4.5svh,4rem); }
+  .technical-case-san .san-flow-viewport { height:min(58svh,30rem); }
+  .technical-case-san .san-extension-stage { width:min(45%,13rem); }
+}
+
+@media (min-width:901px) and (max-height:680px) {
+  .project-store { padding-block:1.5rem; }
+  .project-store .index-heading { margin-bottom:.5rem; }
+  .store-item { padding:.15rem 0; }
+  .store-project-intro { grid-template-columns:3.6rem minmax(0,1fr); }
+  .store-icon { width:3.6rem; height:3.6rem; }
+  .store-number { left:4.35rem; }
+  .store-copy p { margin-top:.2rem; }
+  .store-meta { margin-top:.15rem; }
+  .case-hero { padding-block:1rem; }
+  .case-hero .case-stack { margin-top:.8rem; }
+  .case-hero .case-project-meta { margin-top:.8rem; padding-block:.65rem; }
+  .technical-case-san .san-extension-stage { width:min(42%,11rem); }
+  .technical-case-san .case-identity { margin-bottom:.8rem; }
+  .technical-case-san .case-intro-text { margin-top:.5rem; }
+  .technical-case-san .case-external-link,
+  .technical-case-san .service-hero-brief { margin-top:.5rem; }
+}
+@media (min-width:901px) and (max-height:800px) {
+  .technical-case-san .case-identity { margin-bottom:.6rem; }
+  .technical-case-san .case-intro-text { margin-top:.5rem; }
+  .technical-case-san .case-stack { margin-top:.7rem; }
+  .technical-case-san .case-project-meta { margin-top:.7rem; padding-block:.7rem; }
+  .technical-case-san .case-external-link,.technical-case-san .service-hero-brief { margin-top:.5rem; }
+}
+@media (min-width:901px) and (max-width:1000px) {
+  .case-hero { padding-inline:1.25rem; }
+  .case-hero-inner { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1.25rem; }
+  .technical-case-san .case-project-meta { padding-block:.5rem; }
+}
+@media (min-width:901px) and (max-height:620px) {
+  .case-hero { padding-block:.5rem; }
+  .case-hero-inner { zoom:.85; width:calc(100% / .85); }
+}
+
+/* App Store-style project rows: a quiet card replaces the orange ruled list. */
+.project-store { background:#fafaf9; }
+.store-list { display:grid; gap:clamp(.5rem,1.1svh,.75rem); }
+.store-item,
+.store-item:last-child {
+  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-rows:auto;
+  align-items:center;
+  column-gap:1rem;
+  min-height:0;
+  padding:clamp(.65rem,1.45svh,.95rem) clamp(.9rem,1.8vw,1.4rem);
+  border:1px solid #e7e7e5;
+  border-radius:1.05rem;
+  background:#fff;
+  box-shadow:0 .2rem .9rem rgba(16,24,39,.035);
+}
+.store-project-intro {
+  grid-column:1;
+  grid-row:1;
+  grid-template-columns:clamp(3.8rem,6vw,4.6rem) minmax(0,1fr);
+  gap:clamp(.8rem,1.3vw,1.1rem);
+  align-items:center;
+  padding:0;
+}
+.store-icon { grid-row:1; width:100%; height:auto; aspect-ratio:1; }
+.store-copy { grid-row:1; }
+.store-eyebrow { display:flex; align-items:center; gap:.6rem; margin:0 0 .18rem; }
+.store-number,
+.store-brief-label {
+  position:static;
+  display:inline;
+  margin:0;
+  padding:0;
+  background:none;
+  color:#b85a23;
+  font-size:.65rem;
+  font-weight:800;
+  letter-spacing:.1em;
+  line-height:1;
+}
+.store-brief-label { color:#848891; }
+.store-copy h3 { font-size:clamp(1.22rem,1.65vw,1.55rem); line-height:1.15; }
+.store-copy > p { margin-top:.22rem; font-size:clamp(.8rem,1vw,.94rem); line-height:1.38; }
+.store-meta { gap:.08rem; margin-top:.28rem; }
+.store-meta > span { font-size:clamp(.7rem,.8vw,.78rem); }
+.store-meta p { margin:0; font-size:clamp(.74rem,.86vw,.84rem); line-height:1.35; }
+.store-meta .store-contribution { display:flex; align-items:baseline; gap:.55rem; min-width:0; padding-left:.55rem; border-left:2px solid #d6d9dd; }
+.store-contribution strong { flex:none; color:#757b83; font-size:.65rem; font-weight:800; letter-spacing:.08em; white-space:nowrap; }
+.store-contribution span { min-width:0; color:#343940; font-weight:650; word-break:keep-all; }
+.store-contribution span + span { padding-left:.65rem; border-left:1px solid #d5d9dd; }
+.store-scroll {
+  position:static;
+  grid-column:2;
+  grid-row:1;
+  align-self:center;
+  justify-self:end;
+  min-height:2.4rem;
+  padding:.5rem .9rem;
+  border:1px solid #f2dccb;
+  border-radius:999px;
+  background:#fff2e9;
+  color:#b64a0d;
+  font-size:.78rem;
+  font-weight:800;
+  line-height:1.2;
+}
+.store-scroll svg { padding:0; color:currentColor; }
+.store-scroll:hover { background:#f37321; border-color:#f37321; color:#fff; }
+.store-scroll:focus-visible { outline:2px solid #b64a0d; outline-offset:3px; }
+
+@media (max-width:760px) {
+  .store-item,.store-item:last-child { grid-template-columns:minmax(0,1fr); grid-template-rows:auto auto; gap:.55rem; padding:.8rem; }
+  .store-project-intro { grid-column:1; grid-row:1; grid-template-columns:3.8rem minmax(0,1fr); gap:.75rem; }
+  .store-copy h3 { font-size:1.12rem; }
+  .store-copy > p { font-size:.76rem; }
+  .store-scroll { grid-column:1; grid-row:2; min-height:2rem; padding:.35rem .7rem; font-size:.72rem; }
+}
+
+@media (min-width:761px) and (max-height:680px) {
+  .store-list { gap:.4rem; }
+  .store-item,.store-item:last-child { padding:.45rem .85rem; }
+  .store-project-intro { grid-template-columns:3.5rem minmax(0,1fr); }
+  .store-eyebrow { margin-bottom:.1rem; }
+  .store-copy > p { margin-top:.12rem; }
+  .store-meta { margin-top:.12rem; }
+  .store-scroll { min-height:2.1rem; padding:.35rem .7rem; }
+}
+@media (min-width:901px) and (max-height:620px) {
+  .project-store { padding-block:.5rem; }
+  .project-store .index-heading { margin-bottom:.3rem; }
+  .store-list { gap:.25rem; }
+  .store-item,.store-item:last-child { padding:.2rem .65rem; }
 }

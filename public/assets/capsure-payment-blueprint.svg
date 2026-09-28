@@ -71,20 +71,21 @@
   <text x="645" y="207" text-anchor="middle" class="sub">HTTP 500 · 증권 0건</text>
   <path d="M724 190 H772" class="flow-muted"/>
   <rect x="772" y="146" width="182" height="88" rx="10" class="node"/>
-  <text x="863" y="180" text-anchor="middle" class="title">외부 승인</text>
-  <text x="863" y="207" text-anchor="middle" class="sub">DB 롤백과 무관</text>
+  <text x="863" y="180" text-anchor="middle" class="title">후속 처리 미반영</text>
+  <text x="863" y="207" text-anchor="middle" class="sub">증권 · 이벤트 미생성</text>
 
   <text x="30" y="304" class="step">02</text>
   <text x="62" y="304" class="title">조회 후 복구</text>
   <text x="62" y="327" class="sub">(중복 승인 방지)</text>
-  <path d="M863 234 V298 H518" class="flow-muted"/>
+  <path d="M645 234 V298 H518" class="flow-muted"/>
   <rect x="360" y="254" width="158" height="88" rx="10" class="node-blue"/>
   <text x="439" y="290" text-anchor="middle" class="title">기존 거래 조회</text>
-  <text x="439" y="315" text-anchor="middle" class="sub">동일 주문번호 대사</text>
+  <text x="439" y="315" text-anchor="middle" class="sub">기존 결제 키로 조회</text>
   <path d="M360 298 H310" class="flow"/>
   <rect x="156" y="254" width="154" height="88" rx="10" class="node"/>
-  <text x="233" y="290" text-anchor="middle" class="title">승인 결과 존재</text>
-  <text x="233" y="315" text-anchor="middle" class="sub">기존 승인 재사용</text>
+  <text x="233" y="290" text-anchor="middle" class="title">기존 승인 확인</text>
+  <text x="233" y="315" text-anchor="middle" class="sub">재승인 없음</text>
+  <path d="M310 324 H360" class="flow"/>
   <path d="M439 342 V370" class="flow"/>
 
   <text x="30" y="416" class="step">03</text>

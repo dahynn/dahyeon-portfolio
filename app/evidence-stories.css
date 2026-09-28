@@ -487,7 +487,7 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
 
 /* Roundy Problem 01 — 핑크는 판단 포인트에만 사용하고, 정보 계층은 흑백으로 정리합니다. */
 .roundy-race-case {
-  --rr-bg:#f4f4f1;
+  --rr-bg:#fff;
   --rr-panel:#ffffff;
   --rr-panel-2:#f7f7f5;
   --rr-line:#d6d9dd;
@@ -619,7 +619,7 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
 
 /* Roundy Problem 02 — 사진 대조, 소유권 키, 상태 전이, 동시 소비 결과를 한 흐름으로 읽습니다. */
 .roundy-verification-case {
-  --rv-bg:#f4f4f1;
+  --rv-bg:#fff;
   --rv-panel:#fff;
   --rv-ink:#17191c;
   --rv-muted:#686f77;
@@ -724,7 +724,7 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
 /* Case typography — Roundy와 CapSure의 같은 위계는 같은 크기 토큰을 사용합니다. */
 :where(.roundy-race-case,.roundy-verification-case,.capsure-blueprint-case,.san-evidence-case) {
   --case-index-size:clamp(1.05rem,1.32vw,1.38rem);
-  --case-title-size:clamp(2rem,3vw,3.15rem);
+  --case-title-size:clamp(1.8rem,2.55vw,2.7rem);
   --case-summary-size:clamp(.82rem,1vw,1.08rem);
   --case-summary-leading:1.5;
   --case-section-size:clamp(1.1rem,1.45vw,1.55rem);
@@ -798,7 +798,22 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
 }
 .capsure-blueprint-main { display:grid; grid-template-rows:auto auto; align-content:center; gap:clamp(.75rem,1.35vh,1rem); min-width:0; min-height:0; }
 .capsure-blueprint-diagram { display:grid; align-items:center; min-width:0; min-height:0; margin:0; }
-.capsure-blueprint-diagram img { display:block; width:100%; height:100%; max-height:60vh; object-fit:contain; }
+.diagram-zoom-trigger { position:relative; display:block; width:100%; min-width:0; margin:0; padding:0; border:0; background:none; cursor:zoom-in; }
+.capsure-blueprint-diagram .diagram-zoom-trigger>img { display:block; width:100%; height:100%; max-height:60vh; object-fit:contain; }
+.diagram-zoom-hint { position:absolute; right:.75rem; bottom:.75rem; display:inline-flex; align-items:center; gap:.35rem; padding:.38rem .55rem; border:1px solid #d3dbe2; border-radius:999px; color:#344959; background:#fffffff2; box-shadow:0 2px 10px #14232f18; font-size:.72rem; font-weight:750; line-height:1; }
+.diagram-zoom-trigger:hover .diagram-zoom-hint,.diagram-zoom-trigger:focus-visible .diagram-zoom-hint { border-color:#86b3d3; color:#1179b8; }
+.diagram-zoom-trigger:focus-visible { outline:3px solid #1179b8; outline-offset:4px; border-radius:.5rem; }
+.diagram-zoom-dialog { box-sizing:border-box; position:fixed; inset:0; width:100vw; max-width:none; height:100dvh; max-height:none; margin:0; padding:clamp(.5rem,2vw,1.5rem); overflow:hidden; border:0; background:transparent; }
+.diagram-zoom-dialog[open] { display:grid; place-items:center; }
+.diagram-zoom-dialog::backdrop { background:#111923a8; backdrop-filter:blur(9px); }
+.diagram-zoom-dismiss { position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; background:transparent; cursor:default; }
+.diagram-zoom-panel { position:relative; display:grid; grid-template-rows:auto minmax(0,1fr); width:min(100%,94rem); max-height:92dvh; overflow:hidden; border:1px solid #d5dce2; border-radius:.8rem; background:#fff; box-shadow:0 1.5rem 5rem #10192359; }
+.diagram-zoom-toolbar { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.7rem .85rem .7rem 1.2rem; border-bottom:1px solid #e1e6ea; color:#1f2b35; font-size:.95rem; }
+.diagram-zoom-toolbar button { display:grid; place-items:center; flex:0 0 auto; width:2rem; height:2rem; padding:0; border:0; border-radius:50%; color:#465561; background:#f1f4f6; cursor:pointer; }
+.diagram-zoom-toolbar button:hover { color:#173044; background:#dfeaf1; }
+.diagram-zoom-toolbar button:focus-visible { outline:2px solid #1179b8; outline-offset:2px; }
+.diagram-zoom-scroll { min-height:0; overflow:auto; padding:clamp(.6rem,2vw,1.5rem); }
+.diagram-zoom-scroll img { display:block; width:100%; height:auto; max-height:calc(92dvh - 5rem); object-fit:contain; }
 .capsure-blueprint-notes { grid-column:2; grid-row:1; display:grid; grid-template-rows:repeat(4,minmax(0,1fr)); align-content:stretch; min-width:0; }
 .capsure-blueprint-notes article { display:flex; flex-direction:column; justify-content:center; padding:clamp(.8rem,1.4vh,1.2rem) clamp(.15rem,.4vw,.4rem); border-top:1px solid #202328; }
 .capsure-blueprint-notes article:first-child { border-top:0; }
@@ -823,7 +838,7 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
   .capsure-blueprint-header h3 { margin:.35rem 0 .18rem; font-size:2.35rem; }
   .capsure-blueprint-header>p { font-size:var(--case-summary-size); }
   .capsure-blueprint-board { gap:.55rem 1.7rem; padding-top:.55rem; }
-  .capsure-blueprint-diagram img { max-height:59vh; }
+  .capsure-blueprint-diagram .diagram-zoom-trigger>img { max-height:59vh; }
   .capsure-blueprint-notes h4 { margin-bottom:.32rem; font-size:1.25rem; }
   .capsure-blueprint-notes p,.capsure-blueprint-notes strong { font-size:.83rem; line-height:1.46; }
   .capsure-blueprint-notes article { padding:.52rem .15rem; }
@@ -836,7 +851,7 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
   .capsure-blueprint-eyebrow { flex-wrap:wrap; }
   .capsure-blueprint-eyebrow small { margin-left:0; }
   .capsure-blueprint-board { grid-template-columns:1fr; grid-template-rows:auto; }
-  .capsure-blueprint-diagram img { max-height:none; }
+  .capsure-blueprint-diagram .diagram-zoom-trigger>img { max-height:none; }
   .capsure-blueprint-notes { grid-column:1; grid-row:auto; grid-template-columns:repeat(2,minmax(0,1fr)); }
   .capsure-blueprint-rule>div { align-items:flex-start; flex-direction:column; gap:.2rem; }
 }
@@ -847,7 +862,8 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
   .capsure-blueprint-diagram,.capsure-blueprint-notes,.capsure-blueprint-rule { margin-top:1rem; }
   .capsure-blueprint-notes { display:grid; grid-template-columns:1fr; }
   .capsure-blueprint-diagram { overflow-x:auto; }
-  .capsure-blueprint-diagram img { width:58rem; max-width:none; }
+  .capsure-blueprint-diagram .diagram-zoom-trigger>img { width:58rem; max-width:none; }
+  .diagram-zoom-scroll img { width:1000px; max-width:none; max-height:none; }
 }
 
 /* Roundy Problem 02 — 선택한 가로형 토큰 생명주기 시안. */
@@ -1126,6 +1142,7 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
 .san-evidence-header>div>span { color:var(--san-green); font-size:var(--case-index-size); font-weight:950; letter-spacing:.07em; }
 .san-evidence-header>div small { font:inherit; color:#9eb0a7; }
 .san-evidence-header h3 { margin:clamp(.52rem,1vh,.78rem) 0 .3rem; max-width:28ch; color:#fff; font-size:var(--case-title-size); font-weight:900; line-height:1.08; letter-spacing:-.055em; word-break:keep-all; }
+.san-evidence-san-benchmark .san-evidence-header h3 { max-width:none; }
 .san-evidence-header>p { margin:0; color:#aebdb5; font-size:var(--case-summary-size); font-weight:520; line-height:var(--case-summary-leading); word-break:keep-all; }
 .san-evidence-stage { display:grid; align-items:center; min-width:0; min-height:0; padding:clamp(.7rem,1.5vh,1.05rem) 0; }
 .san-svg-visual { display:grid; align-items:center; min-width:0; min-height:0; margin:0; }
@@ -1390,13 +1407,13 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
 }
 
 /* Roundy 01·02는 동일한 문제 해결 규격과 왼쪽 시각 흐름을 공유합니다. */
-.roundy-race-case,.roundy-verification-case { height:auto; min-height:100dvh; overflow:visible; color:#202328; background:#f4f4f1; }
+.roundy-race-case,.roundy-verification-case { height:auto; min-height:100dvh; overflow:visible; color:#202328; background:#fff; }
 .roundy-unified-canvas { box-sizing:border-box; display:block; width:min(100%,96rem); height:auto; min-height:100dvh; margin-inline:auto; padding:clamp(2rem,4vw,4rem) clamp(1.5rem,4vw,4.5rem) clamp(3rem,5vw,5rem); }
 .roundy-unified-header { padding-bottom:1.6rem; border-bottom:1px solid #c9cdd2; }
 .roundy-unified-header>div { display:flex; align-items:baseline; flex-wrap:wrap; gap:.85rem; }
 .roundy-unified-header>div span { color:#d93683; font-size:1rem; font-weight:950; letter-spacing:.1em; }
 .roundy-unified-header>div small { color:#6c747d; font-size:.88rem; font-weight:750; }
-.roundy-unified-header h3 { max-width:30ch; margin:.7rem 0 .55rem; color:#17191c; font-size:clamp(2rem,3vw,3.2rem); font-weight:900; line-height:1.15; letter-spacing:-.045em; word-break:keep-all; }
+.roundy-unified-header h3 { max-width:30ch; margin:.7rem 0 .55rem; color:#17191c; font-size:var(--case-title-size); font-weight:900; line-height:1.15; letter-spacing:-.045em; word-break:keep-all; }
 .roundy-unified-header p { max-width:75ch; margin:0; color:#535b64; font-size:clamp(1rem,1.12vw,1.14rem); line-height:1.55; word-break:keep-all; }
 .roundy-unified-board { display:grid; grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); align-items:start; gap:clamp(2rem,3.5vw,4rem); padding-top:2rem; }
 .roundy-concurrency,.roundy-auth-timeline { min-width:0; margin:0; }
@@ -1539,6 +1556,8 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
 .roundy-auth-step-body p { margin:0 0 .35rem; font-size:.9rem; line-height:1.35; }
 .roundy-auth-flow { display:grid; grid-template-columns:minmax(0,7.5rem) 1.25rem minmax(0,1fr); align-items:center; gap:.65rem; max-width:26rem; }
 .roundy-auth-flow>img { display:block; width:7.5rem; height:4.75rem; object-fit:cover; border:1px solid #d5d8dc; border-radius:.35rem; }
+.roundy-auth-flow>.roundy-auth-face-icon { display:grid; place-items:center; width:7.5rem; height:4.75rem; border:1px solid #e7d7df; border-radius:.45rem; background:#fff9fc; }
+.roundy-auth-face-icon svg { width:2.5rem; height:2.5rem; color:#c9367c; stroke-width:1.7; }
 .roundy-auth-flow>svg { width:1.2rem; color:#737b84; }
 .roundy-auth-flow>span { display:block; padding:.6rem .5rem; border:1px solid #cdd2d7; border-radius:.36rem; color:#39424b; background:#fff; text-align:center; font-size:.82rem; line-height:1.38; }
 .roundy-auth-flow>span b { font-weight:850; }
@@ -1615,14 +1634,11 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
   .roundy-note-lead { font-size:1.08rem; }
 }
 
-/* Roundy 02 — a continuous rail centered behind every numbered marker. */
-.roundy-auth-steps { --roundy-auth-rail:#d46c9c; position:relative; border-left:0; }
-.roundy-auth-steps::before,.roundy-auth-steps::after { position:absolute; left:0; width:2px; height:100%; transform:translateX(-50%); content:""; pointer-events:none; }
-.roundy-auth-steps::before { top:0; background:var(--roundy-auth-rail); }
-.roundy-auth-steps::after { top:0; background:linear-gradient(180deg,transparent 36%,#fff9fc 50%,transparent 64%); background-size:100% 300%; animation:roundy-rail-flow 3.4s linear infinite; }
-.roundy-auth-index { z-index:1; top:0; left:-2.625rem; width:2.05rem; height:2.05rem; border:2px solid var(--roundy-auth-rail); color:#202328; background:#fff; box-shadow:0 0 0 3px #f8e9f0; font-size:.7rem; }
-@keyframes roundy-rail-flow { from { background-position:0 100%; } to { background-position:0 0%; } }
-@media (prefers-reduced-motion:reduce) { .roundy-auth-steps::after { animation:none; opacity:0; } }
+/* Roundy 02 — 얇은 기준선과 단일 번호 원으로 시각적 무게를 낮춥니다. */
+.roundy-auth-steps { position:relative; border-left:0; }
+.roundy-auth-steps::before { position:absolute; top:.85rem; bottom:.85rem; left:0; width:1px; background:#d9dee3; content:""; pointer-events:none; }
+.roundy-auth-steps::after { display:none; }
+.roundy-auth-index { z-index:1; top:.08rem; left:-2.475rem; width:1.75rem; height:1.75rem; border:1px solid #dfafc7; color:#a92f6d; background:#fff; box-shadow:none; font-size:.7rem; font-weight:800; }
 .roundy-auth-proof-dots span.is-success { position:relative; box-shadow:0 0 0 3px #f9deea; }
 .roundy-auth-proof-dots span.is-success::before,.roundy-auth-proof-dots span.is-success::after { position:absolute; top:-10px; left:50%; width:1px; height:6px; background:#e33d8b; content:""; }
 .roundy-auth-proof-dots span.is-success::before { transform:translateX(-8px) rotate(-28deg); }
@@ -1631,10 +1647,130 @@ html:has(.evidence-story:target) { scroll-snap-type:none; }
 .roundy-proof-list li { display:flex; align-items:flex-start; gap:.4rem; color:#3e4852; font-size:var(--case-body-size); line-height:1.45; word-break:keep-all; }
 .roundy-proof-list svg { flex:0 0 1rem; width:1rem; height:1rem; padding:.15rem; border-radius:50%; color:#fff; background:#d75a94; }
 .roundy-unified-notes .is-evidence p,.capsure-blueprint-notes .is-evidence p,.san-evidence-notes .is-evidence p { font-size:var(--case-body-size); line-height:1.5; }
-@media (max-width:560px) { .roundy-auth-index { left:-2.425rem; } }
+@media (max-width:560px) { .roundy-auth-index { left:-2.475rem; } }
 @media (min-width:901px) { .roundy-verification-case .roundy-unified-notes .is-evidence { padding-block:.45rem; } }
 @media (max-width:900px) {
   .roundy-crossing-events { gap:1rem; }
   .roundy-crossing-event code { white-space:normal; overflow-wrap:anywhere; }
   .roundy-crossing-gate strong { white-space:normal; }
+}
+
+/* Roundy 01: keep the concurrency diagram, but give its case narrative a clear three-part reading order. */
+.roundy-race-case .roundy-unified-board { grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:stretch; }
+.roundy-race-summary { display:grid; align-content:center; gap:clamp(3rem,5.5vh,4rem); min-width:0; padding-block:.25rem .75rem; }
+.roundy-race-summary article { min-width:0; }
+.roundy-race-summary h4 { margin:0 0 .5rem; color:#202328; font-size:clamp(1.35rem,1.7vw,1.55rem); font-weight:800; line-height:1.2; letter-spacing:-.035em; }
+.roundy-race-summary-list,.roundy-race-impact-list { display:grid; gap:.42rem; margin:0; padding-left:1.15rem; color:#252a30; font-size:clamp(.92rem,1.08vw,1rem); font-weight:500; line-height:1.5; letter-spacing:-.015em; word-break:keep-all; list-style:disc; }
+.roundy-race-summary-list li::marker,.roundy-race-impact-list li::marker { color:#818992; font-size:.75em; }
+.roundy-race-summary strong { color:#c92f77; font-weight:850; }
+.roundy-race-summary .roundy-race-summary-scope { margin-top:.55rem; color:#68717a; font-size:clamp(.9rem,1.05vw,1rem); font-weight:500; line-height:1.45; }
+@media (max-width:900px) {
+  .roundy-race-case .roundy-unified-board { grid-template-columns:1fr; }
+  .roundy-race-summary { align-content:start; gap:3rem; padding-block:0; }
+  .roundy-race-summary h4 { font-size:clamp(1.3rem,3.5vw,1.5rem); }
+  .roundy-race-summary-list,.roundy-race-impact-list { font-size:clamp(.92rem,2.25vw,1rem); }
+}
+@media (min-width:901px) {
+  .roundy-race-case .roundy-unified-canvas { width:min(100%,104rem); padding-inline:clamp(1.5rem,3vw,3.5rem); }
+  .roundy-race-case .roundy-concurrency { width:92%; justify-self:center; align-self:center; }
+}
+.evidence-story .story-heading h3 { font-size:clamp(1.6rem,2.15vw,2.5rem); }
+
+/* The other technical cases follow the Roundy three-part reading rhythm. */
+.case-three-part { align-self:center; width:100%; gap:clamp(3rem,5.5vh,4rem); }
+.case-three-part .roundy-race-summary-list li::marker { color:var(--case-note-accent,#818992); }
+.capsure-blueprint-case { --case-note-accent:#1179b8; height:auto; min-height:100dvh; overflow:visible; }
+.capsure-blueprint-canvas { height:auto; min-height:100dvh; }
+.capsure-blueprint-board { grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); grid-template-rows:auto; align-items:center; gap:clamp(2rem,3.5vw,4rem); }
+.capsure-blueprint-main { align-content:center; }
+.roundy-race-case,.roundy-verification-case { --case-note-accent:#d93683; }
+.roundy-race-case .roundy-race-summary-list li::marker,.roundy-race-case .roundy-race-impact-list li::marker { color:var(--case-note-accent); }
+.san-evidence-case { --case-note-accent:#4f9482; height:auto; min-height:100dvh; overflow:visible; }
+.san-evidence-canvas { height:auto; min-height:100dvh; grid-template-rows:auto minmax(0,1fr); }
+.san-evidence-board { display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); align-items:center; gap:clamp(2rem,3.5vw,4rem); min-width:0; min-height:0; }
+.san-evidence-board .san-evidence-stage { min-width:0; }
+.san-evidence-san-audit .san-evidence-board .san-svg-visual img { width:100%; max-height:62vh; }
+.san-evidence-san-audit .san-evidence-board { grid-template-columns:1fr; align-content:center; gap:clamp(.8rem,1.5vh,1.2rem); }
+.san-evidence-san-audit .san-evidence-board .san-evidence-stage { width:min(100%,72rem); margin-inline:auto; padding:0; }
+.san-evidence-san-audit .san-evidence-board .san-svg-visual img { max-height:45vh; }
+.san-evidence-san-audit .case-three-part { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:start; gap:clamp(2rem,2.8vw,2.75rem); padding:0; }
+.san-benchmark-main { grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); align-items:center; gap:clamp(2rem,3.5vw,4rem); }
+.san-benchmark-main .san-svg-visual img { max-height:62vh; }
+@media (max-width:1050px) {
+  .capsure-blueprint-board,.san-evidence-board,.san-benchmark-main { grid-template-columns:1fr; gap:1.75rem; }
+  .san-evidence-board .san-evidence-stage { width:100%; }
+  .san-evidence-san-audit .san-evidence-board .san-svg-visual img { width:100%; max-height:none; }
+  .san-evidence-san-audit .case-three-part { grid-template-columns:1fr; gap:3rem; }
+  .case-three-part { align-self:start; }
+}
+@media (max-width:620px) {
+  .san-evidence-san-audit .san-evidence-board .san-svg-visual img { width:68rem; max-width:none; }
+}
+
+@media (min-width:901px) and (max-height:800px) {
+  .san-evidence-san-ticket .san-ticket-flow-link { min-height:2.2rem; }
+  .san-evidence-san-ticket .san-ticket-token { width:min(100%,23rem); }
+  .san-evidence-san-ticket .san-ticket-main { padding-block:.15rem; }
+}
+
+@media (min-width:901px) and (max-width:1050px) {
+  .san-ticket-main { grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:1.5rem; }
+  .san-ticket-flow { width:100%; }
+  .san-ticket-main { padding-block:.3rem; }
+}
+
+@media (min-width:901px) and (max-height:650px) {
+  .roundy-unified-canvas { padding-top:.6rem; padding-bottom:.3rem; }
+  .roundy-unified-board { padding-top:.45rem; }
+  .roundy-race-case .roundy-race-svg { width:auto; max-width:100%; max-height:72svh; margin-inline:auto; }
+  .roundy-verification-case .roundy-auth-timeline { zoom:.83; }
+  .san-evidence-san-ticket .san-ticket-flow { zoom:.82; }
+}
+
+/* A desktop chapter is one viewport. Keep the paired diagram/copy layout at
+   laptop widths instead of stacking two full-height panels. */
+@media (min-width:901px) {
+  .capsure-blueprint-case,.san-evidence-case { height:100dvh; min-height:0; overflow:hidden; }
+  .capsure-blueprint-canvas,.san-evidence-canvas { height:100%; min-height:0; }
+  .capsure-blueprint-board { grid-template-rows:minmax(0,1fr); }
+  .san-evidence-board,.san-benchmark-main { min-height:0; }
+}
+@media (min-width:901px) and (max-width:1050px) {
+  .capsure-blueprint-canvas,.san-evidence-canvas { padding:1rem 1.35rem .85rem; }
+  .capsure-blueprint-board,.san-benchmark-main { grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr); gap:1.3rem; }
+  .capsure-blueprint-main { min-height:0; }
+  .capsure-blueprint-diagram .diagram-zoom-trigger>img { max-height:53dvh; }
+  .capsure-blueprint-rule>div { align-items:baseline; flex-direction:row; gap:.4rem; }
+  .case-three-part { align-self:center; gap:clamp(1.45rem,3.3vh,2.2rem); }
+  .san-evidence-san-audit .san-evidence-board { grid-template-columns:1fr; gap:.3rem; }
+  .san-evidence-san-audit .san-evidence-board .san-svg-visual img { width:100%; max-height:36dvh; }
+  .san-evidence-san-audit .case-three-part { grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+  .san-benchmark-main .san-svg-visual img { min-width:0; max-height:58dvh; }
+  .san-benchmark-main .san-svg-visual { overflow:visible; justify-items:center; }
+  .san-benchmark-left { display:block; margin-left:0; border-right:1px solid #cdded3; border-bottom:0; }
+  .san-benchmark-left article { padding:.8rem .8rem .8rem 0; }
+  .san-benchmark-left article+article { border-top:1px solid #cdded3; border-left:0; }
+}
+@media (min-width:901px) and (max-height:800px) {
+  .capsure-blueprint-canvas,.san-evidence-canvas { padding-top:1rem; padding-bottom:.8rem; }
+  .capsure-blueprint-header,.san-evidence-header { padding-bottom:.55rem; }
+  .capsure-blueprint-header h3,.san-evidence-header h3 { margin:.3rem 0 .18rem; }
+  .case-three-part { gap:clamp(1.2rem,3vh,2rem); }
+  .san-evidence-san-audit .case-three-part { gap:1rem; }
+}
+@media (min-width:901px) and (max-height:900px) {
+  .roundy-unified-canvas { padding-top:clamp(1rem,2.5vh,1.5rem); padding-bottom:clamp(.65rem,1.5vh,1rem); }
+  .roundy-unified-header { padding-bottom:clamp(.65rem,1.3vh,1rem); }
+  .roundy-unified-board { padding-top:clamp(.65rem,1.5vh,1rem); }
+  .roundy-race-summary { gap:clamp(1.6rem,3.6vh,2.3rem); }
+}
+@media (min-width:901px) and (min-height:651px) and (max-height:800px) {
+  .roundy-verification-case .roundy-auth-timeline { zoom:.94; }
+}
+@media (min-width:901px) and (max-height:620px) {
+  .roundy-unified-canvas { zoom:.86; width:calc(100% / .86); min-height:calc(100dvh / .86); }
+  .san-evidence-san-ticket .san-ticket-main { zoom:.87; width:calc(100% / .87); }
+}
+@media (min-width:901px) and (max-width:1000px) and (max-height:620px) {
+  .capsure-blueprint-case .case-three-part,.san-evidence-san-benchmark .case-three-part { gap:.35rem; }
 }
