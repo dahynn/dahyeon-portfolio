@@ -3,28 +3,29 @@ import { PageSnap } from '../components/PageSnap';
 import { ArrowDown, CheckCircle2, Mail, UsersRound } from 'lucide-react';
 import { ProjectCaseStudies } from '../components/ProjectCaseStudies';
 import { PersonalStrengths } from '../components/PersonalStrengths';
+import { projectEvidence } from '../components/projectEvidence';
 import './case-studies.css';
 
 const projects = [
   {
     name: 'CapSure', summary: '필요한 보장을 고르고 월 단위로 구독하는 보험 시뮬레이터', icon: '/assets/project-capsure-hd.png', href: '#capsure',
     stack: [{ name: 'Java 21', icon: '/assets/tech-icons/java.png' }, { name: 'Spring Boot', icon: '/assets/tech-icons/spring.png' }, { name: 'PostgreSQL', icon: '/assets/tech-icons/postgresql.svg' }, { name: 'React', icon: '/assets/tech-icons/react.svg' }],
-    team: '5명', teamDetail: 'BE 3, FE 1, INFRA 1', role: ['상품 선택과 가입 흐름', '결제 결과와 구독 확정', '반응형 화면 구현'],
+    evidence: projectEvidence.capsure, role: ['상품 선택과 가입 흐름', '결제 결과와 구독 확정', '반응형 화면 구현'],
   },
   {
     name: 'Roundy', summary: '성향 퀴즈와 얼굴 인증으로 시작하는 온라인 로테이션 미팅', icon: '/assets/project-roundy-hd.png', href: '#roundy',
     stack: [{ name: 'Java 21', icon: '/assets/tech-icons/java.png' }, { name: 'Spring Boot', icon: '/assets/tech-icons/spring.png' }, { name: 'Redis', icon: '/assets/tech-icons/redis.png' }, { name: 'React', icon: '/assets/tech-icons/react.svg' }],
-    team: '6명', teamDetail: 'FE 1, BE 3, AI 1, INFRA 1', role: ['성향 퀴즈 흐름 연결', '얼굴 인증과 방 접근', '마스킹 미팅 화면 구현'],
+    evidence: projectEvidence.roundy, role: ['성향 퀴즈 흐름 연결', '얼굴 인증과 방 접근', '마스킹 미팅 화면 구현'],
   },
   {
     name: 'SAN', summary: '크롬 확장 프로그램으로 저장한 자료를 다시 찾고 정리하는 서비스', icon: '/assets/project-san-hd.png', href: '#san',
     stack: [{ name: 'Java 21', icon: '/assets/tech-icons/java.png' }, { name: 'Spring Boot', icon: '/assets/tech-icons/spring.png' }, { name: 'PostgreSQL', icon: '/assets/tech-icons/postgresql.svg' }, { name: 'React', icon: '/assets/tech-icons/react.svg' }],
-    team: '7명', teamDetail: 'FE 1, BE 3, AI 2, INFRA 1', role: ['서버 검색 기능 구현', 'AI 입력 보호 설계', '작업 상태 관리'],
+    evidence: projectEvidence.san, role: ['서버 검색 기능 구현', 'AI 입력 보호 설계', '작업 상태 관리'],
   },
   {
     name: '다시봄', summary: '얼굴·음성 결과를 먼저 보고, 필요 시 설문으로 이어지는 모바일 앱', icon: '/assets/project-dasibom-hd.png', href: '#dasibom',
     stack: [{ name: 'React Native', icon: '/assets/tech-icons/react.svg' }, { name: 'Spring Boot', icon: '/assets/tech-icons/spring.png' }, { name: 'AI 분석 API', icon: '/assets/tech-icons/ai-analysis.svg' }, { name: 'MySQL', icon: '/assets/tech-icons/sql.svg' }],
-    team: '4명', teamDetail: 'FE 1, BE 1, AI 2', role: ['서비스 기획과 UI/UX', '카메라·음성 입력 연결', '지도·차트 화면 구현'], brief: true,
+    evidence: projectEvidence.dasibom, role: ['서비스 기획과 UI/UX', '카메라·음성 입력 연결', '지도·차트 화면 구현'], brief: true,
   },
 ];
 
@@ -207,11 +208,12 @@ export default function Home() {
               </div>
               <div className="store-team" aria-label={`${project.name} 팀 구성`}>
                 <p>팀 구성</p>
-                <strong><UsersRound size={18} strokeWidth={1.8} aria-hidden="true" />{project.team}</strong>
-                <span>{project.teamDetail}</span>
+                <strong><UsersRound size={18} strokeWidth={1.8} aria-hidden="true" />{project.evidence.team.split(' · ')[0]}</strong>
+                <span>{project.evidence.team.split(' · ').slice(1).join(' · ')}</span>
               </div>
               <div className="store-role" aria-label={`${project.name} 담당 범위`}>
                 <p>담당 범위</p>
+                <strong>{project.evidence.responsibility.split(' / ')[0]}</strong>
                 <ul>{project.role.map((item) => <li key={item}><CheckCircle2 size={13} strokeWidth={2.1} aria-hidden="true" />{item}</li>)}</ul>
               </div>
               <a className="store-scroll" href={project.href} aria-label={`${project.name} 상세 내용으로 이동`}>

@@ -883,6 +883,7 @@ html { scroll-snap-type: y proximity; }
 .store-team strong { display: inline-flex; align-items: center; gap: .35rem; color: #1f2937; font-size: .85rem; line-height: 1.1; }
 .store-team strong svg { color: #1f2937; }
 .store-team span { margin-top: .32rem; color: #858c95; font-size: .58rem; line-height: 1.35; }
+.store-role strong { display: block; margin-bottom: .38rem; color: #263243; font-size: .63rem; line-height: 1.2; }
 .store-role ul { display: grid; gap: .27rem; margin: 0; padding: 0; list-style: none; }
 .store-role li { display: flex; align-items: flex-start; gap: .32rem; color: #59606c; font-size: .6rem; font-weight: 600; line-height: 1.28; word-break: keep-all; }
 .store-role li svg { flex: 0 0 auto; margin-top: .02rem; color: #f37321; }

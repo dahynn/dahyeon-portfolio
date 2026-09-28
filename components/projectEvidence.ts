@@ -15,8 +15,8 @@ export type ProjectPresentation = {
 // Measurement references and role boundaries are recorded in docs/portfolio-redesign.
 export const projectEvidence: Record<string, ProjectPresentation> = {
   capsure: {
-    team: '5명, 백엔드 3명, 프론트엔드 1명, 인프라 1명',
-    responsibility: 'FE Lead · Backend. 상품 선택 UI와 결제·계약 복구 흐름',
+    team: '5명 · FE 1 · BE 3 · INFRA 1',
+    responsibility: 'FE Lead · BE / 상품 선택 UI와 결제·계약 복구 흐름',
     contribution: '결제 상태와 계약 효력 설계, 복구 시나리오 검증과 통합',
     stack: ['Java 21', 'Spring Boot 3.5.11', 'MyBatis 3.0.5', 'PostgreSQL', 'React 19', 'Toss Payments SDK 2'],
     nodes: [
@@ -41,7 +41,7 @@ export const projectEvidence: Record<string, ProjectPresentation> = {
   },
   roundy: {
     team: '6명 · FE 1 · BE 3 · AI 1 · INFRA 1',
-    responsibility: '매칭, 인증, 방 접근 권한 보강',
+    responsibility: 'FE · BE / 매칭, 인증, 방 접근 권한 보강',
     contribution: '경쟁 조건 재현, Redis 원자 처리와 조건부 정리 검증',
     stack: ['Java 21', 'Spring Boot 3.5.9', 'Redis와 Lua', 'MySQL', 'React 19', 'TypeScript 5.9', 'OpenVidu 2.32'],
     nodes: [
@@ -65,7 +65,7 @@ export const projectEvidence: Record<string, ProjectPresentation> = {
   },
   san: {
     team: '7명 · FE 1 · BE 3 · AI 2 · INFRA 1',
-    responsibility: '비동기 감사 추적, 로그인 브리지, AI 요약 병렬화',
+    responsibility: 'FE · BE / 비동기 감사 추적, 로그인 브리지, AI 요약 병렬화',
     contribution: '요청 맥락 복원, 1회용 Ticket 교환, AI 호출 성능 검증',
     stack: ['Java 21', 'Spring Boot 3.5.14', 'Spring Data JPA', 'PostgreSQL', 'Redis', 'React 18.3', 'TypeScript 5.9'],
     nodes: [
@@ -90,7 +90,7 @@ export const projectEvidence: Record<string, ProjectPresentation> = {
   },
   dasibom: {
     team: '4명 · FE 1 · BE 1 · AI 2',
-    responsibility: '서비스 기획·UI/UX, React Native 화면과 카메라·음성·지도·차트 연동',
+    responsibility: 'FE / 서비스 기획·UI/UX, React Native 화면과 카메라·음성·지도·차트 연동',
     contribution: 'React Native 앱 화면과 카메라·음성·지도 흐름',
     stack: ['React Native', 'Spring Boot', 'MySQL', 'AI 분석 API'],
     nodes: [
