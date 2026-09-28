@@ -90,7 +90,7 @@ export const projectEvidence: Record<string, ProjectPresentation> = {
   },
   dasibom: {
     team: '4명 · FE 1 · BE 1 · AI 2',
-    responsibility: 'FE / 서비스 기획·UI/UX, React Native 화면과 카메라·음성·지도·차트 연동',
+    responsibility: 'FE · PM · UI/UX 디자인 / React Native 화면과 카메라·음성·지도·차트 연동',
     contribution: 'React Native 앱 화면과 카메라·음성·지도 흐름',
     stack: ['React Native', 'Spring Boot', 'MySQL', 'AI 분석 API'],
     nodes: [

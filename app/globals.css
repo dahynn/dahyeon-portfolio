@@ -1502,6 +1502,8 @@ a { color:inherit; text-decoration:none; }
   background:transparent;
 }
 #introduction .profile-details>h1 {
+  display:grid;
+  grid-template-columns:max-content max-content minmax(0,1fr);
   max-width:720px;
   margin:0;
   color:#1c1d20;
@@ -1511,10 +1513,15 @@ a { color:inherit; text-decoration:none; }
   line-height:1.24;
 }
 #introduction .profile-details>h1>span { display:block; }
+#introduction .profile-details>h1 .cover-title-leading { grid-column:1; grid-row:1; }
+#introduction .profile-details>h1 .cover-title-anchor { grid-column:2; grid-row:1; }
+#introduction .profile-details>h1 .cover-title-suffix { grid-column:3; grid-row:1; }
 #introduction .profile-details>h1 .cover-title-follow {
+  grid-column:2 / -1;
+  grid-row:2;
   width:max-content;
   max-width:100%;
-  margin:7px 0 0 clamp(18px,5vw,78px);
+  margin:7px 0 0;
 }
 #introduction .profile-details>h1 em { color:var(--orange); }
 #introduction .personal-strengths {
@@ -1579,7 +1586,9 @@ a { color:inherit; text-decoration:none; }
 
 @media (max-width:900px) and (min-width:761px) {
   #introduction.cover-page { grid-template-columns:190px minmax(0,1fr); column-gap:34px; padding-inline:38px; }
-  #introduction .profile-details>h1 { font-size:30px; }
+  #introduction .profile-details>h1 { display:block; font-size:30px; }
+  #introduction .profile-details>h1 .cover-title-leading,#introduction .profile-details>h1 .cover-title-suffix { display:inline; }
+  #introduction .profile-details>h1 .cover-title-follow { margin-left:25px; }
   #introduction .personal-strengths li { min-height:128px; padding-inline:14px; }
   #introduction .personal-strengths p { font-size:10px; }
   #introduction .cover-info-panel.journey-awards { padding-right:18px; }
@@ -1596,7 +1605,8 @@ a { color:inherit; text-decoration:none; }
   #introduction .profile-contact dl { display:flex; flex-direction:column; gap:3px; }
   #introduction .profile-contact dl>div { padding:0; }
   #introduction .profile-details { padding:36px 0 0; }
-  #introduction .profile-details>h1 { font-size:30px; }
+  #introduction .profile-details>h1 { display:block; font-size:30px; }
+  #introduction .profile-details>h1 .cover-title-leading,#introduction .profile-details>h1 .cover-title-suffix { display:inline; }
   #introduction .profile-details>h1 .cover-title-follow { margin-left:25px; }
   #introduction .personal-strengths { margin:30px 0; padding:8px; }
   #introduction .personal-strengths ol { grid-template-columns:1fr; }

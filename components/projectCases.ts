@@ -73,7 +73,7 @@ export const projectCases: ProjectCase[] = [
     id: 'dasibom', number: '04', name: '다시봄', category: 'AI 기반 뇌졸중 위험 신호 확인 앱',
     headline: 'AI 분석 뒤, 결과와 가까운 병원 정보를 바로 확인합니다.',
     summary: '얼굴·음성 결과를 먼저 확인하고, 필요할 때 CG-FAST 기준 설문과 병원 탐색으로 이어지는 모바일 앱입니다.',
-    role: '팀 프로젝트. FE로 서비스 기획·UI/UX, React Native 화면과 카메라·음성·지도·차트 연동을 맡았습니다.',
+    role: '팀 프로젝트. FE · PM · UI/UX 디자인을 맡아 React Native 화면과 카메라·음성·지도·차트 흐름을 연결했습니다.',
     mechanism: '중간 결과에 따라 추가 설문으로 이어지는 화면 흐름',
     steps: [
       { label: '입력', state: '얼굴·음성', title: '얼굴과 음성을 확인합니다.', body: '카메라와 녹음 화면으로 두 입력을 안내합니다.' },
