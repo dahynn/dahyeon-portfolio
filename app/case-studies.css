@@ -1414,4 +1414,9 @@ html { scroll-snap-type: y proximity; }
 
   .case-hero .case-heading h2 { max-width:22ch; }
   .case-hero .case-project-meta { max-width:34rem; }
+
+  /* The CapSure captures are tall phone screens.  Once the tablet layout is
+     stacked, keep the pair as a compact visual rather than a second viewport. */
+  .project-hero-capsure-live { min-height:min(58dvh,30rem); }
+  .capsure-live-devices { width:min(86%,28rem); gap:clamp(.7rem,2vw,1.1rem); }
 }
