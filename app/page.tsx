@@ -97,7 +97,7 @@ export default function Home() {
         <div className="profile-intro">
           <div className="photo-slot"><img src="/assets/profile.png" alt="유다현 프로필 사진" fetchPriority="high" decoding="async" /></div>
           <p className="profile-name">유다현</p>
-          <p className="profile-role">개발자</p>
+          <p className="profile-role">백엔드 개발자</p>
           <section className="profile-contact" aria-labelledby="profile-contact-title">
             <h2 id="profile-contact-title">Contact</h2>
             <dl>
