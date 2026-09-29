@@ -2,6 +2,20 @@
 @import 'tailwindcss';
 
 :root { --navy:#071d42; --orange:#f37321; --cream:#f8f6f0; --dark:#1c1d1e; --line:#c9cdd3; --muted:#667085; --display:68px; --section-title:42px; --body:16px; --meta:13px; }
+@font-face {
+  font-family:"Hanwha Display";
+  src:url("/assets/fonts/HanwhaR.woff") format("woff");
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face {
+  font-family:"Hanwha Display";
+  src:url("/assets/fonts/HanwhaB.woff") format("woff");
+  font-weight:700 900;
+  font-style:normal;
+  font-display:swap;
+}
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; scroll-snap-type:y proximity; }
 body { margin:0; background:var(--cream); color:var(--navy); font-family:Pretendard Variable, Pretendard, sans-serif; }
@@ -1537,7 +1551,7 @@ a { color:inherit; text-decoration:none; }
   padding:10px;
   border:0;
   border-radius:16px;
-  background:#1d1d1f;
+  background:#000;
 }
 #introduction .personal-strengths ol {
   display:grid;
@@ -1744,7 +1758,7 @@ a { color:inherit; text-decoration:none; }
   grid-template-rows:minmax(100svh,auto);
   gap:0;
   padding:0;
-  background:#1d1d1f;
+  background:#000;
 }
 #introduction .profile-intro {
   grid-column:1;
@@ -1815,22 +1829,45 @@ a { color:inherit; text-decoration:none; }
 #introduction .cover-next svg { width:20px; height:34px; }
 
 /* 표지의 오른쪽은 문장을 방해하지 않는 선으로만 '끝까지 추적'의 흐름을 남깁니다. */
-#introduction .profile-details { isolation:isolate; overflow:hidden; }
+#introduction .profile-details { position:relative; isolation:isolate; overflow:hidden; }
+#introduction .hanwha-profile-orbits {
+  position:absolute;
+  z-index:-1;
+  top:auto;
+  right:-20%;
+  bottom:4%;
+  width:min(30rem,92%);
+  max-width:none;
+  opacity:.23;
+  mix-blend-mode:screen;
+  pointer-events:none;
+  animation:hanwha-orbits-float 30s linear infinite;
+}
 #introduction .profile-details::before,
 #introduction .profile-details::after { position:absolute; z-index:-1; pointer-events:none; content:""; }
 #introduction .profile-details::before {
   top:50%; right:-13rem; width:36rem; height:36rem; border:1px solid rgba(244,119,33,.26); border-radius:50%;
   box-shadow:0 0 0 3.3rem rgba(244,119,33,.035),0 0 0 7.2rem rgba(244,119,33,.025);
-  transform:translateY(-50%);
+  animation:cover-orbit-drift 18s ease-in-out infinite alternate;
 }
 #introduction .profile-details::after {
   right:-5.25rem; bottom:3.2rem; width:31rem; height:8rem; opacity:.56;
   background:repeating-linear-gradient(90deg,transparent 0 13px,rgba(244,119,33,.22) 13px 15px,transparent 15px 26px);
   clip-path:polygon(0 76%,41% 8%,100% 42%,100% 55%,42% 21%,0 89%);
+  animation:cover-path-flow 8s linear infinite;
 }
+@keyframes hanwha-orbits-float {
+  from { transform:translate3d(0,0,0) rotate(-44deg) scale(1); }
+  to { transform:translate3d(0,0,0) rotate(316deg) scale(1); }
+}
+@keyframes cover-orbit-drift { from { transform:translateY(-50%) rotate(-4deg) scale(.98); } to { transform:translateY(-50%) rotate(7deg) scale(1.04); } }
+@keyframes cover-path-flow { to { background-position:104px 0; } }
+#introduction .profile-details:has(.hanwha-profile-orbits)::before,
+#introduction .profile-details:has(.hanwha-profile-orbits)::after { display:none; }
 #introduction .profile-details>h1,
 #introduction .profile-details>.personal-strengths { position:relative; z-index:1; }
-@media (max-width:760px) { #introduction .profile-details::before,#introduction .profile-details::after { display:none; } }
+@media (max-width:760px) { #introduction .hanwha-profile-orbits,#introduction .profile-details::before,#introduction .profile-details::after { display:none; } }
+@media (prefers-reduced-motion:reduce) { #introduction .hanwha-profile-orbits { animation:none; } #introduction .profile-details::before,#introduction .profile-details::after { animation:none; } }
 
 /* 기술별 상대적 활용 수준은 작은 지표로, 단계 설명은 열어 볼 때만 표시합니다. */
 .profile-skill-explainer { position:relative; display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:.2rem 0 .5rem; }
@@ -1881,6 +1918,16 @@ a { color:inherit; text-decoration:none; }
 @media (max-width:420px) {
   .profile-skill-criteria li { grid-template-columns:4.6rem minmax(0,1fr); gap:.28rem .65rem; }
   .profile-skill-criteria-description { grid-column:1 / -1; }
+}
+
+/* 한화 서체는 표지와 장면 전환의 제목에만 사용해, 본문의 가독성을 유지합니다. */
+#introduction .profile-details>h1,
+.journey-heading h2,
+.profile-record-heading h2,
+.project-index-page .index-heading h2 {
+  font-family:"Hanwha Display", Pretendard Variable, Pretendard, sans-serif;
+  font-weight:700;
+  letter-spacing:-.055em;
 }
 
 /* Profile and project index use one label scale across desktop sections. */

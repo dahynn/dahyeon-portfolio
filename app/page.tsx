@@ -107,6 +107,7 @@ export default function Home() {
           </section>
         </div>
         <div className="profile-details">
+          <img className="hanwha-profile-orbits" src="/assets/hanwha-finance-orbits.png" alt="" aria-hidden="true" />
           <h1 id="portfolio-title"><span className="cover-title-prefix">고객의</span><span className="cover-title-top"><em>금융 여정</em>을</span><span className="cover-title-follow"><span className="cover-title-highlight"><em>끝까지</em> 따라가는</span> <em>개발자</em></span></h1>
           <PersonalStrengths />
         </div>
