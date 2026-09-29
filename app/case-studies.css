@@ -1382,3 +1382,36 @@ html { scroll-snap-type: y proximity; }
   .store-list { gap:.25rem; }
   .store-item,.store-item:last-child { padding:.2rem .65rem; }
 }
+
+/* Project introductions are a paired desktop composition.  At tablet widths,
+   keeping both columns (and their oversized device mockups) creates a hidden
+   horizontal canvas, so read the service description before the visual. */
+@media (min-width:761px) and (max-width:1180px) {
+  .case-hero {
+    height:auto;
+    min-height:100dvh;
+    padding:clamp(2.5rem,6vh,4rem) clamp(1.5rem,5vw,3rem) clamp(3rem,7vh,4.5rem);
+    overflow:visible;
+  }
+
+  .case-hero-inner {
+    grid-template-columns:1fr;
+    width:min(100%,46rem);
+    height:auto;
+    max-height:none;
+    gap:clamp(2rem,5vh,3rem);
+    zoom:1;
+  }
+
+  .case-hero .case-heading { order:1; }
+  .case-hero-media {
+    order:2;
+    width:100%;
+    max-width:42rem;
+    max-height:none;
+    margin-inline:auto;
+  }
+
+  .case-hero .case-heading h2 { max-width:22ch; }
+  .case-hero .case-project-meta { max-width:34rem; }
+}
