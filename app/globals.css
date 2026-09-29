@@ -57,6 +57,9 @@ a { color:inherit; text-decoration:none; }
 .journey-item strong.hanwha-campus, .journey-item strong.ssafy-campus, .journey-item strong.dongguk-university, .journey-item strong.exchange-study, .journey-item strong.education-study { position:relative; z-index:0; display:inline-block; }
 .hanwha-campus::before { position:absolute; z-index:-1; bottom:.08em; left:-.14em; width:0; height:.72em; background:#ffe26b; content:""; transform:skewX(-9deg); }
 .journey-page.is-active .hanwha-campus::before { animation:highlighter-sweep .72s cubic-bezier(.2,.8,.2,1) .28s forwards; }
+.journey-item strong.role-journey-highlight { position:relative; z-index:0; display:inline-block; }
+.role-journey-highlight::before { position:absolute; z-index:-1; right:-.14em; bottom:.08em; left:-.14em; width:0; height:.7em; background:rgba(244,119,33,.2); content:""; transform:skewX(-9deg); }
+.journey-page.is-active .role-journey-highlight::before { animation:highlighter-sweep .62s cubic-bezier(.2,.8,.2,1) forwards; }
 @keyframes highlighter-sweep { to { width:calc(100% + .28em); } }
 
 .cover-education h2 { position:relative; z-index:0; display:inline-block; }
