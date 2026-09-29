@@ -22,7 +22,7 @@ const projects = [
   },
   {
     name: 'SAN', summary: '크롬 확장 프로그램으로 저장한 자료를 다시 찾고 정리하는 서비스', icon: '/assets/project-san-hd.png', href: '#san',
-    storeFocus: 'FE 검색 화면 · BE 검색 API·로그인 티켓·비동기 감사 추적',
+    storeFocus: 'FE 주요 화면·사용자 흐름 구현 · BE 검색 API·로그인 티켓·비동기 감사 추적',
     stack: [{ name: 'Java 21', icon: '/assets/tech-icons/java.png' }, { name: 'Spring Boot', icon: '/assets/tech-icons/spring.png' }, { name: 'PostgreSQL', icon: '/assets/tech-icons/postgresql.svg' }, { name: 'React', icon: '/assets/tech-icons/react.svg' }],
     evidence: projectEvidence.san, role: ['서버 검색 기능 구현', 'AI 입력 보호 설계', '작업 상태 관리'],
   },
