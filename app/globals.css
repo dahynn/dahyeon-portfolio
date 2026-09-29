@@ -1930,3 +1930,27 @@ a { color:inherit; text-decoration:none; }
   .store-list { gap:.25rem; }
   .store-item { padding:0; }
 }
+
+/* Touch tablets need the profile record to read as one continuous column.
+   Keeping the desktop split here turns the skill chips into a horizontal crop. */
+@media (hover:none) and (pointer:coarse) and (min-width:761px) and (max-width:1180px) {
+  .profile-record-page {
+    min-height:100dvh;
+    padding:clamp(2.5rem,6vh,4rem) clamp(1.5rem,5vw,3rem) clamp(3rem,7vh,4.5rem);
+  }
+
+  .profile-record-heading,
+  .profile-record-grid {
+    width:min(100%,48rem);
+    zoom:1;
+  }
+
+  .profile-record-grid {
+    grid-template-columns:1fr;
+    gap:clamp(2.25rem,5vh,3rem);
+  }
+
+  .profile-record-history { gap:2rem; }
+  .profile-skill-group { grid-template-columns:7rem minmax(0,1fr); gap:1rem; }
+  .profile-skill-group ul { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
