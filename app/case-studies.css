@@ -1335,10 +1335,10 @@ html { scroll-snap-type: y proximity; }
 .store-meta { gap:.08rem; margin-top:.28rem; }
 .store-meta > span { font-size:clamp(.7rem,.8vw,.78rem); }
 .store-meta p { margin:0; font-size:clamp(.74rem,.86vw,.84rem); line-height:1.35; }
-.store-meta .store-contribution { display:flex; align-items:baseline; gap:.55rem; min-width:0; padding-left:.55rem; border-left:2px solid #d6d9dd; }
-.store-contribution strong { flex:none; color:#757b83; font-size:.65rem; font-weight:800; letter-spacing:.08em; white-space:nowrap; }
+.store-meta .store-contribution { display:flex; align-items:center; gap:.48rem; min-width:0; padding-left:.55rem; border-left:2px solid #d6d9dd; }
+.store-contribution-icon { flex:0 0 auto; width:1rem; height:1rem; color:var(--orange); }
 .store-contribution span { min-width:0; color:#343940; font-weight:650; word-break:keep-all; }
-.store-contribution span + span { padding-left:.65rem; border-left:1px solid #d5d9dd; }
+.store-contribution span + span { padding-left:.35rem; }
 .store-scroll {
   position:static;
   grid-column:2;

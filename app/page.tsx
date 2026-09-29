@@ -1,6 +1,6 @@
 /* oxlint-disable next/no-img-element -- 원본 GIF 애니메이션과 고정 비율 포트폴리오 자산을 그대로 표시합니다. */
 import { PageSnap } from '../components/PageSnap';
-import { ArrowDown, CheckCircle2, Mail, UsersRound } from 'lucide-react';
+import { ArrowDown, CheckCircle2, Mail, UserRound, UsersRound } from 'lucide-react';
 import { ProjectCaseStudies } from '../components/ProjectCaseStudies';
 import { PersonalStrengths } from '../components/PersonalStrengths';
 import { SkillCriteria } from '../components/SkillCriteria';
@@ -233,7 +233,7 @@ export default function Home() {
                   <p>{project.summary}</p>
                   <div className="store-meta">
                     <span>{project.evidence.team}</span>
-                    <p className="store-contribution"><strong>MY ROLE</strong>{project.storeFocus.split(' · ').map(focus => <span key={focus}>{focus}</span>)}</p>
+                    <p className="store-contribution" aria-label={`${project.name} 담당 역할`}><UserRound className="store-contribution-icon" size={16} strokeWidth={1.9} aria-hidden="true" />{project.storeFocus.split(' · ').map(focus => <span key={focus}>{focus}</span>)}</p>
                   </div>
                 </div>
               </div>
