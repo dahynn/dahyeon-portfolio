@@ -265,13 +265,22 @@ html { scroll-snap-type: y proximity; }
 .technical-case-san .case-identity p, .technical-case-san .service-hero-brief li span, .technical-case-san .case-outline span { color: #63d487; }
 .technical-case-san .case-outline a:hover, .technical-case-san .case-outline a:focus-visible { border-color: #63d487; background: #1e3326; }
 .case-hero-inner { width: min(100%, 1240px); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(19rem, .88fr); gap: clamp(2.4rem, 7vw, 8rem); align-items: center; }
-.case-hero .case-heading { order: 2; margin: 0; }
+.case-hero .case-heading { order: 2; margin: 0; container-type: inline-size; }
 .case-hero .case-identity { margin: 0 0 1.4rem; }
 .case-hero .case-identity img { width: 3.6rem; height: 3.6rem; }
 .case-hero .case-identity p { color: #9ba2af; font-size: .76rem; }
 .case-hero .case-identity strong { color: #fff; font-size: 1.35rem; }
 .case-hero .case-number { color: #8a919f; }
 .case-hero .case-heading h2 { max-width: 18ch; margin: 0; color: #fff; font-size: clamp(1.45rem, 2.3vw, 2.25rem); line-height: 1.25; letter-spacing: -.055em; }
+/* Keep the approved two-line titles intact, including on narrow screens. */
+.case-hero .case-heading h2:is(#capsure-title, #roundy-title, #san-title, #dasibom-title) {
+  max-width: none;
+  white-space: pre;
+  font-size: min(clamp(1.45rem, 2.3vw, 2.25rem), 7.5cqi);
+}
+.case-hero .case-heading h2#dasibom-title {
+  font-size: min(clamp(1.45rem, 2.3vw, 2.25rem), 6.4cqi);
+}
 .case-hero .case-intro-text { max-width: 38rem; margin: .9rem 0 0; color: #aeb5c2; font-size: clamp(.8rem, .96vw, .9rem); line-height: 1.65; }
 .case-hero .case-stack { margin: 1.35rem 0 0; gap: .4rem; }
 .case-hero .case-stack li { padding: .42rem .65rem; border-color: #474747; border-radius: .5rem; color: #dadada; background: #292929; font-size: .72rem; }
@@ -288,6 +297,7 @@ html { scroll-snap-type: y proximity; }
 .service-hero-brief ol { display: flex; flex-wrap: wrap; gap: .4rem .8rem; margin: .75rem 0 0; padding: .7rem 0 0; border-top: 1px solid #30343c; list-style: none; }
 .service-hero-brief li { color: #d7dbe2; font-size: .66rem; font-weight: 640; white-space: nowrap; }
 .service-hero-brief li span { margin-right: .28rem; color: #f37321; font-size: .58rem; font-weight: 800; }
+.technical-case-roundy .service-hero-brief li span { color: #e84f9b; }
 .case-outline { margin-top: 1rem; padding-top: .9rem; border-top: 1px solid #30343c; }
 .case-outline > p { margin: 0 0 .55rem; color: #f4f5f7; font-size: .7rem; font-weight: 750; }
 .case-outline > p span { margin-left: .45rem; color: #8f97a4; font-weight: 540; }

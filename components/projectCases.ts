@@ -9,7 +9,7 @@ export type ProjectCase = {
 export const projectCases: ProjectCase[] = [
   {
     id: 'capsure', number: '01', name: 'CapSure', category: '구독형 보험 프로세스 시뮬레이터',
-    headline: '결제와 계약의 상태를 끝까지 맞추다.',
+    headline: '결제와 계약의 상태를\n끝까지 맞추다.',
     summary: '월 단위로 보험을 구성하고 구독하는 서비스입니다. 납입, 청구, 지급, 계약 유지가 한 흐름으로 이어지도록 설계했습니다.',
     role: '팀 프로젝트. FE Lead · BE로 상품 선택 흐름과 결제·계약 복구를 맡았습니다.',
     mechanism: '응답이 끊겨도 결제와 계약이 어긋나지 않게 만든 과정',
@@ -30,7 +30,7 @@ export const projectCases: ProjectCase[] = [
   },
   {
     id: 'roundy', number: '02', name: 'Roundy', category: '얼굴 인증과 마스킹 기반 미팅',
-    headline: '얼굴 인증으로 신뢰를 더한 온라인 로테이션 매칭 서비스.',
+    headline: '얼굴 인증으로 신뢰를 더한\n실시간 로테이션 매칭 서비스.',
     summary: '실시간으로 상대를 만나고, 실루엣으로 먼저 대화합니다. 서로 선택하면 시간이 흐를수록 마스킹이 풀리며 얼굴을 확인합니다.',
     role: '팀 프로젝트. FE · BE로 매칭, 인증, 방 접근 권한을 보강했습니다.',
     mechanism: '늦은 요청이 와도 한 사람을 한 번만 매칭하게 만든 과정',
@@ -51,7 +51,7 @@ export const projectCases: ProjectCase[] = [
   },
   {
     id: 'san', number: '03', name: 'SAN', category: '크롬 확장 프로그램 기반 지식 관리',
-    headline: '흩어진 자료를, 다시 쓰는 지식으로.',
+    headline: '흩어진 자료를,\n다시 쓰는 지식으로.',
     summary: '크롬 확장 프로그램으로 저장한 자료를 검색, TIL, 지식 카드로 연결하는 서비스입니다. AI 정리 기능도 원문 근거를 남긴 상태에서 검토할 수 있도록 설계했습니다.',
     role: '팀 프로젝트. FE · BE로 비동기 감사 추적, 로그인 브리지, AI 요약 병렬화를 다뤘습니다.',
     mechanism: '자료가 많아져도 빠르고 빠짐없이 찾게 만든 과정',
@@ -71,7 +71,7 @@ export const projectCases: ProjectCase[] = [
   },
   {
     id: 'dasibom', number: '04', name: '다시봄', category: 'AI 기반 뇌졸중 위험 신호 확인 앱',
-    headline: 'AI 분석 뒤, 결과와 가까운 병원 정보를 바로 확인합니다.',
+    headline: 'AI로 뇌졸중 위험 신호를 확인하는\n간편한 자가 확인 서비스.',
     summary: '얼굴·음성 결과를 먼저 확인하고, 필요할 때 CG-FAST 기준 설문과 병원 탐색으로 이어지는 모바일 앱입니다.',
     role: '팀 프로젝트. FE · PM · UI/UX 디자인을 맡아 React Native 화면과 카메라·음성·지도·차트 흐름을 연결했습니다.',
     mechanism: '중간 결과에 따라 추가 설문으로 이어지는 화면 흐름',

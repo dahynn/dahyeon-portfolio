@@ -66,8 +66,8 @@ const skillGroups = [
   { category: 'Backend', items: [{ name: 'Java', level: 4, icon: '/assets/tech-icons/java.png' }, { name: 'Spring Boot', level: 4, icon: '/assets/tech-icons/spring.png' }] },
   { category: 'Frontend', items: [{ name: 'React', level: 4, icon: '/assets/tech-icons/react.svg' }, { name: 'Vue.js', level: 3, icon: 'https://cdn.simpleicons.org/vuedotjs/4FC08D' }, { name: 'Next.js', level: 2, icon: 'https://cdn.simpleicons.org/nextdotjs/343940' }, { name: 'TypeScript', level: 3, icon: '/assets/tech-icons/typescript.svg' }] },
   { category: 'Data', items: [{ name: 'SQL', level: 3, icon: '/assets/tech-icons/sql.svg' }, { name: 'PostgreSQL', level: 3, icon: '/assets/tech-icons/postgresql.svg' }, { name: 'Redis', level: 4, icon: '/assets/tech-icons/redis.svg' }] },
-  { category: 'Infrastructure', items: [{ name: 'AWS', level: 2, icon: 'https://api.iconify.design/logos/aws.svg' }, { name: 'Docker', level: 2, icon: 'https://cdn.simpleicons.org/docker/2496ED' }] },
-  { category: 'Tools', items: [{ name: 'Jira', level: 2, icon: 'https://cdn.simpleicons.org/jira/0052CC' }, { name: 'Notion', level: 3, icon: 'https://cdn.simpleicons.org/notion/343940' }, { name: 'Harness', level: 2, icon: 'https://api.iconify.design/logos/harness.svg' }] },
+  { category: 'Infrastructure', items: [{ name: 'AWS', level: 2, icon: 'https://api.iconify.design/logos/aws.svg' }, { name: 'Docker', level: 3, icon: 'https://cdn.simpleicons.org/docker/2496ED' }] },
+  { category: 'Tools', items: [{ name: 'Jira', level: 3, icon: 'https://cdn.simpleicons.org/jira/0052CC' }, { name: 'Notion', level: 4, icon: 'https://cdn.simpleicons.org/notion/343940' }, { name: 'Harness', level: 2, icon: 'https://api.iconify.design/logos/harness.svg' }, { name: 'Figma', level: 4, icon: '/assets/tech-icons/figma.svg' }] },
 ];
 const skillLevelLabels = ['기초', '초급', '중급', '고급', '전문가'];
 
@@ -159,7 +159,7 @@ export default function Home() {
         <header className="profile-record-heading">
           <p className="eyebrow section-kicker">Profile record</p>
           <h2 id="profile-record-title">화면의 완성도에서 시작해, 금융 서비스의 정확성까지 파고들었습니다.</h2>
-          <p>React로 고객이 이해하기 쉬운 화면을 만들었습니다. 이후 Spring Boot로 API를 구현하고, Redis로 요청이 겹칠 때의 상태를 다뤘습니다. 외부 승인이 끝난 뒤 내부 저장이 실패하는 상황도 재현해, 처리 결과가 복구되는지 확인했습니다. 금융을 더 깊이 배우며, 고객이 보는 화면과 실제로 남는 결과를 함께 믿을 수 있는 서비스를 만들고 싶습니다.</p>
+          <p>React로 고객이 이해하기 쉬운 화면을 만들었습니다. 이후 Spring Boot로 API를 구현하고, Redis로 요청이 겹칠 때의 상태를 다뤘습니다. 외부 승인이 끝난 뒤 내부 저장이 실패하는 상황도 재현해, 처리 결과가 복구되는지 확인했습니다.<br />금융을 더 깊이 배우며, 고객이 보는 화면과 실제로 남는 결과를 함께 믿을 수 있는 서비스를 만들고 싶습니다.</p>
         </header>
         <div className="profile-record-grid">
           <div className="profile-record-history">
