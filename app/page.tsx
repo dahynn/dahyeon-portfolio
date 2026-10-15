@@ -1,8 +1,7 @@
 /* oxlint-disable next/no-img-element -- 원본 GIF 애니메이션과 고정 비율 포트폴리오 자산을 그대로 표시합니다. */
 import { PageSnap } from '../components/PageSnap';
-import { ArrowDown, CheckCircle2, Mail, UserRound, UsersRound } from 'lucide-react';
+import { ArrowDown, CheckCircle2, Mail, MousePointer2, UserRound, UsersRound } from 'lucide-react';
 import { ProjectCaseStudies } from '../components/ProjectCaseStudies';
-import { PersonalStrengths } from '../components/PersonalStrengths';
 import { SkillCriteria } from '../components/SkillCriteria';
 import { projectEvidence } from '../components/projectEvidence';
 import './case-studies.css';
@@ -71,14 +70,6 @@ const skillGroups = [
 ];
 const skillLevelLabels = ['기초', '초급', '중급', '고급', '전문가'];
 
-function BrandLogo() {
-  return (
-    <span className="hanwha-logo" aria-label="한화생명">
-      <img src="/assets/hanwha-life-wordmark-transparent.png" alt="" aria-hidden="true" />
-    </span>
-  );
-}
-
 export default function Home() {
   return (
     <main className="portfolio">
@@ -107,17 +98,17 @@ export default function Home() {
           </section>
         </div>
         <div className="profile-details">
-          <img className="hanwha-profile-orbits" src="/assets/hanwha-finance-orbits.png" alt="" aria-hidden="true" />
-          <h1 id="portfolio-title"><span className="cover-title-prefix">고객의</span><span className="cover-title-top"><em>금융 여정</em>을</span><span className="cover-title-follow"><span className="cover-title-highlight"><em>끝까지</em> 따라가는</span> <em>개발자</em></span></h1>
-          <PersonalStrengths />
+          <h1 id="portfolio-title" className="cover-platform-title">
+            <span className="cover-platform-line">사용자의 <span className="cover-click-word">클릭<MousePointer2 aria-hidden="true" /></span> 한 번부터</span>
+            <span className="cover-platform-line cover-platform-data">데이터의 <em className="cover-platform-data-accent">마지막 줄</em>까지,</span>
+            <span className="cover-platform-line cover-platform-conclusion"><span className="cover-title-highlight"><em>끝까지 따라가는</em></span> <span className="cover-platform-role">백엔드 개발자</span></span>
+          </h1>
         </div>
-        <BrandLogo />
         <p className="page-number">01</p>
         <a className="cover-next" href="#journey" aria-label="개발자 여정으로 이동"><span>SCROLL</span><svg viewBox="0 0 20 34" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10 2v28m-7-7 7 7 7-7" /></svg></a>
       </section>
 
       <section className="journey-page" data-page id="journey" aria-labelledby="journey-title">
-        <BrandLogo />
         <p className="page-number">02</p>
         <div className="journey-heading">
           <p className="eyebrow section-kicker">Development journey</p>
@@ -132,14 +123,14 @@ export default function Home() {
                 className={`journey-dot ${
                   activity.education || activity.title === '동국대학교' || activity.title === 'University of Lancashire' ? 'education-node'
                     : activity.title === '삼성청년SW·AI 아카데미 14기' ? 'ssafy-node'
-                      : activity.title === '한화금융캠퍼스 15기' ? 'hanwha-node'
+                      : activity.title === '한화금융캠퍼스 15기' ? 'training-node'
                         : 'default-node'
                 }`}
                 aria-hidden="true"
               />
               <p className="journey-date">{activity.date}</p>
               <div className="journey-copy">
-                <strong className={['삼성청년SW·AI 아카데미 14기', '한화금융캠퍼스 15기'].includes(activity.title) ? 'role-journey-highlight' : undefined}>{activity.title}</strong>
+                <strong className={['동국대학교', "IT 소모임장 'ProMIS'", '삼성청년SW·AI 아카데미 14기'].includes(activity.title) ? 'role-journey-highlight' : undefined}>{activity.title}</strong>
                 {'gpa' in activity && <span className="journey-gpa" aria-label={`학점 ${activity.gpa}`}>GPA {activity.gpa}</span>}
                 <p>{activity.detail}</p>
               </div>
@@ -147,19 +138,17 @@ export default function Home() {
             ))}
           </ol>
           <div className="journey-destination">
-            <img src="/assets/hanwha-life-wordmark-transparent.png" alt="한화생명" width="980" height="360" loading="lazy" decoding="async" />
-            <p>쌓아온 경험을,<br /><strong>한화 금융에서 이어가겠습니다.</strong></p>
+            <p>사용자 경험에서 출발해,<br /><strong>데이터와 상태의 정확성까지 다룹니다.</strong></p>
           </div>
         </div>
       </section>
 
       <section className="profile-record-page" data-page id="profile-record" aria-labelledby="profile-record-title">
-        <BrandLogo />
         <p className="page-number">03</p>
         <header className="profile-record-heading">
           <p className="eyebrow section-kicker">Profile record</p>
-          <h2 id="profile-record-title">화면의 완성도에서 시작해, 금융 서비스의 정확성까지 파고들었습니다.</h2>
-          <p>React로 고객이 이해하기 쉬운 화면을 만들었습니다. 이후 Spring Boot로 API를 구현하고, Redis로 요청이 겹칠 때의 상태를 다뤘습니다. 외부 승인이 끝난 뒤 내부 저장이 실패하는 상황도 재현해, 처리 결과가 복구되는지 확인했습니다. 금융을 더 깊이 배우며, 고객이 보는 화면과 실제로 남는 결과를 함께 믿을 수 있는 서비스를 만들고 싶습니다.</p>
+          <h2 id="profile-record-title">화면의 완성도에서 시작해, 서비스의 정확성까지 파고들었습니다.</h2>
+          <p>React로 고객이 이해하기 쉬운 화면을 만들었습니다. 이후 Spring Boot로 API를 구현하고, Redis로 요청이 겹칠 때의 상태를 다뤘습니다. 외부 승인이 끝난 뒤 내부 저장이 실패하는 상황도 재현해, 처리 결과가 복구되는지 확인했습니다. 사용자가 보는 화면과 실제 처리 결과가 일치하는 서비스를 만들고 싶습니다.</p>
         </header>
         <div className="profile-record-grid">
           <div className="profile-record-history">
@@ -206,7 +195,6 @@ export default function Home() {
       </section>
 
       <section className="project-index-page project-store" data-page id="projects" aria-labelledby="projects-title">
-        <BrandLogo />
         <p className="page-number">04</p>
         <div className="index-heading">
           <p className="store-kicker section-kicker">Selected work</p>
